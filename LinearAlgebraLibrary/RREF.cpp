@@ -1,7 +1,4 @@
-#include <iostream>
 #include "RREF.h"
-
-using namespace std;
 
 Matrix rref(Matrix src) {
 	Matrix copy(src);

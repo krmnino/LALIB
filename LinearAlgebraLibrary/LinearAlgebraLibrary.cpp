@@ -18,9 +18,9 @@ int main()
 	vector<vector<double>> mc = copy_matrix.get_matrix();
 	cout << endl;
 	cout << test.to_string() << endl;
-	Matrix r(rref(test));
+	Matrix sol(rref(test));
 	cout << endl;
-	cout << r.to_string() << endl;
+	cout << sol.to_string() << endl;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
