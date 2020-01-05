@@ -89,11 +89,10 @@ Matrix::Matrix(string data) {
 			}
 			else
 				break;
-
 		}
 	}
-
 }
+
 Matrix::Matrix(int m_, int n_) {
 	m = m_;
 	n = n_;

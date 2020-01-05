@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 #include "Matrix.h"
+#include "RowOperations.h"
+#include "RREF.h"
 
 using namespace std;
 

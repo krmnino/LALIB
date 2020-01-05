@@ -153,9 +153,13 @@
   <ItemGroup>
     <ClCompile Include="LinearAlgebraLibrary.cpp" />
     <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="RowOperations.cpp" />
+    <ClCompile Include="RREF.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Matrix.h" />
+    <ClInclude Include="RowOperations.h" />
+    <ClInclude Include="RREF.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
