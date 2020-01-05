@@ -4,20 +4,23 @@
 #include <iostream>
 #include <vector>
 #include "Matrix.h"
-#include "RowOperations.h"
 #include "RREF.h"
 
 using namespace std;
 
 int main()
 {
-	Matrix test("3 5 4; 8 2 5");
+	Matrix test("3 5 8 5; 1 2 3 2");
 	Matrix test2(3, 4);
-	vector<vector<int>> m = test.get_matrix();
-	vector<vector<int>> m2 = test2.get_matrix();
-	cout << test.display_as_string() << endl;
-	cout << "rows " << test.get_m() << endl;
-	cout << "cols " << test.get_n() << endl;
+	Matrix copy_matrix(test);
+	vector<vector<double>> m = test.get_matrix();
+	vector<vector<double>> m2 = test2.get_matrix();
+	vector<vector<double>> mc = copy_matrix.get_matrix();
+	cout << endl;
+	cout << test.to_string() << endl;
+	Matrix r(rref(test));
+	cout << endl;
+	cout << r.to_string() << endl;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

@@ -1,4 +1,2 @@
-﻿  LinearAlgebraLibrary.cpp
-  Matrix.cpp
-  Generating Code...
+﻿  RREF.cpp
   LinearAlgebraLibrary.vcxproj -> D:\workspaces\visual_studio_workspace\LinearAlgebraLibrary\Debug\LinearAlgebraLibrary.exe

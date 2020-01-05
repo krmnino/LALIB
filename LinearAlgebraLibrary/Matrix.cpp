@@ -52,7 +52,7 @@ Matrix::Matrix(string data) {
 			break;
 		}
 	}
-	matrix.resize(m, vector<int>());
+	matrix.resize(m, vector<double>());
 	int length = rows_arr.size();
 	for (int i = 0; i < length; i++) {
 		if (rows_arr[i].at(0) == ' ') {
@@ -66,8 +66,7 @@ Matrix::Matrix(string data) {
 		int index_end = rows_arr[i].find(" ");
 		int elements = 0;
 		while (elements < n) {
-			int num = stoi(rows_arr[i].substr(0, index_end));
-			matrix[i].push_back(num);
+			matrix[i].push_back(stod(rows_arr[i].substr(0, index_end)));
 			if (index_end != -1) {
 				int offset = 0;
 				bool digits_remaining = false;
@@ -96,10 +95,16 @@ Matrix::Matrix(string data) {
 Matrix::Matrix(int m_, int n_) {
 	m = m_;
 	n = n_;
-	matrix.resize(m, vector<int>(n, 0));
+	matrix.resize(m, vector<double>(n, 0));
 }
 
-vector<vector<int>> Matrix::get_matrix() {
+Matrix::Matrix(const Matrix &src) {
+	m = src.m;
+	n = src.n;
+	matrix = src.matrix;
+}
+
+vector<vector<double>> Matrix::get_matrix() {
 	return matrix;
 }
 
@@ -111,11 +116,47 @@ int Matrix::get_n() {
 	return n;
 }
 
-string Matrix::display_as_string() {
+double Matrix::get_single_element(int row, int column) {
+	return matrix[row][column];
+}
+
+void Matrix::update_single_element(int row, int column, double val) {
+	matrix[row][column] = val;
+}
+
+void Matrix::row_addition(int row1, int row2) {
+	for (int i = 0; i < n; i++) {
+		matrix[row1][i] += matrix[row2][i];
+	}
+}
+
+void Matrix::row_scale_up(int row, double scalar) {
+	for (int i = 0; i < n; i++) {
+		matrix[row][i] *= scalar;
+	}
+}
+
+void Matrix::row_scale_down(int row, double scalar) {
+	for (int i = 0; i < n; i++) {
+		matrix[row][i] /= scalar;
+	}
+}
+
+void Matrix::row_swap(int to_row, int from_row) {
+	if (to_row >= m || from_row >= m) {
+		for (int i = 0; i < n; i++) {
+			int temp = matrix[to_row][i];
+			matrix[to_row][i] = matrix[from_row][i];
+			matrix[from_row][i] = temp;
+		}
+	}
+}
+
+string Matrix::to_string() {
 	string out = "";
 	for (int i = 0; i < (signed)matrix.size(); i++) {
 		for (int j = 0; j < (signed)matrix[i].size(); j++) {
-			out += to_string(matrix[i][j]) + " ";
+			out += std::to_string(matrix[i][j]) + " ";
 		}
 		out += "\n";
 	}
