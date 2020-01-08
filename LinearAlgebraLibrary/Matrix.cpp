@@ -120,8 +120,26 @@ double Matrix::get_single_element(int row, int column) {
 	return matrix[row][column];
 }
 
-void Matrix::update_single_element(int row, int column, double val) {
+bool Matrix::is_square() {
+	if (m == n)
+		return true;
+	return false;
+}
+
+void Matrix::set_single_element(int row, int column, double val) {
 	matrix[row][column] = val;
+}
+
+void Matrix::remove_row(int row) {
+	m = m - 1;
+	matrix.erase(matrix.begin() + row);
+}
+
+void Matrix::remove_column(int column) {
+	n = n - 1;
+	for (int i = 0; i < m; i++) {
+		matrix[i].erase(matrix[i].begin() + column);
+	}
 }
 
 void Matrix::row_addition(int row1, int row2) {

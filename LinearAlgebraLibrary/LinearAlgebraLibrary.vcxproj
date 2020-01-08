@@ -151,13 +151,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Determinant.cpp" />
     <ClCompile Include="LinearAlgebraLibrary.cpp" />
     <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="REF.cpp" />
     <ClCompile Include="RREF.cpp" />
+    <ClCompile Include="Transpose.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Determinant.h" />
     <ClInclude Include="Matrix.h" />
+    <ClInclude Include="REF.h" />
     <ClInclude Include="RREF.h" />
+    <ClInclude Include="Transpose.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
