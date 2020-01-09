@@ -160,12 +160,12 @@ void Matrix::row_scale_down(int row, double scalar) {
 	}
 }
 
-void Matrix::row_swap(int to_row, int from_row) {
-	if (to_row >= m || from_row >= m) {
+void Matrix::row_swap(int row1, int row2) {
+	if (row1 < m || row2 < m) {
 		for (int i = 0; i < n; i++) {
-			int temp = matrix[to_row][i];
-			matrix[to_row][i] = matrix[from_row][i];
-			matrix[from_row][i] = temp;
+			int temp = matrix[row1][i];
+			matrix[row1][i] = matrix[row2][i];
+			matrix[row2][i] = temp;
 		}
 	}
 }

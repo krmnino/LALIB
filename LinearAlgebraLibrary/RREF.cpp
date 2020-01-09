@@ -1,26 +1,45 @@
+#include <iostream>
 #include "RREF.h"
+
+namespace {
+	int find_pivot_row(Matrix copy, int row, int col) {
+		for (int i = row; i < copy.get_m(); i++) {
+			if (copy.get_single_element(i, col) != 0) 
+				return i;
+		}
+		return -1;
+	}
+}
 
 Matrix rref(Matrix src) {
 	Matrix copy(src);
-	for (int i = 0; i < copy.get_n(); i++) {
-		if (i >= copy.get_m() || i >= copy.get_n())
-			break;
-		if (copy.get_single_element(i, i) == 0 && i != copy.get_n() - 1) {
-			for (int j = i; j < copy.get_m(); j++) {
-				if (copy.get_single_element(i, j) != 0)
-					copy.row_swap(j, i);
+	int row = 0; //pivot row
+	int col = 0; //pivot column
+	for (row = 0; row < copy.get_m(); row++) {		
+		while (true) {
+			if (row >= copy.get_m() || col >= copy.get_n())
+				return copy;
+			int new_pivot_row = find_pivot_row(copy, row, col);
+			if (new_pivot_row == col) 
+				break;
+			else if (new_pivot_row == -1) 
+				col++;
+			else {
+				copy.row_swap(new_pivot_row, row);
+				break;
 			}
 		}
-		copy.row_scale_down(i, copy.get_single_element(i, i));
+		if (copy.get_single_element(row, col) != 0) 
+			copy.row_scale_down(row, copy.get_single_element(row, col));
 		for (int j = 0; j < copy.get_m(); j++) {
-			if (j != i) {
-				double multiplier = copy.get_single_element(j, i);
-				for (int k = 0; k < copy.get_n(); k++) {
-					double element = -1.0 * copy.get_single_element(i, k) * multiplier;
-					copy.set_single_element(j, k, copy.get_single_element(j, k) + element);
-				}
+			if (row != j) {
+				double mul = -1 * copy.get_single_element(j, col);
+				for (int k = 0; k < copy.get_n(); k++) 
+					copy.set_single_element(j, k, (copy.get_single_element(j, k) + copy.get_single_element(row, k) * mul));
 			}
 		}
+		col++;
 	}
 	return copy;
 }
+
