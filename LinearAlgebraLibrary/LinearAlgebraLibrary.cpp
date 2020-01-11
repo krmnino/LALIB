@@ -7,24 +7,19 @@
 #include "RREF.h"
 #include "REF.h"
 #include "Transpose.h"
+#include "Determinant.h"
 
 using namespace std;
 
 int main()
 {
-	Matrix test("6 88 52 98 77 13 6; 98 22 52 41 33 5 98");
-	Matrix test2(3, 4);
-	Matrix copy_matrix(test);
-	vector<vector<double>> m = test.get_matrix();
-	vector<vector<double>> m2 = test2.get_matrix();
-	vector<vector<double>> mc = copy_matrix.get_matrix();
-	Matrix sol(rref(test));
+	Matrix test("98 85 2; 26 52 41; 4 52 3");
 	Matrix sol2(transpose(test));
 	cout << endl;
 	cout << test.to_string() << endl;
 	cout << "PRINT RETURN" << endl;
-	cout << sol.to_string() << endl;
-	//cout << determinant(test) << endl;
+	//cout << sol2.to_string() << endl;
+	cout << determinant(test) << endl;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
