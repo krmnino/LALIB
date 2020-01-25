@@ -13,7 +13,8 @@ using namespace std;
 
 int main()
 {
-	Matrix test("98 85 2; 26 52 41; 4 52 3");
+	//Matrix test("98 85 2; 26 52 41; 4 52 3");
+	Matrix test("9 8 52 65; 213 51 56 7; 4 1 455 6; 84 65 6 12");
 	Matrix sol2(transpose(test));
 	cout << endl;
 	cout << test.to_string() << endl;

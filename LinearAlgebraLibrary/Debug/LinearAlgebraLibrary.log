@@ -1,5 +1,2 @@
-﻿  Determinant.cpp
-D:\workspaces\visual_studio_workspace\LinearAlgebraLibrary\LinearAlgebraLibrary\Determinant.cpp(22,48): warning C4244:  '+=': conversion from 'double' to 'int', possible loss of data
-D:\workspaces\visual_studio_workspace\LinearAlgebraLibrary\LinearAlgebraLibrary\Determinant.cpp(28,97): warning C4244:  '+=': conversion from 'double' to 'int', possible loss of data
-D:\workspaces\visual_studio_workspace\LinearAlgebraLibrary\LinearAlgebraLibrary\Determinant.cpp(38,37): warning C4244:  'argument': conversion from 'double' to 'int', possible loss of data
+﻿  LinearAlgebraLibrary.cpp
   LinearAlgebraLibrary.vcxproj -> D:\workspaces\visual_studio_workspace\LinearAlgebraLibrary\Debug\LinearAlgebraLibrary.exe
