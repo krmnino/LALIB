@@ -1,5 +1,5 @@
 #include <iostream>
-#include "LinearAlgebraLibrary.h"
+#include "Matrix.h"
 
 using namespace std;
 

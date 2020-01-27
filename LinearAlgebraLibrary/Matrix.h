@@ -25,6 +25,8 @@ public:
 	void row_scale_up(int, double);
 	void row_scale_down(int, double);
 	void row_swap(int, int);
+	void add(Matrix &input);
+	void scale(double);
 	std::string to_string();
 };
 

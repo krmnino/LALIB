@@ -27,12 +27,12 @@ Matrix::Matrix(string data) {
 		}
 	}
 	string first_row = rows_arr[0];
-	m = rows_arr.size();
-	n = 0;
+	this->m = rows_arr.size();
+	this->n = 0;
 	int index_end = first_row.find(" ");
 	while (true) {
 		if (index_end != -1) {
-			n++;
+			this->n++;
 			int offset = 0;
 			bool digits_remaining = false;
 			for (int i = index_end; i < (signed)first_row.length(); i++) {
@@ -48,13 +48,12 @@ Matrix::Matrix(string data) {
 			index_end = first_row.find(" ");
 		}
 		else {
-			n++;
+			this->n++;
 			break;
 		}
 	}
-	matrix.resize(m, vector<double>());
-	int length = rows_arr.size();
-	for (int i = 0; i < length; i++) {
+	this->matrix.resize(this->m, vector<double>());
+	for (int i = 0; i < (signed)rows_arr.size(); i++) {
 		if (rows_arr[i].at(0) == ' ') {
 			int offset = 0;
 			for (offset = 0; offset < (signed)rows_arr[i].length(); offset++) {
@@ -65,7 +64,7 @@ Matrix::Matrix(string data) {
 		}
 		int index_end = rows_arr[i].find(" ");
 		int elements = 0;
-		while (elements < n) {
+		while (elements < this->n) {
 			matrix[i].push_back(stod(rows_arr[i].substr(0, index_end)));
 			if (index_end != -1) {
 				int offset = 0;
@@ -93,88 +92,104 @@ Matrix::Matrix(string data) {
 }
 
 Matrix::Matrix(int m_, int n_) {
-	m = m_;
-	n = n_;
-	matrix.resize(m, vector<double>(n, 0));
+	this->m = m_;
+	this->n = n_;
+	this->matrix.resize(this->m, vector<double>(this->n, 0));
 }
 
 Matrix::Matrix(const Matrix &src) {
-	m = src.m;
-	n = src.n;
-	matrix = src.matrix;
+	this->m = src.m;
+	this->n = src.n;
+	this->matrix = src.matrix;
 }
 
 vector<vector<double>> Matrix::get_matrix() {
-	return matrix;
+	return this->matrix;
 }
 
 int Matrix::get_m() {
-	return m;
+	return this->m;
 }
 
 int Matrix::get_n() {
-	return n;
+	return this->n;
 }
 
 double Matrix::get_single_element(int row, int column) {
-	return matrix[row][column];
+	return this->matrix[row][column];
 }
 
 bool Matrix::is_square() {
-	if (m == n)
+	if (this->m == this->n)
 		return true;
 	return false;
 }
 
 void Matrix::set_single_element(int row, int column, double val) {
-	matrix[row][column] = val;
+	this->matrix[row][column] = val;
 }
 
 void Matrix::remove_row(int row) {
-	m = m - 1;
+	this->m = this->m - 1;
 	matrix.erase(matrix.begin() + row);
 }
 
 void Matrix::remove_column(int column) {
-	n = n - 1;
-	for (int i = 0; i < m; i++) {
-		matrix[i].erase(matrix[i].begin() + column);
+	this->n = this->n - 1;
+	for (int i = 0; i < this->m; i++) {
+		this->matrix[i].erase(this->matrix[i].begin() + column);
 	}
 }
 
 void Matrix::row_addition(int row1, int row2) {
-	for (int i = 0; i < n; i++) {
-		matrix[row1][i] += matrix[row2][i];
+	for (int i = 0; i < this->n; i++) {
+		this->matrix[row1][i] += this->matrix[row2][i];
 	}
 }
 
 void Matrix::row_scale_up(int row, double scalar) {
-	for (int i = 0; i < n; i++) {
-		matrix[row][i] *= scalar;
+	for (int i = 0; i < this->n; i++) {
+		this->matrix[row][i] *= scalar;
 	}
 }
 
 void Matrix::row_scale_down(int row, double scalar) {
-	for (int i = 0; i < n; i++) {
-		matrix[row][i] /= scalar;
+	for (int i = 0; i < this->n; i++) {
+		this->matrix[row][i] /= scalar;
 	}
 }
 
 void Matrix::row_swap(int row1, int row2) {
-	if (row1 < m || row2 < m) {
-		for (int i = 0; i < n; i++) {
-			int temp = matrix[row1][i];
-			matrix[row1][i] = matrix[row2][i];
-			matrix[row2][i] = temp;
+	if (row1 < this->m || row2 < this->m) {
+		for (int i = 0; i < this->n; i++) {
+			int temp = this->matrix[row1][i];
+			this->matrix[row1][i] = this->matrix[row2][i];
+			this->matrix[row2][i] = temp;
 		}
+	}
+}
+
+void Matrix::add(Matrix &input) {
+	if (this->m == input.get_m() && this->n == input.get_n()) {
+		for (int i = 0; i < this->m; i++) {
+			for (int j = 0; j < this->n; j++) 
+				this->matrix[i][j] += input.get_single_element(i, j);
+		}
+	}
+}
+
+void Matrix::scale(double scalar) {
+	for (int i = 0; i < this->m; i++) {
+		for (int j = 0; j < this->n; j++)
+			this->matrix[i][j] *= scalar;
 	}
 }
 
 string Matrix::to_string() {
 	string out = "";
-	for (int i = 0; i < (signed)matrix.size(); i++) {
-		for (int j = 0; j < (signed)matrix[i].size(); j++) {
-			out += std::to_string(matrix[i][j]) + " ";
+	for (int i = 0; i < (signed)this->matrix.size(); i++) {
+		for (int j = 0; j < (signed)this->matrix[i].size(); j++) {
+			out += std::to_string(this->matrix[i][j]) + " ";
 		}
 		out += "\n";
 	}

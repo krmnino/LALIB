@@ -1,4 +1,4 @@
-#include "LinearAlgebraLibrary.h"
+#include "Matrix.h"
 
 Matrix transpose(Matrix src) {
 	Matrix copy(src.get_n(), src.get_m());

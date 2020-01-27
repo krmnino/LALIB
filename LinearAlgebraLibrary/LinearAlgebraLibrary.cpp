@@ -14,12 +14,10 @@ using namespace std;
 int main()
 {
 	Matrix test("1 -1 1 2; 3 -2 1 -1; 1 1 0 -3");
+	Matrix test2("3 5 3 1; 3 34 1 4; 5 3 1 3");
 	//Matrix test("9 8 52 65; 213 51 56 7; 4 1 455 6; 84 65 6 12");
-	Matrix sol2(ref(test));
-	cout << endl;
+	test.scale((double)1/3);
 	cout << test.to_string() << endl;
-	cout << "PRINT RETURN" << endl;
-	cout << sol2.to_string() << endl;
 	//cout << determinant(test) << endl;
 }
 

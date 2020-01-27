@@ -160,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Determinant.h" />
+    <ClInclude Include="LinearAlgebraLibrary.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="REF.h" />
     <ClInclude Include="RREF.h" />

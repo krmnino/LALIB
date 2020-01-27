@@ -50,5 +50,8 @@
     <ClInclude Include="REF.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LinearAlgebraLibrary.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
