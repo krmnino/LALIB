@@ -18,7 +18,7 @@ Matrix::Matrix(string data) {
 			else
 				break;
 			if (index_end != -1) {
-				data = data.substr(index_end + 1, data.length());
+				data = data.substr((long)index_end + 1, data.length());
 				index_end = data.find(";");
 			}
 			else {
@@ -41,10 +41,10 @@ Matrix::Matrix(string data) {
 					break;
 				}
 			}
-			while (digits_remaining && first_row.at(index_end + offset) == ' ') {
+			while (digits_remaining && first_row.at((long)index_end + offset) == ' ') {
 				offset++;
 			}
-			first_row = first_row.substr(index_end + 1 + offset, first_row.length());
+			first_row = first_row.substr((long)index_end + 1 + offset, first_row.length());
 			index_end = first_row.find(" ");
 		}
 		else {
@@ -78,9 +78,9 @@ Matrix::Matrix(string data) {
 				if (!digits_remaining)
 					break;
 				else {
-					while (rows_arr[i].at(index_end + 1 + offset) == ' ')
+					while (rows_arr[i].at((long)index_end + 1 + offset) == ' ')
 						offset++;
-					rows_arr[i] = rows_arr[i].substr(index_end + offset + 1, rows_arr[i].length());
+					rows_arr[i] = rows_arr[i].substr((long)index_end + offset + 1, rows_arr[i].length());
 					index_end = rows_arr[i].find(" ");
 					elements++;
 				}
