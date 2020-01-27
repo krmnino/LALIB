@@ -13,14 +13,14 @@ using namespace std;
 
 int main()
 {
-	//Matrix test("98 85 2; 26 52 41; 4 52 3");
-	Matrix test("9 8 52 65; 213 51 56 7; 4 1 455 6; 84 65 6 12");
-	Matrix sol2(transpose(test));
+	Matrix test("1 -1 1 2; 3 -2 1 -1; 1 1 0 -3");
+	//Matrix test("9 8 52 65; 213 51 56 7; 4 1 455 6; 84 65 6 12");
+	Matrix sol2(ref(test));
 	cout << endl;
 	cout << test.to_string() << endl;
 	cout << "PRINT RETURN" << endl;
-	//cout << sol2.to_string() << endl;
-	cout << determinant(test) << endl;
+	cout << sol2.to_string() << endl;
+	//cout << determinant(test) << endl;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
