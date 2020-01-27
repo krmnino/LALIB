@@ -3,6 +3,7 @@ Linear Algebra mini-library of matrix operations in C++
 
 
 TO-DO:
+-	Fix issue: when entering a row ("1 2 3; -4 -5 -6") negative sign in 4 is not being recognized by the program.
 -	Implement matrix multiplication (not only matrix scaling)
 -	Implement matrix inverse fn().
 -	Implement vector projection.
