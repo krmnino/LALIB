@@ -14,7 +14,6 @@ public:
 	Matrix(int, int);
 	Matrix(const Matrix &);
 	Matrix(char, int);	//TODO: gen matrix given char (i = identity, r = random)
-	Matrix(const Matrix&, const Matrix&); //concatenates 2 matrices together (revise plan)
 	std::vector<std::vector<double>> get_matrix();
 	int get_m();
 	int get_n();
@@ -28,8 +27,8 @@ public:
 	void row_scale_down(int, double);
 	void row_swap(int, int);
 	void add(Matrix &);
-	void multiply(Matrix &);
 	void scale(double);
+	Matrix concatenate(Matrix&, Matrix&); //concatenates 2 matrices together (revise plan)
 	std::string to_string();
 };
 

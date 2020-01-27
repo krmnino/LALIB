@@ -103,6 +103,27 @@ Matrix::Matrix(const Matrix &src) {
 	this->matrix = src.matrix;
 }
 
+Matrix::Matrix(char flag, int n) {
+	this->m = n;
+	this->n = n;
+	this->matrix.resize(this->m, vector<double>(this->n, 0));
+	switch (flag) {
+		case 'r':
+			for (int i = 0; i < this->m; i++) {
+				for (int j = 0; j < this->n; j++) {
+					this->matrix[i][j] = rand() % n;
+				}
+			}
+			break;
+		case 'i':
+			for (int i = 0; i < this->m; i++)
+				this->matrix[i][i] = 1;
+			break;
+		default:
+			break;
+	}
+}
+
 vector<vector<double>> Matrix::get_matrix() {
 	return this->matrix;
 }

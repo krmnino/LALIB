@@ -8,17 +8,22 @@
 #include "REF.h"
 #include "Transpose.h"
 #include "Determinant.h"
+#include "MatrixMultiplication.h"
 
 using namespace std;
 
 int main()
 {
-	Matrix test("1 -1 1 2; 3 -2 1 -1; 1 1 0 -3");
-	Matrix test2("3 5 3 1; 3 34 1 4; 5 3 1 3");
-	//Matrix test("9 8 52 65; 213 51 56 7; 4 1 455 6; 84 65 6 12");
-	test.scale((double)1/3);
+	//Matrix test("2 1 4; 0 1 1");
+	//Matrix test2("6 3 -1 0; 1 1 0 4;-2 5 0 2");
+	//Matrix test("3 4 2");
+	//Matrix test2("13 9 7 15; 8 7 4 6; 6 4 0 3");
+	Matrix test("-1 4;2 3");
+	Matrix test2("9 -3; 6 1");
 	cout << test.to_string() << endl;
-	//cout << determinant(test) << endl;
+	cout << test2.to_string() << endl;
+	Matrix result = multiply(test, test2);
+	cout << result.to_string() << endl;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
