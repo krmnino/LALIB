@@ -57,7 +57,7 @@ Matrix::Matrix(string data) {
 		if (rows_arr[i].at(0) == ' ') {
 			int offset = 0;
 			for (offset = 0; offset < (signed)rows_arr[i].length(); offset++) {
-				if (isdigit(rows_arr[i].at(offset)))
+				if (isdigit(rows_arr[i].at(offset)) || rows_arr[i].at(offset) == '-')
 					break;
 			}
 			rows_arr[i] = rows_arr[i].substr(offset, rows_arr[i].length());
