@@ -206,6 +206,11 @@ void Matrix::scale(double scalar) {
 	}
 }
 
+Matrix Matrix::concatenate(Matrix& m1, Matrix& m2) { // TODO...
+	Matrix out(m1.get_m(), m1.get_n() + m2.get_n());
+	return out;
+}
+
 string Matrix::to_string() {
 	string out = "";
 	for (int i = 0; i < (signed)this->matrix.size(); i++) {
