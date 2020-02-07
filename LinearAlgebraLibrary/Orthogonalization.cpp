@@ -2,7 +2,7 @@
 
 //TODO: Gram-Schmidt OP
 
-Matrix orthogonalize_vector(Matrix &src) {
+Matrix unit_vector(Matrix &src) {
 	if (src.get_n() != 1) {
 		std::cout << "Matrix must contain 1 column." << std::endl;
 		return src;

@@ -18,9 +18,12 @@ int main()
 	//Matrix test("2 1 4; 0 1 1");
 	//Matrix test2("6 3 -1 0; 1 1 0 4;-2 5 0 2");
 	//Matrix test("3 4 2");
-	//Matrix test2("13 9 7 15; 8 7 4 6; 6 4 0 3");
-	Matrix test('i', 4);
+	Matrix test("13; 9; 7; 15; 23; 6");
+	//Matrix test('r', 4);
+	//Matrix* test = new Matrix("13; 9; 7; 15; 23; 6");
 	cout << test.to_string() << endl;
+
+	cout << orthogonalize_vector(test).to_string() << endl;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
