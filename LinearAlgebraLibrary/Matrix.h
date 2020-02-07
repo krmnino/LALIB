@@ -14,6 +14,7 @@ public:
 	Matrix(int, int);
 	Matrix(const Matrix &);
 	Matrix(char, int);	//TODO: gen matrix given char (i = identity, r = random)
+	~Matrix();
 	std::vector<std::vector<double>> get_matrix();
 	int get_m();
 	int get_n();

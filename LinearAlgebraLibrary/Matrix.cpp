@@ -111,7 +111,7 @@ Matrix::Matrix(char flag, int n) {
 		case 'r':
 			for (int i = 0; i < this->m; i++) {
 				for (int j = 0; j < this->n; j++) {
-					this->matrix[i][j] = rand() % n;
+					this->matrix[i][j] = rand() % (n * n) + 1;
 				}
 			}
 			break;
@@ -123,6 +123,8 @@ Matrix::Matrix(char flag, int n) {
 			break;
 	}
 }
+
+Matrix::~Matrix() {};
 
 vector<vector<double>> Matrix::get_matrix() {
 	return this->matrix;

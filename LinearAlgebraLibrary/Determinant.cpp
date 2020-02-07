@@ -1,8 +1,6 @@
 #include <iostream>
 #include "Matrix.h"
 
-using namespace std;
-
 namespace {
 	Matrix get_matrix_minor(Matrix src, int skip_col) {
 		Matrix minor(src);
@@ -29,6 +27,6 @@ namespace {
 double determinant(Matrix src) {
 	if (src.is_square()) 
 		return recursive_determinant(src);
-	cout << "Matrix dimensions are not consistent. Must be square." << endl;
+	std::cout << "Matrix dimensions are not consistent. Must be square." << std::endl;
 	return NULL;	
 }

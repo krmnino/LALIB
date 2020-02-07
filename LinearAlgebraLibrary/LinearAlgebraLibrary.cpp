@@ -9,6 +9,7 @@
 #include "Transpose.h"
 #include "Determinant.h"
 #include "MatrixMultiplication.h"
+#include "Orthogonalization.h"
 
 using namespace std;
 
@@ -18,10 +19,8 @@ int main()
 	//Matrix test2("6 3 -1 0; 1 1 0 4;-2 5 0 2");
 	//Matrix test("3 4 2");
 	//Matrix test2("13 9 7 15; 8 7 4 6; 6 4 0 3");
-	Matrix test("3 -2 4 1 0 0; 1 0 2 0 1 0; 0 1 0 0 0 1");
+	Matrix test('i', 4);
 	cout << test.to_string() << endl;
-	Matrix result = rref(test);
-	cout << result.to_string() << endl;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
