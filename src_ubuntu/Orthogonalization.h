@@ -5,6 +5,7 @@
 #include "Matrix.h"
 
 Matrix unit_vector(Matrix&);
+Matrix projection(Matrix&);
 Matrix gram_schmidt(Matrix&);
 
 #endif

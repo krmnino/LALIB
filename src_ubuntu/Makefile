@@ -23,7 +23,7 @@ clean:
 		rm -f *.o $(TARGET)
 
 Determinant.o:	Determinant.h Determinant.cpp 
-LinearAlgebraLibrary.o:	LinearAlgebraLibrary.h LinearAlgebraLibrary.cpp
+LinearAlgebraLibrary.o:	LinearAlgebraLibrary.cpp
 Matrix.o:	Matrix.h Matrix.cpp 
 MatrixMultiplication.o:	MatrixMultiplication.h MatrixMultiplication.cpp
 Orthogonalization.o:	Orthogonalization.h Orthogonalization.cpp
