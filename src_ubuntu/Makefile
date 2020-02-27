@@ -10,7 +10,7 @@ OBJS = 	Determinant.o\
 		Transpose.o
 
 CXX = g++
-CXXFLAGS = -std=c++17
+CXXFLAGS = -g -std=c++17
 LDFLAGS = 
 
 $(TARGET):	$(OBJS)	

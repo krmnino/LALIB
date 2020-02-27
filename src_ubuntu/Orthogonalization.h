@@ -4,8 +4,8 @@
 #include <iostream>
 #include "Matrix.h"
 
-Matrix unit_vector(Matrix&);
-Matrix projection(Matrix&);
-Matrix gram_schmidt(Matrix&);
+Matrix unit_vector(Matrix);
+Matrix projection_onto(Matrix, Matrix);
+Matrix gram_schmidt(Matrix);
 
 #endif
