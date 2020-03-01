@@ -13,7 +13,7 @@ public:
 	Matrix(std::string);
 	Matrix(int, int);
 	Matrix(const Matrix &);
-	Matrix(char, int);	//TODO: gen matrix given char (i = identity, r = random)
+	Matrix(char, int);
 	~Matrix();
 	std::vector<std::vector<double>> get_matrix();
 	int get_m();
@@ -29,7 +29,6 @@ public:
 	void row_swap(int, int);
 	void add(Matrix &);
 	void scale(double);
-	Matrix concatenate(Matrix&, Matrix&); //concatenates 2 matrices together (revise plan)
 	std::string to_string();
 };
 

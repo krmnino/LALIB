@@ -57,8 +57,9 @@ Matrix::Matrix(string data) {
 		if (rows_arr[i].at(0) == ' ') {
 			int offset = 0;
 			for (offset = 0; offset < (signed)rows_arr[i].length(); offset++) {
-				if (isdigit(rows_arr[i].at(offset)) || rows_arr[i].at(offset) == '-')
+				if (isdigit(rows_arr[i].at(offset)) || rows_arr[i].at(offset) == '-') {
 					break;
+				}
 			}
 			rows_arr[i] = rows_arr[i].substr(offset, rows_arr[i].length());
 		}
@@ -78,8 +79,9 @@ Matrix::Matrix(string data) {
 				if (!digits_remaining)
 					break;
 				else {
-					while (rows_arr[i].at((long)index_end + 1 + offset) == ' ')
+					while (rows_arr[i].at((long)index_end + 1 + offset) == ' ') {
 						offset++;
+					}
 					rows_arr[i] = rows_arr[i].substr((long)index_end + offset + 1, rows_arr[i].length());
 					index_end = rows_arr[i].find(" ");
 					elements++;
@@ -111,7 +113,7 @@ Matrix::Matrix(char flag, int n) {
 		case 'r':
 			for (int i = 0; i < this->m; i++) {
 				for (int j = 0; j < this->n; j++) {
-					this->matrix[i][j] = rand() % (n * n) + 1;
+					this->matrix[i][j] = rand() % (n * n) + (double)1;
 				}
 			}
 			break;
@@ -143,8 +145,9 @@ double Matrix::get_single_element(int row, int column) {
 }
 
 bool Matrix::is_square() {
-	if (this->m == this->n)
+	if (this->m == this->n) {
 		return true;
+	}
 	return false;
 }
 
@@ -195,22 +198,19 @@ void Matrix::row_swap(int row1, int row2) {
 void Matrix::add(Matrix &input) {
 	if (this->m == input.get_m() && this->n == input.get_n()) {
 		for (int i = 0; i < this->m; i++) {
-			for (int j = 0; j < this->n; j++) 
+			for (int j = 0; j < this->n; j++) {
 				this->matrix[i][j] += input.get_single_element(i, j);
+			}
 		}
 	}
 }
 
 void Matrix::scale(double scalar) {
 	for (int i = 0; i < this->m; i++) {
-		for (int j = 0; j < this->n; j++)
+		for (int j = 0; j < this->n; j++) {
 			this->matrix[i][j] *= scalar;
+		}
 	}
-}
-
-Matrix Matrix::concatenate(Matrix& m1, Matrix& m2) { // TODO...
-	Matrix out(m1.get_m(), m1.get_n() + m2.get_n());
-	return out;
 }
 
 string Matrix::to_string() {
