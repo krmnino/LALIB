@@ -144,6 +144,26 @@ double Matrix::get_single_element(int row, int column) {
 	return this->matrix[row][column];
 }
 
+Matrix Matrix::get_row(int row) {
+	if (0 <= row && row < this->m) {
+		Matrix out(1, this->n);
+		for (int i = 0; i < this->n; i++) {
+			out.set_single_element(i, 0, this->matrix[row][i]);
+		}
+		return out;
+	}
+}
+
+Matrix Matrix::get_column(int col) {
+	if (0 <= col && col < this->n) {
+		Matrix out(this->m, 1);
+		for (int i = 0; i < this->m; i++) {
+			out.set_single_element(i, 0, this->matrix[i][col]);
+		}
+		return out;
+	}
+}
+
 bool Matrix::is_square() {
 	if (this->m == this->n) {
 		return true;

@@ -3,8 +3,6 @@
 #include "MatrixMultiplication.h"
 #include "Transpose.h"
 
-//TODO: Gram-Schmidt OP
-
 namespace {
 	double vector_magnitude(Matrix src) {
 		double accumulator = 0;
@@ -44,5 +42,6 @@ Matrix projection_onto(Matrix src1, Matrix src2) { //Projection of src2 onto src
 }
 
 Matrix gram_schmidt(Matrix& src) {
-	return src; //just a placeholder
+	Matrix out(src.get_m, src.get_n);
+	return out;
 }

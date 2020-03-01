@@ -19,6 +19,8 @@ public:
 	int get_m();
 	int get_n();
 	double get_single_element(int, int);
+	Matrix get_row(int);
+	Matrix get_column(int);
 	bool is_square();
 	void set_single_element(int, int, double);
 	void remove_row(int);
