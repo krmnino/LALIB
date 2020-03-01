@@ -4,4 +4,4 @@
 
 Matrix transpose(Matrix);
 
-#endif TRANSPOSE_H
+#endif

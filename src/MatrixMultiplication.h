@@ -4,4 +4,4 @@
 
 Matrix multiply(Matrix&, Matrix&);
 
-#endif GS_H
+#endif

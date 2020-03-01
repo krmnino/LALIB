@@ -33,4 +33,4 @@ public:
 	std::string to_string();
 };
 
-#endif MATRIX_H
+#endif

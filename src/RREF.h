@@ -4,4 +4,4 @@
 
 Matrix rref(Matrix);
 
-#endif RREF_H
+#endif

@@ -4,4 +4,4 @@
 
 double determinant(Matrix);
 
-#endif DET_H
+#endif
