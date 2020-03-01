@@ -152,6 +152,8 @@ Matrix Matrix::get_row(int row) {
 		}
 		return out;
 	}
+	return Matrix(this->m, this->n);
+	//Add throw exception
 }
 
 Matrix Matrix::get_column(int col) {
@@ -162,6 +164,8 @@ Matrix Matrix::get_column(int col) {
 		}
 		return out;
 	}
+	return Matrix(this->m, this->n);
+	//Add throw exception
 }
 
 bool Matrix::is_square() {

@@ -18,5 +18,6 @@ Matrix multiply(Matrix &m1, Matrix &m2) { //revise for matrices of mxn size, not
 			}
 		}
 	}
+	//Modify if-else and add throw exception
 	return out;
 }

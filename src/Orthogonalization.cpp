@@ -17,6 +17,7 @@ Matrix unit_vector(Matrix src) {
 	if (src.get_n() != 1) {
 		std::cout << "Matrix must contain 1 column." << std::endl;
 		return src;
+		//Add throw exception
 	}
 	double v_length = 0;
 	for (int i = 0; i < src.get_m(); i++) {
@@ -30,7 +31,7 @@ Matrix unit_vector(Matrix src) {
 	return out;
 }
 
-Matrix projection_onto(Matrix src1, Matrix src2) { //Projection of src2 onto src1
+Matrix projection_onto(Matrix src1, Matrix src2) { //Note: Projection of src2 onto src1
 	Matrix src1_t = transpose(src1);
 	double magnitude = 0;
 	for (int i = 0; i < src1.get_m(); i++) {
@@ -41,7 +42,10 @@ Matrix projection_onto(Matrix src1, Matrix src2) { //Projection of src2 onto src
 	return src1;
 }
 
-Matrix gram_schmidt(Matrix& src) {
-	Matrix out(src.get_m, src.get_n);
+Matrix gram_schmidt(Matrix src) {
+	Matrix out(src.get_m(), src.get_n());
+	for (int i = 0; i < src.get_m(); i++) {
+		out.set_single_element(i, 0, src.get_single_element(i, 0));
+	}
 	return out;
 }

@@ -29,4 +29,5 @@ double determinant(Matrix src) {
 		return recursive_determinant(src);
 	std::cout << "Matrix dimensions are not consistent. Must be square." << std::endl;
 	return NULL;	
+	//Add throw exception
 }
