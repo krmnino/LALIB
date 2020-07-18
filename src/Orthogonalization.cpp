@@ -1,7 +1,8 @@
+#include "Matrix.h"
+#include "Operations.h"
+
 #include <cmath>
-#include "Orthogonalization.h"
-#include "MatrixMultiplication.h"
-#include "Transpose.h"
+#include <iostream>
 
 namespace {
 	double vector_magnitude(Matrix src) {
@@ -13,7 +14,7 @@ namespace {
 	}
 }
 
-Matrix unit_vector(Matrix src) {
+Matrix unit_vector(Matrix &src) {
 	if (src.get_n() != 1) {
 		std::cout << "Matrix must contain 1 column." << std::endl;
 		return src;
@@ -31,7 +32,7 @@ Matrix unit_vector(Matrix src) {
 	return out;
 }
 
-Matrix projection_onto(Matrix src1, Matrix src2) { //Note: Projection of src2 onto src1
+Matrix projection_onto(Matrix &src1, Matrix &src2) { //Note: Projection of src2 onto src1
 	Matrix src1_t = transpose(src1);
 	double magnitude = 0;
 	for (int i = 0; i < src1.get_m(); i++) {
@@ -42,7 +43,7 @@ Matrix projection_onto(Matrix src1, Matrix src2) { //Note: Projection of src2 on
 	return src1;
 }
 
-Matrix gram_schmidt(Matrix src) {
+Matrix gram_schmidt(Matrix &src) {
 	Matrix out(src.get_m(), src.get_n());
 	for (int i = 0; i < src.get_m(); i++) {
 		out.set_single_element(i, 0, src.get_single_element(i, 0));

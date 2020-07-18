@@ -1,4 +1,4 @@
-#include "REF.h"
+#include "Operations.h"
 
 namespace {
 	int find_pivot_row(Matrix copy, int row, int col) {
@@ -10,7 +10,7 @@ namespace {
 	}
 }
 
-Matrix ref(Matrix src) {
+Matrix ref(Matrix &src) {
 	Matrix copy(src);
 	int row = 0; //pivot row
 	int col = 0; //pivot column

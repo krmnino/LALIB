@@ -1,4 +1,5 @@
-#include "MatrixMultiplication.h"
+#include "Operations.h"
+
 #include <iostream>
 
 Matrix multiply(Matrix &m1, Matrix &m2) { //revise for matrices of mxn size, not only 1x1

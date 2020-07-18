@@ -1,6 +1,8 @@
+#include "Operations.h"
+
 #include "Matrix.h"
 
-Matrix transpose(Matrix src) {
+Matrix transpose(Matrix &src) {
 	Matrix copy(src.get_n(), src.get_m());
 	for (int i = 0; i < copy.get_m(); i++) 
 		for (int j = 0; j < copy.get_n(); j++) 

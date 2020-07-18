@@ -1,7 +1,6 @@
-#include "Matrix.h"
+#include <iostream>
 #include "Operations.h"
 
-#include <iostream>
 
 namespace {
 	Matrix get_matrix_minor(Matrix src, int skip_col) {
@@ -14,7 +13,7 @@ namespace {
 	double recursive_determinant(Matrix src) {
 		int accumulator = 0;
 		int sign_flag = 1;
-		if (src.get_m() == 1 && src.get_n() == 1) 
+		if (src.get_m() == 1 && src.get_n() == 1)
 			return src.get_single_element(0, 0);
 		for (int i = 0; i < src.get_n(); i++) {
 			Matrix minor(get_matrix_minor(src, i));
@@ -26,10 +25,10 @@ namespace {
 	}
 }
 
-double determinant(Matrix &src) {
-	if (src.is_square()) 
+double determinant(Matrix src) {
+	if (src.is_square())
 		return recursive_determinant(src);
 	std::cout << "Matrix dimensions are not consistent. Must be square." << std::endl;
-	return NULL;	
+	return NULL;
 	//Add throw exception
 }
