@@ -1,5 +1,5 @@
-# MatrixOperations
-Linear Algebra mini-library of matrix operations in C++
+# LALIB
+Linear Algebra mini-library for matrix operations in C++
 
 
 TO-DO:
