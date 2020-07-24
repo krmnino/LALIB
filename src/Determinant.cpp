@@ -27,9 +27,10 @@ namespace {
 }
 
 double determinant(Matrix &src) {
-	if (src.is_square()) 
-		return recursive_determinant(src);
-	std::cout << "Matrix dimensions are not consistent. Must be square." << std::endl;
-	return NULL;	
-	//Add throw exception
+	if (!src.is_square()) {
+		//Throw exception when this condition is satisfied
+		std::cout << "Matrix must be square!" << std::endl;
+		return 1.0;
+	}
+	return recursive_determinant(src);
 }

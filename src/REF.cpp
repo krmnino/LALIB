@@ -1,7 +1,7 @@
 #include "Operations.h"
 
 namespace {
-	int find_pivot_row(Matrix copy, int row, int col) {
+	int find_pivot_row(Matrix& copy, int row, int col) {
 		for (int i = row; i < copy.get_m(); i++) {
 			if (copy.get_single_element(i, col) != 0)
 				return i;
@@ -28,7 +28,6 @@ Matrix ref(Matrix &src) {
 				break;
 			}
 		}
-		double row_pivot_scalar = copy.get_single_element(row, col);
 		if (copy.get_single_element(row, col) != 0)
 			copy.row_scale(row, (1.0 / (double)copy.get_single_element(row, col)));
 		for (int j = row; j < copy.get_m(); j++) {

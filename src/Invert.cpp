@@ -15,10 +15,12 @@ namespace {
 Matrix invert(Matrix& src) {
 
 	if (!src.is_square()) {
+		//Throw exception when this condition is satisfied
 		std::cout << "Input matrix is not square!" << std::endl;
 		return src;
 	}
 	if (determinant(src) == 0) {
+		//Throw exception when this condition is satisfied
 		std::cout << "Cannot get inverse of singular matrix!" << std::endl;
 		return src;
 	}

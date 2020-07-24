@@ -3,7 +3,7 @@
 #include <iostream>
 
 namespace {
-	int find_pivot_row(Matrix copy, int row, int col) {
+	int find_pivot_row(Matrix& copy, int row, int col) {
 		for (int i = row; i < copy.get_m(); i++) {
 			if (copy.get_single_element(i, col) != 0) 
 				return i;
@@ -31,7 +31,7 @@ Matrix rref(Matrix &src) {
 			}
 		}
 		if (copy.get_single_element(row, col) != 0) 
-			copy.row_scale(row, (1 / (double)copy.get_single_element(row, col)));
+			copy.row_scale(row, (1.0 / (double)copy.get_single_element(row, col)));
 		for (int j = 0; j < copy.get_m(); j++) {
 			if (row != j) {
 				double mul = -1 * copy.get_single_element(j, col);
