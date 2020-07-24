@@ -19,11 +19,12 @@ int main()
 
 	Matrix test("6; 1; 4");
 	Matrix test2("2; 9; 3");
-	Matrix test3("8 1 0 4; 3 3 -1 0;-2 5 0 4");
+	Matrix test3("8 1 0; 3 3 1 ; -2 5 0");
+	Matrix test4("3 0 2; 2 0 -2; 0 1 1");
 
 	//Matrix test('r', 4);
 	//std::cout << test4.to_string() << std::endl;
-	std::cout << test3.to_string() << std::endl;
-	test3.transpose();
-	std::cout << test3.to_string() << std::endl;
+	std::cout << test4.to_string() << std::endl;
+	test4 = invert(test4);
+	std::cout << test4.to_string() << std::endl;
 }
