@@ -28,8 +28,9 @@ Matrix ref(Matrix &src) {
 				break;
 			}
 		}
+		double row_pivot_scalar = copy.get_single_element(row, col);
 		if (copy.get_single_element(row, col) != 0)
-			copy.row_scale_down(row, copy.get_single_element(row, col));
+			copy.row_scale(row, (1.0 / (double)copy.get_single_element(row, col)));
 		for (int j = row; j < copy.get_m(); j++) {
 			if (row != j) {
 				double mul = -1 * copy.get_single_element(j, col);

@@ -33,13 +33,14 @@ Matrix unit_vector(Matrix &src) {
 }
 
 Matrix projection_onto(Matrix &src1, Matrix &src2) { //Note: Projection of src2 onto src1
-	Matrix src1_t = transpose(src1);
+	src1.transpose();
+	//Matrix src1_t = transpose(src1);
 	double magnitude = 0;
 	for (int i = 0; i < src1.get_m(); i++) {
 		magnitude += pow(src1.get_single_element(i, 0), 2);
 	}
-	double dot_product = multiply(src1_t, src2).get_single_element(0, 0);
-	src1.scale(dot_product / magnitude);
+	double dot_product = multiply(src1, src2).get_single_element(0, 0);
+	src1.scalar_multi(dot_product / magnitude);
 	return src1;
 }
 

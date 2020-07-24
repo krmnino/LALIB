@@ -12,7 +12,7 @@ namespace {
 	}
 
 	double recursive_determinant(Matrix src) {
-		int accumulator = 0;
+		double accumulator = 0;
 		int sign_flag = 1;
 		if (src.get_m() == 1 && src.get_n() == 1) 
 			return src.get_single_element(0, 0);
