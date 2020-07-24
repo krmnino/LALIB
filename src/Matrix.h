@@ -18,19 +18,19 @@ public:
 	std::vector<std::vector<double>> get_matrix();
 	int get_m();
 	int get_n();
+	bool is_square();
 	double get_single_element(int, int);
+	void set_single_element(int, int, double);
 	Matrix get_row(int);
 	Matrix get_column(int);
-	bool is_square();
-	void set_single_element(int, int, double);
 	void remove_row(int);
 	void remove_column(int);
 	void row_addition(int, int);
-	void row_scale_up(int, double);
-	void row_scale_down(int, double);
+	void row_scale(int, double);
 	void row_swap(int, int);
-	void add(Matrix &);
-	void scale(double);
+	void matrix_addition(Matrix&);
+	void scalar_multi(double);
+	void transpose();
 	std::string to_string();
 };
 

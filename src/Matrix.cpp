@@ -1,4 +1,5 @@
 #include <vector>
+#include <iostream>
 #include "Matrix.h"
 
 using namespace std;
@@ -140,15 +141,26 @@ int Matrix::get_n() {
 	return this->n;
 }
 
+bool Matrix::is_square() {
+	if (this->m == this->n) {
+		return true;
+	}
+	return false;
+}
+
 double Matrix::get_single_element(int row, int column) {
 	return this->matrix[row][column];
+}
+
+void Matrix::set_single_element(int row, int column, double val) {
+	this->matrix[row][column] = val;
 }
 
 Matrix Matrix::get_row(int row) {
 	if (0 <= row && row < this->m) {
 		Matrix out(1, this->n);
 		for (int i = 0; i < this->n; i++) {
-			out.set_single_element(i, 0, this->matrix[row][i]);
+			out.set_single_element(0, i, this->matrix[row][i]);
 		}
 		return out;
 	}
@@ -166,17 +178,6 @@ Matrix Matrix::get_column(int col) {
 	}
 	return Matrix(this->m, this->n);
 	//Add throw exception
-}
-
-bool Matrix::is_square() {
-	if (this->m == this->n) {
-		return true;
-	}
-	return false;
-}
-
-void Matrix::set_single_element(int row, int column, double val) {
-	this->matrix[row][column] = val;
 }
 
 void Matrix::remove_row(int row) {
@@ -197,44 +198,51 @@ void Matrix::row_addition(int row1, int row2) {
 	}
 }
 
-void Matrix::row_scale_up(int row, double scalar) {
+void Matrix::row_scale(int row, double scalar) {
 	for (int i = 0; i < this->n; i++) {
 		this->matrix[row][i] *= scalar;
-	}
-}
-
-void Matrix::row_scale_down(int row, double scalar) {
-	for (int i = 0; i < this->n; i++) {
-		this->matrix[row][i] /= scalar;
 	}
 }
 
 void Matrix::row_swap(int row1, int row2) {
 	if (row1 < this->m || row2 < this->m) {
 		for (int i = 0; i < this->n; i++) {
-			int temp = this->matrix[row1][i];
+			double temp = this->matrix[row1][i];
 			this->matrix[row1][i] = this->matrix[row2][i];
 			this->matrix[row2][i] = temp;
 		}
 	}
 }
 
-void Matrix::add(Matrix &input) {
-	if (this->m == input.get_m() && this->n == input.get_n()) {
+void Matrix::matrix_addition(Matrix& src) {
+	if (this->m != src.get_m() && this->n != src.get_n()) {
+		std::cout << "Matrix dimensions are not consistent." << std::endl;
+		return;
+	}
+	else {
 		for (int i = 0; i < this->m; i++) {
 			for (int j = 0; j < this->n; j++) {
-				this->matrix[i][j] += input.get_single_element(i, j);
+				this->matrix[i][j] += src.get_single_element(i, j);
 			}
 		}
 	}
+	return;
 }
 
-void Matrix::scale(double scalar) {
+void Matrix::scalar_multi(double scalar) {
 	for (int i = 0; i < this->m; i++) {
 		for (int j = 0; j < this->n; j++) {
 			this->matrix[i][j] *= scalar;
 		}
 	}
+}
+
+void Matrix::transpose() {
+	Matrix transposed(this->n, this->m);
+	for (int i = 0; i < transposed.get_m(); i++)
+		for (int j = 0; j < transposed.get_n(); j++)
+			transposed.set_single_element(i, j, this->matrix[j][i]);
+	this->matrix = transposed.get_matrix();
 }
 
 string Matrix::to_string() {
