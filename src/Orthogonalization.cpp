@@ -5,7 +5,7 @@
 #include <iostream>
 
 namespace {
-	double vector_magnitude(Matrix src) {
+	double vector_magnitude(Matrix& src) {
 		double accumulator = 0;
 		for (int i = 0; i < src.get_m(); i++) {
 			accumulator += pow(src.get_single_element(i, 0), 2);
