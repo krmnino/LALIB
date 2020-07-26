@@ -5,6 +5,7 @@
 
 Matrix ref(Matrix&);
 Matrix rref(Matrix&);
+int rank(Matrix&);
 double determinant(Matrix&);
 Matrix multiply(Matrix&, Matrix&);
 Matrix unit_vector(Matrix&);
