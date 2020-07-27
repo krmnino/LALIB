@@ -157,27 +157,27 @@ void Matrix::set_single_element(int row, int column, double val) {
 }
 
 Matrix Matrix::get_row(int row) {
-	if (0 <= row && row < this->m) {
-		Matrix out(1, this->n);
-		for (int i = 0; i < this->n; i++) {
-			out.set_single_element(0, i, this->matrix[row][i]);
-		}
-		return out;
+	if (0 > row || row <= this->m) {
+		std::cout << "Row index out of boundaries." << std::endl;
+		return Matrix('i', 1);
 	}
-	return Matrix(this->m, this->n);
-	//Add throw exception
+	Matrix out(1, this->n);
+	for (int i = 0; i < this->n; i++) {
+		out.set_single_element(0, i, this->matrix[row][i]);
+	}
+	return out;
 }
 
 Matrix Matrix::get_column(int col) {
-	if (0 <= col && col < this->n) {
-		Matrix out(this->m, 1);
-		for (int i = 0; i < this->m; i++) {
-			out.set_single_element(i, 0, this->matrix[i][col]);
-		}
-		return out;
+	if (0 > col || col <= this->n) {
+		std::cout << "Column index out of boundaries." << std::endl;
+		return Matrix('i', 1);
 	}
-	return Matrix(this->m, this->n);
-	//Add throw exception
+	Matrix out(this->m, 1);
+	for (int i = 0; i < this->m; i++) {
+		out.set_single_element(i, 0, this->matrix[i][col]);
+	}
+	return out;
 }
 
 void Matrix::remove_row(int row) {
@@ -205,12 +205,14 @@ void Matrix::row_scale(int row, double scalar) {
 }
 
 void Matrix::row_swap(int row1, int row2) {
-	if (row1 < this->m || row2 < this->m) {
-		for (int i = 0; i < this->n; i++) {
-			double temp = this->matrix[row1][i];
-			this->matrix[row1][i] = this->matrix[row2][i];
-			this->matrix[row2][i] = temp;
-		}
+	if (row1 >= this->m || row2 >= this->m) {
+		std::cout << "Row index out of boundaries" << std::endl;
+		return;
+	}
+	for (int i = 0; i < this->n; i++) {
+		double temp = this->matrix[row1][i];
+		this->matrix[row1][i] = this->matrix[row2][i];
+		this->matrix[row2][i] = temp;
 	}
 }
 
@@ -219,14 +221,11 @@ void Matrix::matrix_addition(Matrix& src) {
 		std::cout << "Matrix dimensions are not consistent." << std::endl;
 		return;
 	}
-	else {
-		for (int i = 0; i < this->m; i++) {
-			for (int j = 0; j < this->n; j++) {
-				this->matrix[i][j] += src.get_single_element(i, j);
-			}
+	for (int i = 0; i < this->m; i++) {
+		for (int j = 0; j < this->n; j++) {
+			this->matrix[i][j] += src.get_single_element(i, j);
 		}
 	}
-	return;
 }
 
 void Matrix::scalar_multi(double scalar) {
@@ -243,15 +242,16 @@ void Matrix::transpose() {
 		for (int j = 0; j < transposed.get_n(); j++)
 			transposed.set_single_element(i, j, this->matrix[j][i]);
 	this->matrix = transposed.get_matrix();
+	this->m = transposed.get_m();
+	this->n = transposed.get_n();
 }
 
-string Matrix::to_string() {
-	string out = "";
-	for (int i = 0; i < (signed)this->matrix.size(); i++) {
-		for (int j = 0; j < (signed)this->matrix[i].size(); j++) {
-			out += std::to_string(this->matrix[i][j]) + " ";
+ostream& operator<<(std::ostream& out, Matrix& mtrx) {
+	for (int i = 0; i < (signed)mtrx.get_m(); i++) {
+		for (int j = 0; j < (signed)mtrx.get_n(); j++) {
+			out << std::to_string(mtrx.get_single_element(i, j)) + " ";
 		}
-		out += "\n";
+		out << "\n";
 	}
 	return out;
 }

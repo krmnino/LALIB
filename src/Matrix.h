@@ -2,6 +2,7 @@
 #define MATRIX_H
 #include <vector>
 #include <string>
+#include <iostream>
 
 class Matrix {
 private:
@@ -31,7 +32,7 @@ public:
 	void matrix_addition(Matrix&);
 	void scalar_multi(double);
 	void transpose();
-	std::string to_string();
+	friend std::ostream& operator<<(std::ostream& out, Matrix& matrx);
 };
 
 #endif
