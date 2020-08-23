@@ -7,3 +7,4 @@ TO-DO
 -	Implement Gram-Schmidt orthogonalization process.
 -	Create Exceptions when reporting errors.
 -	Update ubuntu version with Windows changes (3/1/20).
+-   Implement simple command-line interface.
