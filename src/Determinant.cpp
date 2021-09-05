@@ -32,3 +32,11 @@ double determinant(Matrix &src) {
 	}
 	return recursive_determinant(src);
 }
+
+bool is_singular(Matrix& src) {
+	double ret_det = determinant(src);
+	if (ret_det != 0.0) {
+		return false;
+	}
+	return true;
+}
