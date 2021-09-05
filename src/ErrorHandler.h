@@ -1,6 +1,7 @@
 #ifndef ERR_LALIB
 #define ERR_LALIB
 
+#include <iostream>
 #include <exception>
 #include <string>
 
