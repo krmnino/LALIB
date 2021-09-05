@@ -1,8 +1,6 @@
 #include "Matrix.h"
 #include "Operations.h"
 
-#include <iostream>
-
 namespace {
 	Matrix get_matrix_minor(Matrix src, int skip_col) {
 		Matrix minor(src);
@@ -28,9 +26,9 @@ namespace {
 
 double determinant(Matrix &src) {
 	if (!src.is_square()) {
-		//Throw exception when this condition is satisfied
-		std::cout << "Matrix must be square!" << std::endl;
-		return 1.0;
+		LALIB_Error ex(ErrorCode::NON_SQR_MTRX);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
 	}
 	return recursive_determinant(src);
 }
