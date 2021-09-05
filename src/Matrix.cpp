@@ -1,6 +1,7 @@
 #include <vector>
 #include <iostream>
 #include "Matrix.h"
+#include "ErrorHandler.h"
 
 using namespace std;
 
@@ -111,14 +112,14 @@ Matrix::Matrix(char flag, int n) {
 	this->n = n;
 	this->matrix.resize(this->m, vector<double>(this->n, 0));
 	switch (flag) {
-		case 'r':
+		case 'r': // Generate matrix nxn of random values
 			for (int i = 0; i < this->m; i++) {
 				for (int j = 0; j < this->n; j++) {
 					this->matrix[i][j] = rand() % (n * n) + (double)1;
 				}
 			}
 			break;
-		case 'i':
+		case 'i': // Generate identity matrix nxn 
 			for (int i = 0; i < this->m; i++)
 				this->matrix[i][i] = 1;
 			break;
@@ -148,18 +149,39 @@ bool Matrix::is_square() {
 	return false;
 }
 
-double Matrix::get_single_element(int row, int column) {
-	return this->matrix[row][column];
+double Matrix::get_single_element(int row, int col) {
+	if (0 > row || row <= this->m) {
+		LALIB_Error ex(ErrorCode::ROW_OUT_BOUNDS);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
+	if (0 > col || col <= this->n) {
+		LALIB_Error ex(ErrorCode::COL_OUT_BOUNDS);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
+	return this->matrix[row][col];
 }
 
-void Matrix::set_single_element(int row, int column, double val) {
-	this->matrix[row][column] = val;
+void Matrix::set_single_element(int row, int col, double val) {
+	if (0 > row || row <= this->m) {
+		LALIB_Error ex(ErrorCode::ROW_OUT_BOUNDS);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
+	if (0 > col || col <= this->n) {
+		LALIB_Error ex(ErrorCode::COL_OUT_BOUNDS);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
+	this->matrix[row][col] = val;
 }
 
 Matrix Matrix::get_row(int row) {
 	if (0 > row || row <= this->m) {
-		std::cout << "Row index out of boundaries." << std::endl;
-		return Matrix('i', 1);
+		LALIB_Error ex(ErrorCode::ROW_OUT_BOUNDS);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
 	}
 	Matrix out(1, this->n);
 	for (int i = 0; i < this->n; i++) {
@@ -169,9 +191,10 @@ Matrix Matrix::get_row(int row) {
 }
 
 Matrix Matrix::get_column(int col) {
-	if (0 > col || col <= this->n) {
-		std::cout << "Column index out of boundaries." << std::endl;
-		return Matrix('i', 1);
+	if (0 > col || col >= this->n) {
+		LALIB_Error ex(ErrorCode::COL_OUT_BOUNDS);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
 	}
 	Matrix out(this->m, 1);
 	for (int i = 0; i < this->m; i++) {
@@ -181,33 +204,54 @@ Matrix Matrix::get_column(int col) {
 }
 
 void Matrix::remove_row(int row) {
+	if (0 > row || row >= this->m) {
+		LALIB_Error ex(ErrorCode::ROW_OUT_BOUNDS);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
 	this->m = this->m - 1;
 	matrix.erase(matrix.begin() + row);
 }
 
-void Matrix::remove_column(int column) {
+void Matrix::remove_column(int col) {
+	if (0 > col || col >= this->n) {
+		LALIB_Error ex(ErrorCode::COL_OUT_BOUNDS);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
 	this->n = this->n - 1;
 	for (int i = 0; i < this->m; i++) {
-		this->matrix[i].erase(this->matrix[i].begin() + column);
+		this->matrix[i].erase(this->matrix[i].begin() + col);
 	}
 }
 
 void Matrix::row_addition(int row1, int row2) {
+	if (0 > row1 || row1 >= this->m || 0 > row2 || row2 >= this->m) {
+		LALIB_Error ex(ErrorCode::ROW_OUT_BOUNDS);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
 	for (int i = 0; i < this->n; i++) {
 		this->matrix[row1][i] += this->matrix[row2][i];
 	}
 }
 
 void Matrix::row_scale(int row, double scalar) {
+	if (0 > row || row >= this->m) {
+		LALIB_Error ex(ErrorCode::ROW_OUT_BOUNDS);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
 	for (int i = 0; i < this->n; i++) {
 		this->matrix[row][i] *= scalar;
 	}
 }
 
 void Matrix::row_swap(int row1, int row2) {
-	if (row1 >= this->m || row2 >= this->m) {
-		std::cout << "Row index out of boundaries" << std::endl;
-		return;
+	if (0 > row1 || row1 >= this->m || 0 > row2 || row2 >= this->m) {
+		LALIB_Error ex(ErrorCode::ROW_OUT_BOUNDS);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
 	}
 	for (int i = 0; i < this->n; i++) {
 		double temp = this->matrix[row1][i];
@@ -218,8 +262,9 @@ void Matrix::row_swap(int row1, int row2) {
 
 void Matrix::matrix_addition(Matrix& src) {
 	if (this->m != src.get_m() && this->n != src.get_n()) {
-		std::cout << "Matrix dimensions are not consistent." << std::endl;
-		return;
+		LALIB_Error ex(ErrorCode::INCONS_MATRX_DIMS);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
 	}
 	for (int i = 0; i < this->m; i++) {
 		for (int j = 0; j < this->n; j++) {
