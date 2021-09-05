@@ -1,7 +1,5 @@
 #include "Operations.h"
 
-#include <iostream>
-
 namespace {
 	int find_pivot_row(Matrix& copy, int row, int col) {
 		for (int i = row; i < copy.get_m(); i++) {
@@ -15,19 +13,19 @@ namespace {
 Matrix invert(Matrix& src) {
 
 	if (!src.is_square()) {
-		//Throw exception when this condition is satisfied
-		std::cout << "Input matrix is not square!" << std::endl;
-		return src;
+		LALIB_Error ex(ErrorCode::NON_SQR_MTRX);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
 	}
 	if (determinant(src) == 0) {
-		//Throw exception when this condition is satisfied
-		std::cout << "Cannot get inverse of singular matrix!" << std::endl;
-		return src;
+		LALIB_Error ex(ErrorCode::INV_SNGL_MTRX);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
 	}
 	Matrix copy(src);
 	Matrix inverted('i', src.get_n());
-	int row = 0; //pivot row
-	int col = 0; //pivot column
+	int row = 0; //index of current pivot row
+	int col = 0; //index of current pivot column
 	for (row = 0; row < copy.get_m(); row++) {
 		while (true) {
 			if (row >= copy.get_m() || col >= copy.get_n())
