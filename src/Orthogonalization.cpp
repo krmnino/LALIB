@@ -32,15 +32,19 @@ Matrix unit_vector(Matrix &src) {
 	return out;
 }
 
-Matrix projection_onto(Matrix &src1, Matrix &src2) { //Note: Projection of src2 onto src1
-	src1.transpose();
-	double magnitude = 0;
-	for (int i = 0; i < src1.get_m(); i++) {
-		magnitude += pow(src1.get_single_element(i, 0), 2);
+//Note: Computing the projection of proj_vec onto onto_vec_in: proj_(onto_vec_in)(proj_vec)
+Matrix projection_onto(Matrix &onto_vec_in, Matrix &proj_vec) {
+	if (onto_vec_in.get_n() != 1 || proj_vec.get_n() != 1) {
+		//Throw exception when this condition is satisfied
+		std::cout << "N dimension in both matrices must be 1." << std::endl;
+		return Matrix('i', 1);
 	}
-	double dot_product = multiply(src1, src2).get_single_element(0, 0);
-	src1.scalar_multi(dot_product / magnitude);
-	return src1;
+	Matrix onto_vec_out(onto_vec_in);
+	double magnitude = pow(vector_magnitude(onto_vec_in), 2);
+	onto_vec_out.transpose();
+	double dot_product = multiply(onto_vec_out, proj_vec).get_single_element(0, 0);
+	onto_vec_out.scalar_multi(dot_product / magnitude);
+	return onto_vec_out;
 }
 
 Matrix gram_schmidt(Matrix &src) {
