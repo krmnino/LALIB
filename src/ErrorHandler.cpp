@@ -12,6 +12,18 @@ LALIB_Error::LALIB_Error(ErrorCode error) {
 		case ErrorCode::NON_SQR_MTRX:
 			this->message = "Error: Evaluated matrix is not square.";
 			break;
+		case ErrorCode::INV_SNGL_MTRX:
+			this->message = "Error: Cannot compute inverse of a singular matrix.";
+			break;
+		case ErrorCode::INCONS_MATRX_DIMS:
+			this->message = "Error: The row and column count for both matrices is not consistent.";
+			break;
+		case ErrorCode::ROW_OUT_BOUNDS:
+			this->message = "Error: Row index of evaluated matrix is out of bounds.";
+			break;
+		case ErrorCode::COL_OUT_BOUNDS:
+			this->message = "Error: Column index of evaluated matrix is out of bounds.";
+			break;
 		default:
 			break;
 	}

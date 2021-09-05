@@ -8,6 +8,10 @@
 enum class ErrorCode {
 	OK,
 	NON_SQR_MTRX,
+	INV_SNGL_MTRX,
+	INCONS_MATRX_DIMS,
+	ROW_OUT_BOUNDS,
+	COL_OUT_BOUNDS,
 };
 
 class LALIB_Error : public std::exception {
