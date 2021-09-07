@@ -16,9 +16,9 @@ namespace {
 
 Matrix unit_vector(Matrix &src) {
 	if (src.get_n() != 1) {
-		//Throw exception when this condition is satisfied
-		std::cout << "Matrix must contain 1 column." << std::endl;
-		return Matrix('i', 1);
+		LALIB_Error ex(ErrorCode::NOT_SINGLE_COL);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
 	}
 	double v_length = 0;
 	for (int i = 0; i < src.get_m(); i++) {
@@ -35,9 +35,9 @@ Matrix unit_vector(Matrix &src) {
 //Note: Computing the projection of proj_vec onto onto_vec_in: proj_(onto_vec_in)(proj_vec)
 Matrix projection_onto(Matrix &onto_vec_in, Matrix &proj_vec) {
 	if (onto_vec_in.get_n() != 1 || proj_vec.get_n() != 1) {
-		//Throw exception when this condition is satisfied
-		std::cout << "N dimension in both matrices must be 1." << std::endl;
-		return Matrix('i', 1);
+		LALIB_Error ex(ErrorCode::NOT_SINGLE_COL);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
 	}
 	Matrix onto_vec_out(onto_vec_in);
 	double magnitude = pow(vector_magnitude(onto_vec_in), 2);

@@ -12,6 +12,9 @@ enum class ErrorCode {
 	INCONS_MATRX_DIMS,
 	ROW_OUT_BOUNDS,
 	COL_OUT_BOUNDS,
+	ROW_COL_NOTEQ,
+	NOT_SINGLE_ROW,
+	NOT_SINGLE_COL,
 };
 
 class LALIB_Error : public std::exception {

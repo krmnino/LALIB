@@ -24,7 +24,17 @@ LALIB_Error::LALIB_Error(ErrorCode error) {
 		case ErrorCode::COL_OUT_BOUNDS:
 			this->message = "Error: Column index of evaluated matrix is out of bounds.";
 			break;
+		case ErrorCode::ROW_COL_NOTEQ:
+			this->message = "M and N dimensions do not match between evaluated matrices.";
+			break;
+		case ErrorCode::NOT_SINGLE_ROW:
+			this->message = "The number of rows in evauluated matrix must be 1.";
+			break;
+		case ErrorCode::NOT_SINGLE_COL:
+			this->message = "The number of columns in evauluated matrix must be 1.";
+			break;
 		default:
+			this->message = "Undefinded error.";
 			break;
 	}
 }

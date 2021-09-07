@@ -2,12 +2,12 @@
 
 #include <iostream>
 
-Matrix multiply(Matrix &m1, Matrix &m2) { //revise for matrices of mxn size, not only 1x1
+Matrix multiply(Matrix &m1, Matrix &m2) {
 	Matrix out(m1.get_m(), m2.get_n());
-	if (m1.get_n() == m2.get_m()) {
-		//Modify if-else and add throw exception
-		std::cout << "M and N dimensions do not match between input matrices." << std::endl;
-		return Matrix('i', 1);
+	if (m1.get_n() != m2.get_m()) {
+		LALIB_Error ex(ErrorCode::ROW_COL_NOTEQ);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
 	}
 	int out_row_index = 0;
 	int out_column_index = 0;
