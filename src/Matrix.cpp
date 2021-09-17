@@ -150,12 +150,12 @@ bool Matrix::is_square() {
 }
 
 double Matrix::get_single_element(int row, int col) {
-	if (0 > row || row <= this->m) {
+	if (0 > row || row >= this->m) {
 		LALIB_Error ex(ErrorCode::ROW_OUT_BOUNDS);
 		std::cerr << ex.what() << std::endl;
 		throw ex;
 	}
-	if (0 > col || col <= this->n) {
+	if (0 > col || col >= this->n) {
 		LALIB_Error ex(ErrorCode::COL_OUT_BOUNDS);
 		std::cerr << ex.what() << std::endl;
 		throw ex;
@@ -164,12 +164,12 @@ double Matrix::get_single_element(int row, int col) {
 }
 
 void Matrix::set_single_element(int row, int col, double val) {
-	if (0 > row || row <= this->m) {
+	if (0 > row || row >= this->m) {
 		LALIB_Error ex(ErrorCode::ROW_OUT_BOUNDS);
 		std::cerr << ex.what() << std::endl;
 		throw ex;
 	}
-	if (0 > col || col <= this->n) {
+	if (0 > col || col >= this->n) {
 		LALIB_Error ex(ErrorCode::COL_OUT_BOUNDS);
 		std::cerr << ex.what() << std::endl;
 		throw ex;
@@ -178,7 +178,7 @@ void Matrix::set_single_element(int row, int col, double val) {
 }
 
 Matrix Matrix::get_row(int row) {
-	if (0 > row || row <= this->m) {
+	if (0 > row || row >= this->m) {
 		LALIB_Error ex(ErrorCode::ROW_OUT_BOUNDS);
 		std::cerr << ex.what() << std::endl;
 		throw ex;
