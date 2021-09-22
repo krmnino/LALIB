@@ -16,9 +16,9 @@ public:
 	Matrix(const Matrix &);
 	Matrix(char, int);
 	~Matrix();
-	std::vector<std::vector<double>> get_matrix();
 	int get_m();
 	int get_n();
+	std::vector<std::vector<double>> get_matrix();
 	bool is_square();
 	double get_single_element(int, int);
 	void set_single_element(int, int, double);
