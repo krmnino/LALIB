@@ -23,21 +23,21 @@ int test(std::initializer_list<Matrix> list) {
 
 int main()
 {
-	// Test: use get_m() from a 4 x 4 matrix
+	// Test: use get_m() on a 4 x 4 matrix
 	{
 		Matrix mtrx('r', 4);
 		//std::cout << mtrx << std::endl;
 		assert(mtrx.get_m() == 4);
 	}
 
-	// Test: use get_n() from a 4 x 4 matrix
+	// Test: use get_n() on a 4 x 4 matrix
 	{
 		Matrix mtrx('r', 4);
 		//std::cout << mtrx << std::endl;
 		assert(mtrx.get_n() == 4);
 	}
 
-	// Test: use get_matrix() from a 4 x 4 matrix
+	// Test: use get_matrix() on a 4 x 4 matrix
 	{
 		Matrix mtrx('r', 4);
 		//std::cout << mtrx << std::endl;
@@ -50,11 +50,49 @@ int main()
 		}
 	}
 
-	// Test: use is_square() from a 4 x 4 matrix
+	// Test: use is_square() on a 4 x 4 matrix
 	{
 		Matrix mtrx(5, 5);
 		//std::cout << mtrx << std::endl;
 		assert(mtrx.is_square());
+	}
+
+	// Test: use get_single_element() on a 3 x 3 matrix
+	{
+		Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
+		//std::cout << mtrx << std::endl;
+		assert(mtrx.get_single_element(1,1) == 5);
+	}
+
+	// Test: use get_single_element() -> invalid row index
+	{
+		Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
+		//std::cout << mtrx << std::endl;
+		//auto ret = mtrx.get_single_element(12, 1);
+		//auto ret = mtrx.get_single_element(-12, 1);
+	}
+
+	// Test: use get_single_element() -> invalid column index
+	{
+		Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
+		//std::cout << mtrx << std::endl;
+		mtrx.set_single_element(1, 2, 100.123);
+		//std::cout << mtrx << std::endl;
+		assert(mtrx.get_single_element(1, 2) == 100.123);
+	}
+
+	// Test: use set_single_element() -> invalid row index
+	{
+		Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
+		//std::cout << mtrx << std::endl;
+		//mtrx.set_single_element(12, 1, 123);
+	}
+
+	// Test: use set_single_element() -> invalid column index
+	{
+		Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
+		//std::cout << mtrx << std::endl;
+		//mtrx.set_single_element(1, 12, 123);
 	}
 
 	// Test: Parse 3 x 1 matrix
