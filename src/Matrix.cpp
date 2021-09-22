@@ -108,11 +108,11 @@ Matrix::Matrix(const Matrix &src) {
 }
 
 Matrix::Matrix(char flag, int n) {
-	this->m = n;
-	this->n = n;
-	this->matrix.resize(this->m, vector<double>(this->n, 0));
 	switch (flag) {
 		case 'r': // Generate matrix nxn of random values
+			this->m = n;
+			this->n = n;
+			this->matrix.resize(this->m, vector<double>(this->n, 0));
 			for (int i = 0; i < this->m; i++) {
 				for (int j = 0; j < this->n; j++) {
 					this->matrix[i][j] = rand() % (n * n) + (double)1;
@@ -120,6 +120,9 @@ Matrix::Matrix(char flag, int n) {
 			}
 			break;
 		case 'i': // Generate identity matrix nxn 
+			this->m = n;
+			this->n = n;
+			this->matrix.resize(this->m, vector<double>(this->n, 0));
 			for (int i = 0; i < this->m; i++)
 				this->matrix[i][i] = 1;
 			break;
