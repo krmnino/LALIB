@@ -72,7 +72,15 @@ int main()
 		//auto ret = mtrx.get_single_element(-12, 1);
 	}
 
-	// Test: use get_single_element() -> invalid column index
+	// Test: use get_single_element() -> invalid row index
+	{
+		Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
+		//std::cout << mtrx << std::endl;
+		//auto ret = mtrx.get_single_element(1, 12);
+		//auto ret = mtrx.get_single_element(1, -1);
+	}
+
+	// Test: use set_single_element() on a 3 x 3 matrix
 	{
 		Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
 		//std::cout << mtrx << std::endl;
@@ -86,6 +94,7 @@ int main()
 		Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
 		//std::cout << mtrx << std::endl;
 		//mtrx.set_single_element(12, 1, 123);
+		//mtrx.set_single_element(-1, 1, 123);
 	}
 
 	// Test: use set_single_element() -> invalid column index
@@ -93,7 +102,50 @@ int main()
 		Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
 		//std::cout << mtrx << std::endl;
 		//mtrx.set_single_element(1, 12, 123);
+		//mtrx.set_single_element(1, -1, 123);
 	}
+
+	// Test: use get_row() on a 3 x 3 matrix
+	{
+		Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
+		//std::cout << mtrx << std::endl;
+		auto ret = mtrx.get_row(0);
+		assert(ret.get_m() == 1);
+		assert(ret.get_n() == 3);
+		assert(ret.get_single_element(0, 0) == 7);
+		assert(ret.get_single_element(0, 1) == 8);
+		assert(ret.get_single_element(0, 2) == 9);
+	}
+
+	// Test: use get_row() on a 3 x 3 matrix
+	{
+		Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
+		//std::cout << mtrx << std::endl;
+		//auto ret1 = mtrx.get_row(10);
+		//auto ret2 = mtrx.get_row(-1);
+	}
+
+	// Test: use get_column() on a 3 x 3 matrix
+	{
+		Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
+		//std::cout << mtrx << std::endl;
+		auto ret = mtrx.get_column(0);
+		assert(ret.get_m() == 3);
+		assert(ret.get_n() == 1);
+		assert(ret.get_single_element(0, 0) == 7);
+		assert(ret.get_single_element(1, 0) == 4);
+		assert(ret.get_single_element(2, 0) == 1);
+	}
+
+	// Test: use get_column() on a 3 x 3 matrix
+	{
+		Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
+		//std::cout << mtrx << std::endl;
+		//auto ret1 = mtrx.get_column(10);
+		//auto ret2 = mtrx.get_column(-1);
+	}
+
+	///////////////////////////////////////////////////////////////////
 
 	// Test: Parse 3 x 1 matrix
 	{
