@@ -30,6 +30,7 @@ public:
 	void row_scale(int, double);
 	void row_swap(int, int);
 	void matrix_addition(Matrix&);
+	Matrix operator+ (Matrix&);
 	void scalar_multi(double);
 	void transpose();
 	friend std::ostream& operator<<(std::ostream& out, Matrix& matrx);
