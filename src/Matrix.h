@@ -20,6 +20,7 @@ public:
 	int get_n();
 	std::vector<std::vector<double>> get_matrix();
 	bool is_square();
+	bool equal(Matrix&);
 	double get_single_element(int, int);
 	void set_single_element(int, int, double);
 	Matrix get_row(int);

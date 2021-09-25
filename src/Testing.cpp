@@ -57,6 +57,42 @@ int main()
 		assert(mtrx.is_square());
 	}
 
+	// Test: use equal() to compare two 3 x 3 equal matrix
+	{
+		Matrix mtrx1("7 8 9; 4 5 6; 1 2 3");
+		Matrix mtrx2("7 8 9; 4 5 6; 1 2 3");
+		//std::cout << mtrx1 << std::endl;
+		//std::cout << mtrx2 << std::endl;
+		assert(mtrx1.equal(mtrx2));
+	}
+
+	// Test: use equal() to compare two 3 x 3 matrix with different contents
+	{
+		Matrix mtrx1("7 8 9; 4 5 6; 1 2 3");
+		Matrix mtrx2('i', 3);
+		//std::cout << mtrx1 << std::endl;
+		//std::cout << mtrx2 << std::endl;
+		assert(!mtrx1.equal(mtrx2));
+	}
+
+	// Test: use equal() to compare a 3 x 1 matrix and 4 x 1 matrix
+	{
+		Matrix mtrx1("7; 4; 1");
+		Matrix mtrx2("1; 2; 3; 4");
+		//std::cout << mtrx1 << std::endl;
+		//std::cout << mtrx2 << std::endl;
+		assert(!mtrx1.equal(mtrx2));
+	}
+
+	// Test: use equal() to compare a 1 x 3 matrix and 1 x 4 matrix
+	{
+		Matrix mtrx1("7 4 1;");
+		Matrix mtrx2("1 2 3 4;");
+		//std::cout << mtrx1 << std::endl;
+		//std::cout << mtrx2 << std::endl;
+		assert(!mtrx1.equal(mtrx2));
+	}
+
 	// Test: use get_single_element() on a 3 x 3 matrix
 	{
 		Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
@@ -222,9 +258,9 @@ int main()
 	{
 		double scalar = 0.5;
 		Matrix mtrx("5 5 5; 4 4 4; 3 3 3");
-		std::cout << mtrx << std::endl;
+		//std::cout << mtrx << std::endl;
 		mtrx.row_scale(1, scalar);
-		std::cout << mtrx << std::endl;
+		//std::cout << mtrx << std::endl;
 		for (int i = 0; i < mtrx.get_m(); i++) {
 			assert(mtrx.get_single_element(0, i) == 5);
 			assert(mtrx.get_single_element(1, i) == 4 * (double)scalar);

@@ -152,6 +152,23 @@ bool Matrix::is_square() {
 	return false;
 }
 
+bool Matrix::equal(Matrix& src) {
+	if (this->get_m() != src.get_m()) {
+		return false;
+	}
+	if (this->get_n() != src.get_n()) {
+		return false;
+	}
+	for (int i = 0; i < this->get_m(); i++) {
+		for (int j = 0; j < this->get_n(); j++) {
+			if (this->get_single_element(i, j) != src.get_single_element(i, j)) {
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
 double Matrix::get_single_element(int row, int col) {
 	if (0 > row || row >= this->m) {
 		LALIB_Error ex(ErrorCode::ROW_OUT_BOUNDS);
@@ -228,21 +245,6 @@ void Matrix::remove_column(int col) {
 	}
 }
 
-Matrix Matrix::operator+(Matrix& src) {
-	if (this->m != src.get_m() || this->n != src.get_n()) {
-		LALIB_Error ex(ErrorCode::INCONS_MATRX_DIMS);
-		std::cerr << ex.what() << std::endl;
-		throw ex;
-	}
-	Matrix out(this->m, this->n);
-	for (int i = 0; i < this->m; i++) {
-		for (int j = 0; j < this->n; j++) {
-			out.set_single_element(i, j, this->matrix[i][j] + src.get_single_element(i, j));
-		}
-	}
-	return out;
-}
-
 void Matrix::row_addition(int row1, int row2) {
 	if (0 > row1 || row1 >= this->m || 0 > row2 || row2 >= this->m) {
 		LALIB_Error ex(ErrorCode::ROW_OUT_BOUNDS);
@@ -289,6 +291,21 @@ void Matrix::matrix_addition(Matrix& src) {
 			this->matrix[i][j] += src.get_single_element(i, j);
 		}
 	}
+}
+
+Matrix Matrix::operator+(Matrix& src) {
+	if (this->m != src.get_m() || this->n != src.get_n()) {
+		LALIB_Error ex(ErrorCode::INCONS_MATRX_DIMS);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
+	Matrix out(this->m, this->n);
+	for (int i = 0; i < this->m; i++) {
+		for (int j = 0; j < this->n; j++) {
+			out.set_single_element(i, j, this->matrix[i][j] + src.get_single_element(i, j));
+		}
+	}
+	return out;
 }
 
 void Matrix::scalar_multi(double scalar) {
