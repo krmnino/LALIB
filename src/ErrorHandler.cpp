@@ -16,7 +16,13 @@ LALIB_Error::LALIB_Error(ErrorCode error) {
 			this->message = "Error: Cannot compute inverse of a singular matrix.";
 			break;
 		case ErrorCode::INCONS_MATRX_DIMS:
-			this->message = "Error: The row and column count for both matrices is not consistent.";
+			this->message = "Error: The row and column count is not consistent between both matrices.";
+			break;
+		case ErrorCode::INCONS_MATRX_ROWS:
+			this->message = "Error: The row count is not consistent between both matrices.";
+			break;
+		case ErrorCode::INCONS_MATRX_COLS:
+			this->message = "Error: The column count is not consistent between both matrices.";
 			break;
 		case ErrorCode::ROW_OUT_BOUNDS:
 			this->message = "Error: Row index of evaluated matrix is out of bounds.";
