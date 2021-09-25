@@ -325,6 +325,19 @@ int main()
 		//mtrx1.matrix_addition(mtrx2);
 	}
 
+	// Test: use matrix_scale() on a 3 x 3 matrix
+	{
+		Matrix mtrx("2 2 2; 2 2 2; 2 2 2");
+		std::cout << mtrx << std::endl;
+		mtrx.matrix_scale(40);
+		std::cout << mtrx << std::endl;
+		for (int i = 0; i < mtrx.get_m(); i++) {
+			for (int j = 0; j < mtrx.get_n(); j++) {
+				assert(mtrx.get_single_element(i, j) == 80);
+			}
+		}
+	}
+
 	///////////////////////////////////////////////////////////////////
 
 	// Test: Parse 3 x 1 matrix

@@ -298,22 +298,7 @@ void Matrix::matrix_addition(Matrix& src) {
 	}
 }
 
-Matrix Matrix::operator+(Matrix& src) {
-	if (this->m != src.get_m() || this->n != src.get_n()) {
-		LALIB_Error ex(ErrorCode::INCONS_MATRX_DIMS);
-		std::cerr << ex.what() << std::endl;
-		throw ex;
-	}
-	Matrix out(this->m, this->n);
-	for (int i = 0; i < this->m; i++) {
-		for (int j = 0; j < this->n; j++) {
-			out.set_single_element(i, j, this->matrix[i][j] + src.get_single_element(i, j));
-		}
-	}
-	return out;
-}
-
-void Matrix::scalar_multi(double scalar) {
+void Matrix::matrix_scale(double scalar) {
 	for (int i = 0; i < this->m; i++) {
 		for (int j = 0; j < this->n; j++) {
 			this->matrix[i][j] *= scalar;
@@ -330,6 +315,27 @@ void Matrix::transpose() {
 	this->m = transposed.get_m();
 	this->n = transposed.get_n();
 }
+
+Matrix Matrix::operator+(Matrix& src) {
+	if (this->m != src.get_m()) {
+		LALIB_Error ex(ErrorCode::INCONS_MATRX_ROWS);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
+	if (this->n != src.get_n()) {
+		LALIB_Error ex(ErrorCode::INCONS_MATRX_COLS);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
+	Matrix out(this->m, this->n);
+	for (int i = 0; i < this->m; i++) {
+		for (int j = 0; j < this->n; j++) {
+			out.set_single_element(i, j, this->matrix[i][j] + src.get_single_element(i, j));
+		}
+	}
+	return out;
+}
+
 
 ostream& operator<<(std::ostream& out, Matrix& mtrx) {
 	for (int i = 0; i < (signed)mtrx.get_m(); i++) {
