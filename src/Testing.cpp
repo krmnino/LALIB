@@ -204,6 +204,43 @@ int main()
 		//mtrx.row_addition(-5, 5);
 	}
 
+	// Test: use row_scale() on a 3 x 3 matrix with int scalar
+	{
+		int scalar = 10;
+		Matrix mtrx("5 5 5; 4 4 4; 3 3 3");
+		//std::cout << mtrx << std::endl;
+		mtrx.row_scale(1, scalar);
+		//std::cout << mtrx << std::endl;
+		for (int i = 0; i < mtrx.get_m(); i++) {
+			assert(mtrx.get_single_element(0, i) == 5);
+			assert(mtrx.get_single_element(1, i) == 4 * (double)scalar);
+			assert(mtrx.get_single_element(2, i) == 3);
+		}
+	}
+
+	// Test: use row_scale() on a 3 x 3 matrix with double scalar
+	{
+		double scalar = 0.5;
+		Matrix mtrx("5 5 5; 4 4 4; 3 3 3");
+		std::cout << mtrx << std::endl;
+		mtrx.row_scale(1, scalar);
+		std::cout << mtrx << std::endl;
+		for (int i = 0; i < mtrx.get_m(); i++) {
+			assert(mtrx.get_single_element(0, i) == 5);
+			assert(mtrx.get_single_element(1, i) == 4 * (double)scalar);
+			assert(mtrx.get_single_element(2, i) == 3);
+		}
+	}
+
+	// Test: use row_scale() -> invalid row index
+	{
+		int scalar = 10;
+		Matrix mtrx("5 5 5; 4 4 4; 3 3 3");
+		//std::cout << mtrx << std::endl;
+		//mtrx.row_scale(5, scalar);
+		//mtrx.row_scale(-5, scalar);
+	}
+
 	///////////////////////////////////////////////////////////////////
 
 	// Test: Parse 3 x 1 matrix
