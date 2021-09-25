@@ -277,6 +277,23 @@ int main()
 		//mtrx.row_scale(-5, scalar);
 	}
 
+	// Test: use row_swap() on a 5 x 5 matrix
+	{
+		Matrix mtrx1("5 5 5; 4 4 4; 3 3 3");
+		Matrix mtrx2("4 4 4; 5 5 5; 3 3 3");
+		mtrx1.row_swap(0, 1);
+		assert(mtrx1.equal(mtrx2));
+	}
+
+	// Test: use row_swap() -> invalid row index 
+	{
+		Matrix mtrx("5 5 5; 4 4 4; 3 3 3");
+		//mtrx.row_swap(5, 1);
+		//mtrx.row_swap(-5, 1);
+		//mtrx.row_swap(0, 5);
+		//mtrx.row_swap(0, -5);
+	}
+
 	///////////////////////////////////////////////////////////////////
 
 	// Test: Parse 3 x 1 matrix
