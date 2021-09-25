@@ -145,6 +145,65 @@ int main()
 		//auto ret2 = mtrx.get_column(-1);
 	}
 
+	// Test: use remove_row() on a 5 x 5 matrix
+	{
+		Matrix mtrx('r', 5);
+		//std::cout << mtrx << std::endl;
+		mtrx.remove_row(2);
+		//std::cout << mtrx << std::endl;
+		assert(mtrx.get_m() == 4);
+		assert(mtrx.get_n() == 5);
+	}
+
+	// Test: use remove_row() -> invalid row index
+	{
+		Matrix mtrx('r', 5);
+		//std::cout << mtrx << std::endl;
+		//mtrx.remove_row(-2);
+		//mtrx.remove_row(8);
+	}
+
+	// Test: use remove_column() -> invalid row index
+	{
+		Matrix mtrx('r', 5);
+		//std::cout << mtrx << std::endl;
+		mtrx.remove_column(2);
+		//std::cout << mtrx << std::endl;
+		assert(mtrx.get_m() == 5);
+		assert(mtrx.get_n() == 4);
+	}
+
+	// Test: use remove_column() -> invalid row index
+	{
+		Matrix mtrx('r', 5);
+		//std::cout << mtrx << std::endl;
+		//mtrx.remove_column(-2);
+		//mtrx.remove_column(8);
+	}
+
+	// Test: use row_addition() on a 3 x 3 matrix
+	{
+		Matrix mtrx("5 5 5; 4 4 4; 3 3 3");
+		//std::cout << mtrx << std::endl;
+		mtrx.row_addition(0, 1);
+		//std::cout << mtrx << std::endl;
+		for (int i = 0; i < mtrx.get_m(); i++) {
+			assert(mtrx.get_single_element(0, i) == 9);
+			assert(mtrx.get_single_element(1, i) == 4);
+			assert(mtrx.get_single_element(2, i) == 3);
+		}
+	}
+
+	// Test: use row_addition() -> invalid row index
+	{
+		Matrix mtrx("5 5 5; 4 4 4; 3 3 3");
+		//std::cout << mtrx << std::endl;
+		//mtrx.row_addition(0, 5);
+		//mtrx.row_addition(0, -5);
+		//mtrx.row_addition(5, 1);
+		//mtrx.row_addition(-5, 5);
+	}
+
 	///////////////////////////////////////////////////////////////////
 
 	// Test: Parse 3 x 1 matrix
