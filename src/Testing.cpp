@@ -281,17 +281,48 @@ int main()
 	{
 		Matrix mtrx1("5 5 5; 4 4 4; 3 3 3");
 		Matrix mtrx2("4 4 4; 5 5 5; 3 3 3");
+		//std::cout << mtrx << std::endl;
 		mtrx1.row_swap(0, 1);
+		//std::cout << mtrx << std::endl;
 		assert(mtrx1.equal(mtrx2));
 	}
 
 	// Test: use row_swap() -> invalid row index 
 	{
 		Matrix mtrx("5 5 5; 4 4 4; 3 3 3");
+		//std::cout << mtrx << std::endl;
 		//mtrx.row_swap(5, 1);
 		//mtrx.row_swap(-5, 1);
 		//mtrx.row_swap(0, 5);
 		//mtrx.row_swap(0, -5);
+	}
+
+	// Test: use matrix_addition() on two 3 x 3 matrix
+	{
+		Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
+		Matrix mtrx2("8 8 8; 6 6 6; 4 4 4");
+		//std::cout << mtrx1 << std::endl;
+		mtrx1.matrix_addition(mtrx2);
+		//std::cout << mtrx1 << std::endl;
+		for (int i = 0; i < mtrx1.get_m(); i++) {
+			for (int j = 0; j < mtrx1.get_n(); j++) {
+				assert(mtrx1.get_single_element(i, j) == 10);
+			}
+		}
+	}
+
+	// Test: use matrix_addition() on a 3 x 3 matrix and 1 x 3 matrix
+	{
+		Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
+		Matrix mtrx2("1 2 3;");
+		//mtrx1.matrix_addition(mtrx2);
+	}
+
+	// Test: use matrix_addition() on a 3 x 3 matrix and 3 x 1 matrix
+	{
+		Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
+		Matrix mtrx2("1; 2; 3;");
+		//mtrx1.matrix_addition(mtrx2);
 	}
 
 	///////////////////////////////////////////////////////////////////

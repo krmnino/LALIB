@@ -281,8 +281,13 @@ void Matrix::row_swap(int row1, int row2) {
 }
 
 void Matrix::matrix_addition(Matrix& src) {
-	if (this->m != src.get_m() && this->n != src.get_n()) {
-		LALIB_Error ex(ErrorCode::INCONS_MATRX_DIMS);
+	if (this->m != src.get_m()) {
+		LALIB_Error ex(ErrorCode::INCONS_MATRX_ROWS);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
+	if (this->n != src.get_n()) {
+		LALIB_Error ex(ErrorCode::INCONS_MATRX_COLS);
 		std::cerr << ex.what() << std::endl;
 		throw ex;
 	}
