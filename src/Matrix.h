@@ -11,6 +11,7 @@ private:
 	int n;
 
 public:
+	Matrix();
 	Matrix(std::string);
 	Matrix(int, int);
 	Matrix(const Matrix &);

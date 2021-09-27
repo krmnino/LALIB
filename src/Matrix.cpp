@@ -5,6 +5,11 @@
 
 using namespace std;
 
+Matrix::Matrix() {
+	this->m = 0;
+	this->n = 0;
+}
+
 Matrix::Matrix(string data) {
 	vector<string> rows_arr;
 	if (data.find(";") == -1) {
