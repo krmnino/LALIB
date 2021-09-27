@@ -43,7 +43,7 @@ Matrix projection_onto(Matrix &onto_vec_in, Matrix &proj_vec) {
 	double magnitude = pow(vector_magnitude(onto_vec_in), 2);
 	onto_vec_out.transpose();
 	double dot_product = multiply(onto_vec_out, proj_vec).get_single_element(0, 0);
-	onto_vec_out.scalar_multi(dot_product / magnitude);
+	onto_vec_out.matrix_scale(dot_product / magnitude);
 	return onto_vec_out;
 }
 
