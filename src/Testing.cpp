@@ -328,14 +328,97 @@ int main()
 	// Test: use matrix_scale() on a 3 x 3 matrix
 	{
 		Matrix mtrx("2 2 2; 2 2 2; 2 2 2");
-		std::cout << mtrx << std::endl;
+		//std::cout << mtrx << std::endl;
 		mtrx.matrix_scale(40);
-		std::cout << mtrx << std::endl;
+		//std::cout << mtrx << std::endl;
 		for (int i = 0; i < mtrx.get_m(); i++) {
 			for (int j = 0; j < mtrx.get_n(); j++) {
 				assert(mtrx.get_single_element(i, j) == 80);
 			}
 		}
+	}
+
+	// Test: use transpose() on a 3 x 3 
+	{
+		Matrix mtrx("2 2 2; 4 4 4; 6 6 6");
+		//std::cout << mtrx << std::endl;
+		mtrx.transpose();
+		//std::cout << mtrx << std::endl;
+		assert(mtrx.get_single_element(0, 0) == 2);
+		assert(mtrx.get_single_element(0, 1) == 4);
+		assert(mtrx.get_single_element(0, 2) == 6);
+		assert(mtrx.get_single_element(1, 0) == 2);
+		assert(mtrx.get_single_element(1, 1) == 4);
+		assert(mtrx.get_single_element(1, 2) == 6);
+		assert(mtrx.get_single_element(2, 0) == 2);
+		assert(mtrx.get_single_element(2, 1) == 4);
+		assert(mtrx.get_single_element(2, 2) == 6);
+	}
+
+	// Test: use transpose() on a 5 x 1 
+	{
+		Matrix mtrx("1; 2; 3; 4; 5");
+		//std::cout << mtrx << std::endl;
+		mtrx.transpose();
+		//std::cout << mtrx << std::endl;
+		assert(mtrx.get_single_element(0, 0) == 1);
+		assert(mtrx.get_single_element(0, 1) == 2);
+		assert(mtrx.get_single_element(0, 2) == 3);
+		assert(mtrx.get_single_element(0, 3) == 4);
+		assert(mtrx.get_single_element(0, 4) == 5);
+	}
+
+	// Test: use transpose() on a 1 x 5 
+	{
+		Matrix mtrx("1 2 3 4 5;");
+		//std::cout << mtrx << std::endl;
+		mtrx.transpose();
+		//std::cout << mtrx << std::endl;
+		assert(mtrx.get_single_element(0, 0) == 1);
+		assert(mtrx.get_single_element(1, 0) == 2);
+		assert(mtrx.get_single_element(2, 0) == 3);
+		assert(mtrx.get_single_element(3, 0) == 4);
+		assert(mtrx.get_single_element(4, 0) == 5);
+	}
+
+	// Test: use operator+ on two 3 x 3 matrix
+	{
+		Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
+		Matrix mtrx2("8 8 8; 6 6 6; 4 4 4");
+		Matrix ret = mtrx1 + mtrx2;
+		//std::cout << ret << std::endl;
+		for (int i = 0; i < ret.get_m(); i++) {
+			for (int j = 0; j < ret.get_n(); j++) {
+				assert(ret.get_single_element(i, j) == 10);
+			}
+		}
+	}
+
+	// Test: use operator+ on two 3 x 3 matrix
+	{
+		Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
+		Matrix mtrx2("8 8 8; 6 6 6; 4 4 4");
+		mtrx1 = mtrx1 + mtrx2;
+		//std::cout << mtrx1 << std::endl;
+		for (int i = 0; i < mtrx1.get_m(); i++) {
+			for (int j = 0; j < mtrx1.get_n(); j++) {
+				assert(mtrx1.get_single_element(i, j) == 10);
+			}
+		}
+	}
+
+	// Test: use operator+ on a 3 x 3 matrix and 1 x 3 matrix
+	{
+		Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
+		Matrix mtrx2("1 2 3;");
+		//Matrix ret = mtrx1 + mtrx2;
+	}
+
+	// Test: use operator+ on a 3 x 3 matrix and 3 x 1 matrix
+	{
+		Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
+		Matrix mtrx2("1; 2; 3;");
+		Matrix ret = mtrx1 + mtrx2;
 	}
 
 	///////////////////////////////////////////////////////////////////
