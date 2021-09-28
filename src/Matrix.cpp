@@ -341,6 +341,25 @@ Matrix Matrix::operator+(Matrix& src) {
 	return out;
 }
 
+Matrix Matrix::operator-(Matrix& src) {
+	if (this->m != src.get_m()) {
+		LALIB_Error ex(ErrorCode::INCONS_MATRX_ROWS);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
+	if (this->n != src.get_n()) {
+		LALIB_Error ex(ErrorCode::INCONS_MATRX_COLS);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
+	Matrix out(this->m, this->n);
+	for (int i = 0; i < this->m; i++) {
+		for (int j = 0; j < this->n; j++) {
+			out.set_single_element(i, j, this->matrix[i][j] - src.get_single_element(i, j));
+		}
+	}
+	return out;
+}
 
 ostream& operator<<(std::ostream& out, Matrix& mtrx) {
 	for (int i = 0; i < (signed)mtrx.get_m(); i++) {

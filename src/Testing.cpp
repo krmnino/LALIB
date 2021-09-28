@@ -399,7 +399,7 @@ int main()
 		Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
 		Matrix mtrx2("8 8 8; 6 6 6; 4 4 4");
 		mtrx1 = mtrx1 + mtrx2;
-		//std::cout << mtrx1 << std::endl;
+		std::cout << mtrx1 << std::endl;
 		for (int i = 0; i < mtrx1.get_m(); i++) {
 			for (int j = 0; j < mtrx1.get_n(); j++) {
 				assert(mtrx1.get_single_element(i, j) == 10);
@@ -418,7 +418,47 @@ int main()
 	{
 		Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
 		Matrix mtrx2("1; 2; 3;");
-		Matrix ret = mtrx1 + mtrx2;
+		//Matrix ret = mtrx1 + mtrx2;
+	}
+
+	// Test: use operator- on two 3 x 3 matrix
+	{
+		Matrix mtrx1("8 8 8; 10 10 10; 6 6 6");
+		Matrix mtrx2("2 2 2; 4 4 4; 0 0 0");
+		Matrix ret = mtrx1 - mtrx2;
+		//std::cout << ret << std::endl;
+		for (int i = 0; i < ret.get_m(); i++) {
+			for (int j = 0; j < ret.get_n(); j++) {
+				assert(ret.get_single_element(i, j) == 6);
+			}
+		}
+	}
+
+	// Test: use operator+ on two 3 x 3 matrix
+	{
+		Matrix mtrx1("8 8 8; 10 10 10; 6 6 6");
+		Matrix mtrx2("2 2 2; 4 4 4; 0 0 0");
+		mtrx1 = mtrx1 - mtrx2;
+		//std::cout << mtrx1 << std::endl;
+		for (int i = 0; i < mtrx1.get_m(); i++) {
+			for (int j = 0; j < mtrx1.get_n(); j++) {
+				assert(mtrx1.get_single_element(i, j) == 6);
+			}
+		}
+	}
+
+	// Test: use operator+ on a 3 x 3 matrix and 1 x 3 matrix
+	{
+		Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
+		Matrix mtrx2("1 2 3;");
+		//Matrix ret = mtrx1 - mtrx2;
+	}
+
+	// Test: use operator+ on a 3 x 3 matrix and 3 x 1 matrix
+	{
+		Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
+		Matrix mtrx2("1; 2; 3;");
+		//Matrix ret = mtrx1 + mtrx2;
 	}
 
 	///////////////////////////////////////////////////////////////////

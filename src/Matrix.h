@@ -35,6 +35,7 @@ public:
 	void matrix_scale(double);
 	void transpose();
 	Matrix operator+ (Matrix&);
+	Matrix operator- (Matrix&);
 	friend std::ostream& operator<<(std::ostream& out, Matrix& matrx);
 };
 
