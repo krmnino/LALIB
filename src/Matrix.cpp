@@ -361,6 +361,16 @@ Matrix Matrix::operator-(Matrix& src) {
 	return out;
 }
 
+Matrix Matrix::operator*(double scalar) {
+	Matrix out(this->m, this->n);
+	for (int i = 0; i < this->m; i++) {
+		for (int j = 0; j < this->n; j++) {
+			out.set_single_element(i, j, this->matrix[i][j] * scalar);
+		}
+	}
+	return out;
+}
+
 ostream& operator<<(std::ostream& out, Matrix& mtrx) {
 	for (int i = 0; i < (signed)mtrx.get_m(); i++) {
 		for (int j = 0; j < (signed)mtrx.get_n(); j++) {

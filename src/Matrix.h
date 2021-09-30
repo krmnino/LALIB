@@ -36,6 +36,7 @@ public:
 	void transpose();
 	Matrix operator+ (Matrix&);
 	Matrix operator- (Matrix&);
+	Matrix operator* (double);
 	friend std::ostream& operator<<(std::ostream& out, Matrix& matrx);
 };
 

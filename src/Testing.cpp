@@ -387,6 +387,8 @@ int main()
 		Matrix mtrx2("8 8 8; 6 6 6; 4 4 4");
 		Matrix ret = mtrx1 + mtrx2;
 		//std::cout << ret << std::endl;
+		assert(ret.get_m() == 3);
+		assert(ret.get_n() == 3);
 		for (int i = 0; i < ret.get_m(); i++) {
 			for (int j = 0; j < ret.get_n(); j++) {
 				assert(ret.get_single_element(i, j) == 10);
@@ -399,7 +401,9 @@ int main()
 		Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
 		Matrix mtrx2("8 8 8; 6 6 6; 4 4 4");
 		mtrx1 = mtrx1 + mtrx2;
-		std::cout << mtrx1 << std::endl;
+		//std::cout << mtrx1 << std::endl;
+		assert(mtrx1.get_m() == 3);
+		assert(mtrx1.get_n() == 3);
 		for (int i = 0; i < mtrx1.get_m(); i++) {
 			for (int j = 0; j < mtrx1.get_n(); j++) {
 				assert(mtrx1.get_single_element(i, j) == 10);
@@ -427,6 +431,8 @@ int main()
 		Matrix mtrx2("2 2 2; 4 4 4; 0 0 0");
 		Matrix ret = mtrx1 - mtrx2;
 		//std::cout << ret << std::endl;
+		assert(ret.get_m() == 3);
+		assert(ret.get_n() == 3);
 		for (int i = 0; i < ret.get_m(); i++) {
 			for (int j = 0; j < ret.get_n(); j++) {
 				assert(ret.get_single_element(i, j) == 6);
@@ -439,6 +445,8 @@ int main()
 		Matrix mtrx1("8 8 8; 10 10 10; 6 6 6");
 		Matrix mtrx2("2 2 2; 4 4 4; 0 0 0");
 		mtrx1 = mtrx1 - mtrx2;
+		assert(mtrx1.get_m() == 3);
+		assert(mtrx1.get_n() == 3);
 		//std::cout << mtrx1 << std::endl;
 		for (int i = 0; i < mtrx1.get_m(); i++) {
 			for (int j = 0; j < mtrx1.get_n(); j++) {
@@ -459,6 +467,36 @@ int main()
 		Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
 		Matrix mtrx2("1; 2; 3;");
 		//Matrix ret = mtrx1 + mtrx2;
+	}
+
+	// Test: use operator*(double) on a 3 x 3 matrix and update source matrix
+	{
+		Matrix mtrx("2 2 2; 2 2 2; 2 2 2");
+		//std::cout << mtrx << std::endl;
+		mtrx = mtrx * 40;
+		//std::cout << mtrx << std::endl;
+		assert(mtrx.get_m() == 3);
+		assert(mtrx.get_n() == 3);
+		for (int i = 0; i < mtrx.get_m(); i++) {
+			for (int j = 0; j < mtrx.get_n(); j++) {
+				assert(mtrx.get_single_element(i, j) == 80);
+			}
+		}
+	}
+
+	// Test: use operator*(double) on a 3 x 3 matrix and update source matrix
+	{
+		Matrix mtrx("2 2 2; 2 2 2; 2 2 2");
+		std::cout << mtrx << std::endl;
+		Matrix ret = mtrx * 40;
+		std::cout << ret << std::endl;
+		assert(ret.get_m() == 3);
+		assert(ret.get_n() == 3);
+		for (int i = 0; i < ret.get_m(); i++) {
+			for (int j = 0; j < ret.get_n(); j++) {
+				assert(ret.get_single_element(i, j) == 80);
+			}
+		}
 	}
 
 	///////////////////////////////////////////////////////////////////
