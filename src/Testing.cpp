@@ -487,9 +487,9 @@ int main()
 	// Test: use operator*(double) on a 3 x 3 matrix and update source matrix
 	{
 		Matrix mtrx("2 2 2; 2 2 2; 2 2 2");
-		std::cout << mtrx << std::endl;
+		//std::cout << mtrx << std::endl;
 		Matrix ret = mtrx * 40;
-		std::cout << ret << std::endl;
+		//std::cout << ret << std::endl;
 		assert(ret.get_m() == 3);
 		assert(ret.get_n() == 3);
 		for (int i = 0; i < ret.get_m(); i++) {
@@ -625,9 +625,85 @@ int main()
 		assert(mtrx.get_n() == 0);
 	}
 
+	///////////////////////////////////////////////////////////////////
+
+	// Test: use determinant() on a 2 x 2 matrix -> succeeds
+	{
+		Matrix mtrx("5 8; 4 5");
+		//std::cout << mtrx << std::endl;
+		auto ret = determinant(mtrx);
+		//std::cout << ret << std::endl;
+		assert(ret == -7);
+	}
+
+	// Test: use determinant() on a 4 x 4 matrix -> succeeds
+	{
+		Matrix mtrx("2 4 1 -3; 7 2 2 -2; 3 3 2 2; 0 5 1 0");
+		//std::cout << mtrx << std::endl;
+		auto ret = determinant(mtrx);
+		//std::cout << ret << std::endl;
+		assert(ret == -35);
+	}
+
+	// Test: use determinant() on a 5 x 5 matrix -> succeeds
+	{
+		Matrix mtrx("8 9 7 8 2; 4 5 9 5 7; 1 3 6 6 8; 4 5 7 4 5; 2 3 6 8 9");
+		//std::cout << mtrx << std::endl;
+		auto ret = determinant(mtrx);
+		//std::cout << ret << std::endl;
+		assert(ret == 213);
+	}
+
+	// Test: use determinant() on a 3 x 3 singular matrix -> succeeds
+	{
+		Matrix mtrx("1 2 3; 4 5 6; 7 8 9");
+		//std::cout << mtrx << std::endl;
+		auto ret = determinant(mtrx);
+		//std::cout << ret << std::endl;
+		assert(ret == 0);
+	}
+
+	// Test: use determinant() on a 5 x 5 singular matrix->succeeds
+	{
+		Matrix mtrx("1 2 3 4 5; 6 7 8 9 10; 11 12 13 14 15; 16 17 18 19 20; 21 22 23 24 25");
+		//std::cout << mtrx << std::endl;
+		auto ret = determinant(mtrx);
+		//std::cout << ret << std::endl;
+		assert(ret == 0);
+	}
+
+	// Test: use determinant() on a 10 x 10 -> succeeds
+	{
+		//Matrix mtrx("5 8 52 6 4 1 2 8 6 -9;"
+		//	        "1 5 -8 65 8 5 -9 7 45 4;"
+		//            "2 21 1 5641 6 5 3 65 2 5;"
+		//	        "2 2 65 52 2 35 61 4 35 45;"
+		//	        "13 5216 51 52 6 63 87 8 5 4185;"
+		//	        "451 235 8 35 9 89 -8 55 52 2;"
+		//	        "1 2 5 13 5 5 6 4 3 46;"
+		//	        "4 654 3 5 2 1 5 62 3 3;"
+		//	        "2 3 55 -98 7 8 4512 2 56 3;"
+		//	        "5 2 -5 35 4 53 1 65 3 6");
+		//std::cout << mtrx << std::endl;
+		//auto ret = determinant(mtrx);
+		//std::cout << ret << std::endl;
+	}
+
+	// Test: use determinant() on a 1 x 4 -> fails
+	{
+		Matrix mtrx("1 2 3 4");
+		//std::cout << mtrx << std::endl;
+		//auto ret = determinant(mtrx);
+	}
+
+	// Test: use determinant() on a 4 x 1 -> fails
+	{
+		Matrix mtrx("1; 2; 3; 4");
+		//std::cout << mtrx << std::endl;
+		//auto ret = determinant(mtrx);
+	}
 	
 
-	
 	//Matrix b("0;1;6");
 	//Matrix c("0 2 0; 4 56 5; 4 5 6; 1 2 3; 1 2 6");
 	//Matrix res = projection_onto(a, b);
