@@ -654,6 +654,22 @@ int main()
 		assert(ret == 213);
 	}
 
+	// Test: use determinant() on a 1 x 1 matrix -> succeeds
+	{
+		Matrix mtrx("5");
+		std::cout << mtrx << std::endl;
+		auto ret = determinant(mtrx);
+		std::cout << ret << std::endl;
+		assert(ret == 5);
+	}
+
+	// Test: use determinant() on a 0 x 0 matrix -> fails
+	{
+		Matrix mtrx(0, 0);
+		//std::cout << mtrx << std::endl;
+		//auto ret = determinant(mtrx);
+	}
+
 	// Test: use determinant() on a 3 x 3 singular matrix -> succeeds
 	{
 		Matrix mtrx("1 2 3; 4 5 6; 7 8 9");
@@ -676,7 +692,7 @@ int main()
 	{
 		//Matrix mtrx("5 8 52 6 4 1 2 8 6 -9;"
 		//	        "1 5 -8 65 8 5 -9 7 45 4;"
-		//            "2 21 1 5641 6 5 3 65 2 5;"
+		//          "2 21 1 5641 6 5 3 65 2 5;"
 		//	        "2 2 65 52 2 35 61 4 35 45;"
 		//	        "13 5216 51 52 6 63 87 8 5 4185;"
 		//	        "451 235 8 35 9 89 -8 55 52 2;"

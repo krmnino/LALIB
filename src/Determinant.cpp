@@ -30,6 +30,11 @@ double determinant(Matrix &src) {
 		std::cerr << ex.what() << std::endl;
 		throw ex;
 	}
+	if (src.get_m() == 0 || src.get_n() == 0) {
+		LALIB_Error ex(ErrorCode::INVALID_DIMS);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
 	return recursive_determinant(src);
 }
 
