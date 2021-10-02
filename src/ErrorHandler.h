@@ -17,6 +17,7 @@ enum class ErrorCode {
 	ROW_COL_NOTEQ,
 	NOT_SINGLE_ROW,
 	NOT_SINGLE_COL,
+	INVALID_DIMS,
 };
 
 class LALIB_Error : public std::exception {

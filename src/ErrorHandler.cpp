@@ -39,6 +39,9 @@ LALIB_Error::LALIB_Error(ErrorCode error) {
 		case ErrorCode::NOT_SINGLE_COL:
 			this->message = "The number of columns in evauluated matrix must be 1.";
 			break;
+		case ErrorCode::INVALID_DIMS:
+			this->message = "One of the dimensions of the evaluated matrix is <= 0.";
+			break;
 		default:
 			this->message = "Undefinded error.";
 			break;
