@@ -17,7 +17,12 @@ Matrix invert(Matrix& src) {
 		std::cerr << ex.what() << std::endl;
 		throw ex;
 	}
-	if (determinant(src) == 0) {
+	if (src.get_m() == 0 || src.get_n() == 0) {
+		LALIB_Error ex(ErrorCode::INVALID_DIMS);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
+	if (is_singular(src)) {
 		LALIB_Error ex(ErrorCode::INV_SNGL_MTRX);
 		std::cerr << ex.what() << std::endl;
 		throw ex;
