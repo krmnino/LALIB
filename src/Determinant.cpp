@@ -2,14 +2,14 @@
 #include "Operations.h"
 
 namespace {
-	Matrix get_matrix_minor(Matrix src, int skip_col) {
+	Matrix get_matrix_minor(Matrix& src, int skip_col) {
 		Matrix minor(src);
 		minor.remove_row(0);
 		minor.remove_column(skip_col);
 		return minor;
 	}
 
-	double recursive_determinant(Matrix src) {
+	double recursive_determinant(Matrix& src) {
 		double accumulator = 0;
 		int sign_flag = 1;
 		if (src.get_m() == 1 && src.get_n() == 1) 
