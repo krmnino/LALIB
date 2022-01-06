@@ -768,6 +768,124 @@ int main()
 		//auto ret = is_singular(mtrx);
 	}
 
+	///////////////////////////////////////////////////////////////////
+
+	// Test: use invert on a 2 x 2 matrix -> succeeds
+	{
+		Matrix mtrx("5 8; 4 5");
+		//std::cout << mtrx << std::endl;
+		auto ret = invert(mtrx);
+		Matrix validate(2, 2);
+		validate.set_single_element(0, 0, (double)-5 / 7);
+		validate.set_single_element(0, 1, (double)8 / 7);
+		validate.set_single_element(1, 0, (double)4 / 7);
+		validate.set_single_element(1, 1, (double)-5 / 7);
+		for (int i = 0; i < ret.get_m(); i++) {
+			for (int j = 0; j < ret.get_n(); j++) {
+				long long ret_val = ret.get_single_element(i, j) * 1000000000000;
+				long long validate_val = validate.get_single_element(i, j) * 1000000000000;
+				assert(ret_val == validate_val);
+			}
+		}
+	}
+
+	// Test: use invert on a 3 x 3 matrix -> succeeds
+	{
+		Matrix mtrx("14 2 54; 49 81 33; 85 15 66");
+		auto ret = invert(mtrx);
+		//std::cout << ret << std::endl;
+		Matrix validate(3, 3);
+		validate.set_single_element(0, 0, (double)-1617 / 88348);
+		validate.set_single_element(0, 1, (double)-113 / 44174);
+		validate.set_single_element(0, 2, (double)359 / 22087);
+		validate.set_single_element(1, 0, (double)11 / 6796);
+		validate.set_single_element(1, 1, (double)47 / 3398);
+		validate.set_single_element(1, 2, (double)-14 / 1699);
+		validate.set_single_element(2, 0, (double)1025 / 44174);
+		validate.set_single_element(2, 1, (double)10 / 66261);
+		validate.set_single_element(2, 2, (double)-259 / 66261);
+		for (int i = 0; i < ret.get_m(); i++) {
+			for (int j = 0; j < ret.get_n(); j++) {
+				long long ret_val = ret.get_single_element(i, j) * 1000000000000;
+				long long validate_val = validate.get_single_element(i, j) * 1000000000000;
+				assert(ret_val == validate_val);
+			}
+		}
+	}
+
+	// Test: use invert on a 5 x 5 matrix -> succeeds
+	{
+		Matrix mtrx("8 9 7 8 2; 4 5 9 5 7; 1 3 6 6 8; 4 5 7 4 5; 2 3 6 8 9");
+		auto ret = invert(mtrx);
+		//std::cout << ret << std::endl;
+		Matrix validate(5, 5);
+		validate.set_single_element(0, 0, (double)-37 / 213);
+		validate.set_single_element(0, 1, (double)-46 / 213);
+		validate.set_single_element(0, 2, (double)-217 / 213);
+		validate.set_single_element(0, 3, (double)151 / 213);
+		validate.set_single_element(0, 4, (double)51 / 71);
+		validate.set_single_element(1, 0, (double)1 / 71);
+		validate.set_single_element(1, 1, (double)-64 / 71);
+		validate.set_single_element(1, 2, (double)50 / 71);
+		validate.set_single_element(1, 3, (double)65 / 71);
+		validate.set_single_element(1, 4, (double)-31 / 71);
+		validate.set_single_element(2, 0, (double)32 / 213);
+		validate.set_single_element(2, 1, (double)224 / 213);
+		validate.set_single_element(2, 2, (double)38 / 213);
+		validate.set_single_element(2, 3, (double)-263 / 213);
+		validate.set_single_element(2, 4, (double)-23 / 71);
+		validate.set_single_element(3, 0, (double)46 / 213);
+		validate.set_single_element(3, 1, (double)109 / 213);
+		validate.set_single_element(3, 2, (double)28 / 213);
+		validate.set_single_element(3, 3, (double)-205 / 213);
+		validate.set_single_element(3, 4, (double)-2 / 71);
+		validate.set_single_element(4, 0, (double)-55 / 213);
+		validate.set_single_element(4, 1, (double)-172 / 213);
+		validate.set_single_element(4, 2, (double)-52 / 213);
+		validate.set_single_element(4, 3, (double)259 / 213);
+		validate.set_single_element(4, 4, (double)24 / 71);
+		for (int i = 0; i < ret.get_m(); i++) {
+			for (int j = 0; j < ret.get_n(); j++) {
+				long long ret_val = ret.get_single_element(i, j) * 1000000000000;
+				long long validate_val = validate.get_single_element(i, j) * 1000000000000;
+				assert(ret_val == validate_val);
+			}
+		}
+	}
+
+	// Test: use invert on a 5 x 5 matrix -> succeeds
+	{
+		Matrix mtrx("5");
+		auto ret = invert(mtrx);
+		//std::cout << ret << std::endl;
+		Matrix validate(1, 1);
+		validate.set_single_element(0, 0, (double)1 / 5);
+		long long ret_val = ret.get_single_element(0, 0) * 1000000000000;
+		long long validate_val = validate.get_single_element(0, 0) * 1000000000000;
+		assert(ret_val == validate_val);
+	}
+
+	// Test: use invert() on a 0 x 0 matrix -> fails
+	{
+		Matrix mtrx(0, 0);
+		//std::cout << mtrx << std::endl;
+		//auto ret = invert(mtrx);
+	}
+
+	// Test: use invert() on a 3 x 3 singular matrix -> fails
+	{
+		Matrix mtrx("1 2 3; 4 5 6; 7 8 9");
+		//std::cout << mtrx << std::endl;
+		//auto ret = invert(mtrx);
+	}
+
+	// Test: use invert() on a 5 x 5 singular matrix -> fails
+	{
+		Matrix mtrx("1 2 3 4 5; 6 7 8 9 10; 11 12 13 14 15; 16 17 18 19 20; 21 22 23 24 25");
+		//std::cout << mtrx << std::endl;
+		//auto ret = invert(mtrx);
+	}
+
 	//Matrix b("0;1;6");
 	//Matrix c("0 2 0; 4 56 5; 4 5 6; 1 2 3; 1 2 6");
 	//Matrix res = projection_onto(a, b);
