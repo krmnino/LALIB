@@ -1,5 +1,5 @@
-#ifndef ERR_LALIB
-#define ERR_LALIB
+#ifndef LALIB_ERR_HDLR
+#define LALIB_ERR_HDLR
 
 #include <iostream>
 #include <exception>
@@ -35,4 +35,4 @@ public:
 	ErrorCode get_error_code();
 };
 
-#endif  ERR_LALIB
+#endif
