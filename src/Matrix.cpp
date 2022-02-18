@@ -8,9 +8,46 @@ Matrix::Matrix() {
 	this->n = 0;
 }
 
-Matrix::Matrix(std::string data) {
+Matrix::Matrix(std::string& data) {
 	std::vector<std::string> str_rows;
 	split_string(str_rows, data, ';');
+	for (int i = 0; i < str_rows.size(); i++) {
+		std::vector<std::string> str_cols;
+		split_string(str_cols, str_rows[i], ' ');
+		if (i == 0) {
+			this->m = str_rows.size();
+			this->n = str_cols.size();
+			this->matrix.resize(this->m, std::vector<double>(this->n, 0));
+		}
+		if (this->n != str_cols.size()) {
+			LALIB_Error ex(ErrorCode::UNEVEN_INPUT_COLS);
+			std::cerr << ex.what() << std::endl;
+			throw ex;
+		}
+		for (int j = 0; j < str_cols.size(); j++) {
+			for (int k = 0; k < str_cols[j].size(); k++) {
+				if (!std::isdigit(str_cols[j].at(k))) {
+					if (str_cols[j].at(k) == '.' || str_cols[j].at(k) == '-') {
+						continue;
+					}
+					LALIB_Error ex(ErrorCode::NO_NUMERIC_INPUT);
+					std::cerr << ex.what() << std::endl;
+					throw ex;
+				}
+			}
+			#ifdef LINUX
+			this->matrix[i][j] = atof(str_cols[j].c_str());
+			#else
+			this->matrix[i][j] = stoi(str_cols[j]);
+			#endif // LINUX
+		}
+	}
+}
+
+Matrix::Matrix(const char* data) {
+	std::string str_data = (std::string)data;
+	std::vector<std::string> str_rows;
+	split_string(str_rows, str_data, ';');
 	for (int i = 0; i < str_rows.size(); i++) {
 		std::vector<std::string> str_cols;
 		split_string(str_cols, str_rows[i], ' ');

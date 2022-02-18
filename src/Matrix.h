@@ -9,10 +9,12 @@ private:
 	std::vector<std::vector<double>> matrix;
 	int m;
 	int n;
+	void split_string(std::vector<std::string>&, std::string&, char);
 
 public:
 	Matrix();
-	Matrix(std::string);
+	Matrix(std::string&);
+	Matrix(const char*);
 	Matrix(int, int);
 	Matrix(const Matrix &);
 	Matrix(char, int);
