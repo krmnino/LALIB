@@ -7,106 +7,199 @@
 #include "Matrix.h"
 #include "Operations.h"
 
-void program_loop() {
-	while (true) {
-		//TODO
-	}
-}
-
-int test(std::initializer_list<Matrix> list) {
-	va_list args;
-	for (auto mtrx : list) {
-		//std::cout << mtrx.to_string() << std::endl;
-	}
-	return 1;
-}
-
-int main()
-{
+int test1() {
 	// Test: use get_m() on a 4 x 4 matrix
-	{
-		Matrix mtrx('r', 4);
-		//std::cout << mtrx << std::endl;
-		assert(mtrx.get_m() == 4);
-	}
+	
+	Matrix mtrx('r', 4);
+	assert(mtrx.get_m() == 4);
+	
+	std::cout << ">> Test 1 successful." << std::endl;
+	return 0;
+}
 
+
+int test2() {
 	// Test: use get_n() on a 4 x 4 matrix
-	{
-		Matrix mtrx('r', 4);
-		//std::cout << mtrx << std::endl;
-		assert(mtrx.get_n() == 4);
-	}
 
+	Matrix mtrx('r', 4);
+	assert(mtrx.get_n() == 4);
+
+	std::cout << ">> Test 2 successful." << std::endl;
+	return 0;
+}
+
+
+int test3() {
 	// Test: use get_matrix() on a 4 x 4 matrix
-	{
-		Matrix mtrx('r', 4);
-		//std::cout << mtrx << std::endl;
-		assert(mtrx.get_m() == 4);
-		assert(mtrx.get_n() == 4);
-		auto ret = mtrx.get_matrix();
-		assert(ret.size() == 4);
-		for (int i = 0; i < ret.size(); i++) {
-			assert(ret[i].size() == 4);
-		}
+
+	Matrix mtrx('r', 4);
+	assert(mtrx.get_m() == 4);
+	assert(mtrx.get_n() == 4);
+	auto ret = mtrx.get_matrix();
+	assert(ret.size() == 4);
+	for (int i = 0; i < ret.size(); i++) {
+		assert(ret[i].size() == 4);
 	}
 
+	std::cout << ">> Test 3 successful." << std::endl;
+	return 0;
+}
+
+
+int test4() {
 	// Test: use is_square() on a 4 x 4 matrix
-	{
-		Matrix mtrx(5, 5);
-		//std::cout << mtrx << std::endl;
-		assert(mtrx.is_square());
-	}
 
+	Matrix mtrx(5, 5);
+	assert(mtrx.is_square());
+
+	std::cout << ">> Test 4 successful." << std::endl;
+	return 0;
+}
+
+
+int test5() {
 	// Test: use equal() to compare two 3 x 3 equal matrix
-	{
-		Matrix mtrx1("7 8 9; 4 5 6; 1 2 3");
-		Matrix mtrx2("7 8 9; 4 5 6; 1 2 3");
-		//std::cout << mtrx1 << std::endl;
-		//std::cout << mtrx2 << std::endl;
-		assert(mtrx1.equal(mtrx2));
-	}
 
+	Matrix mtrx1("7 8 9; 4 5 6; 1 2 3");
+	Matrix mtrx2("7 8 9; 4 5 6; 1 2 3");
+	assert(mtrx1.equal(mtrx2));
+
+	std::cout << ">> Test 5 successful." << std::endl;
+	return 0;
+}
+
+
+int test6() {
 	// Test: use equal() to compare two 3 x 3 matrix with different contents
-	{
-		Matrix mtrx1("7 8 9; 4 5 6; 1 2 3");
-		Matrix mtrx2('i', 3);
-		//std::cout << mtrx1 << std::endl;
-		//std::cout << mtrx2 << std::endl;
-		assert(!mtrx1.equal(mtrx2));
-	}
 
+	Matrix mtrx1("7 8 9; 4 5 6; 1 2 3");
+	Matrix mtrx2('i', 3);
+	assert(!mtrx1.equal(mtrx2));
+
+	std::cout << ">> Test 6 successful." << std::endl;
+	return 0;
+}
+
+
+int test7() {
 	// Test: use equal() to compare a 3 x 1 matrix and 4 x 1 matrix
-	{
-		Matrix mtrx1("7; 4; 1");
-		Matrix mtrx2("1; 2; 3; 4");
-		//std::cout << mtrx1 << std::endl;
-		//std::cout << mtrx2 << std::endl;
-		assert(!mtrx1.equal(mtrx2));
-	}
 
+	Matrix mtrx1("7; 4; 1");
+	Matrix mtrx2("1; 2; 3; 4");
+	assert(!mtrx1.equal(mtrx2));
+
+	std::cout << ">> Test 7 successful." << std::endl;
+	return 0;
+}
+
+
+int test8() {
 	// Test: use equal() to compare a 1 x 3 matrix and 1 x 4 matrix
-	{
-		Matrix mtrx1("7 4 1;");
-		Matrix mtrx2("1 2 3 4;");
-		//std::cout << mtrx1 << std::endl;
-		//std::cout << mtrx2 << std::endl;
-		assert(!mtrx1.equal(mtrx2));
-	}
 
+	Matrix mtrx1("7 4 1;");
+	Matrix mtrx2("1 2 3 4;");
+	assert(!mtrx1.equal(mtrx2));
+
+	std::cout << ">> Test 8 successful." << std::endl;
+	return 0;
+}
+
+
+int test9() {
 	// Test: use get_single_element() on a 3 x 3 matrix
-	{
-		Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
-		//std::cout << mtrx << std::endl;
-		assert(mtrx.get_single_element(1,1) == 5);
+
+	Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
+	assert(mtrx.get_single_element(1,1) == 5);
+
+	std::cout << ">> Test 9 successful." << std::endl;
+	return 0;
+}
+
+
+int test10() {
+	// Test: use get_single_element() -> invalid row index3
+
+	Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
+
+	try{
+		auto ret = mtrx.get_single_element(12, 1);
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::ROW_OUT_BOUNDS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Row index of evaluated matrix is out of bounds.");
 	}
 
-	// Test: use get_single_element() -> invalid row index
-	{
-		Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
-		//std::cout << mtrx << std::endl;
-		//auto ret = mtrx.get_single_element(12, 1);
-		//auto ret = mtrx.get_single_element(-12, 1);
+	try{
+		auto ret = mtrx.get_single_element(-12, 1);
 	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::ROW_OUT_BOUNDS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Row index of evaluated matrix is out of bounds.");
+	}
+
+	std::cout << ">> Test 10 successful." << std::endl;
+	return 0;	
+}
+
+
+int main() {
+	bool all = true;
+	bool t1  = false;
+	bool t2  = false;
+	bool t3  = false;
+	bool t4  = false;
+	bool t5  = false;
+	bool t6  = false;
+	bool t7  = false;
+	bool t8  = false;
+	bool t9  = false;
+	bool t10  = false;
+
+	if(t1 || all){
+		test1();
+	}
+	if(t2 || all){
+		test2();
+	}
+	if(t3 || all){
+		test3();
+	}
+	if(t4 || all){
+		test4();
+	}
+	if(t5 || all){
+		test5();
+	}
+	if(t6 || all){
+		test6();
+	}
+	if(t7 || all){
+		test7();
+	}
+	if(t8 || all){
+		test8();
+	}
+	if(t9 || all){
+		test9();
+	}
+	if(t10 || all){
+		test10();
+	}
+
+	return 0;
+}
+/*
+	
+
+	
+
+	
+
+	
+
+	
 
 	// Test: use get_single_element() -> invalid row index
 	{
@@ -914,5 +1007,5 @@ int main()
 	//std::cout << test4.to_string() << std::endl;
 	//test4 = invert(test4);
 	//std::cout << test5.to_string() << std::endl;
-}
+
 
