@@ -11,93 +11,40 @@ Matrix::Matrix() {
 }
 
 Matrix::Matrix(string data) {
-	vector<string> rows_arr;
-	if (data.find(";") == -1) {
-		rows_arr.push_back(data);
-	}
-	else {
-		int index_start = 0;
-		int index_end = data.find(";");
-		while (true) {
-			string row = data.substr(0, index_end);
-			if (row.length() != 0)
-				rows_arr.push_back(row);
-			else
-				break;
-			if (index_end != -1) {
-				data = data.substr((long)index_end + 1, data.length());
-				index_end = data.find(";");
-			}
-			else {
-				break;
-			}
+	std::vector<std::string> str_rows;
+	split_string(str_rows, data, ';');
+	for (int i = 0; i < str_rows.size(); i++) {
+		std::vector<std::string> str_cols;
+		split_string(str_cols, str_rows[i], ' ');
+		if (i == 0) {
+			this->m = str_rows.size();
+			this->n = str_cols.size();
+			this->matrix.resize(this->m, vector<double>(this->n, 0));
 		}
-	}
-	string first_row = rows_arr[0];
-	this->m = rows_arr.size();
-	this->n = 0;
-	int index_end = first_row.find(" ");
-	while (true) {
-		if (index_end != -1) {
-			this->n++;
-			int offset = 0;
-			bool digits_remaining = false;
-			for (int i = index_end; i < (signed)first_row.length(); i++) {
-				if (isdigit(first_row.at(i))) {
-					digits_remaining = true;
-					break;
-				}
-			}
-			while (digits_remaining && first_row.at((long)index_end + offset) == ' ') {
-				offset++;
-			}
-			first_row = first_row.substr((long)index_end + 1 + offset, first_row.length());
-			index_end = first_row.find(" ");
+		if (this->n != str_cols.size()) {
+			LALIB_Error ex(ErrorCode::UNEVEN_INPUT_COLS);
+			std::cerr << ex.what() << std::endl;
+			throw ex;
 		}
-		else {
-			this->n++;
-			break;
-		}
-	}
-	this->matrix.resize(this->m, vector<double>());
-	for (int i = 0; i < (signed)rows_arr.size(); i++) {
-		if (rows_arr[i].at(0) == ' ') {
-			int offset = 0;
-			for (offset = 0; offset < (signed)rows_arr[i].length(); offset++) {
-				if (isdigit(rows_arr[i].at(offset)) || rows_arr[i].at(offset) == '-') {
-					break;
-				}
-			}
-			rows_arr[i] = rows_arr[i].substr(offset, rows_arr[i].length());
-		}
-		int index_end = rows_arr[i].find(" ");
-		int elements = 0;
-		while (elements < this->n) {
-			matrix[i].push_back(stod(rows_arr[i].substr(0, index_end)));
-			if (index_end != -1) {
-				int offset = 0;
-				bool digits_remaining = false;
-				for (int j = index_end; j < (signed)rows_arr[i].length(); j++) {
-					if (isdigit(rows_arr[i].at(j))) {
-						digits_remaining = true;
-						break;
+		for (int j = 0; j < str_cols.size(); j++) {
+			for (int k = 0; k < str_cols[j].size(); k++) {
+				if (!isdigit(str_cols[j].at(k))) {
+					if (str_cols[j].at(k) == '.' || str_cols[j].at(k) == '-') {
+						continue;
 					}
-				}
-				if (!digits_remaining)
-					break;
-				else {
-					while (rows_arr[i].at((long)index_end + 1 + offset) == ' ') {
-						offset++;
-					}
-					rows_arr[i] = rows_arr[i].substr((long)index_end + offset + 1, rows_arr[i].length());
-					index_end = rows_arr[i].find(" ");
-					elements++;
+					LALIB_Error ex(ErrorCode::NO_NUMERIC_INPUT);
+					std::cerr << ex.what() << std::endl;
+					throw ex;
 				}
 			}
-			else
-				break;
+			#ifdef LINUX
+			this->matrix[i][j] = atof(str_cols[j].c_str());
+			#else
+			this->matrix[i][j] = stoi(str_cols[j]);
+			#endif // LINUX
 		}
 	}
+
 }
 
 Matrix::Matrix(int m_, int n_) {
@@ -137,6 +84,27 @@ Matrix::Matrix(char flag, int n) {
 }
 
 Matrix::~Matrix() {};
+
+void Matrix::split_string(std::vector<std::string>& processed, std::string& buffer, char delimiter) {
+	int base = 0;
+	std::string split;
+	for (unsigned int i = 0; i < buffer.length(); i++) {
+		if (buffer.at(i) == delimiter) {
+			split = buffer.substr(base, i - base);
+			if (split.length() != 0) {
+				processed.push_back(split);
+			}
+			base = i + 1;
+		}
+		else if (i == buffer.length() - 1) {
+			split = buffer.substr(base, i + 1 - base);
+			if (split.length() != 0) {
+				processed.push_back(split);
+			}
+			base = i + 1;
+		}
+	}
+}
 
 vector<vector<double>> Matrix::get_matrix() {
 	return this->matrix;
