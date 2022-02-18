@@ -3,14 +3,12 @@
 #include "Matrix.h"
 #include "ErrorHandler.h"
 
-using namespace std;
-
 Matrix::Matrix() {
 	this->m = 0;
 	this->n = 0;
 }
 
-Matrix::Matrix(string data) {
+Matrix::Matrix(std::string data) {
 	std::vector<std::string> str_rows;
 	split_string(str_rows, data, ';');
 	for (int i = 0; i < str_rows.size(); i++) {
@@ -19,7 +17,7 @@ Matrix::Matrix(string data) {
 		if (i == 0) {
 			this->m = str_rows.size();
 			this->n = str_cols.size();
-			this->matrix.resize(this->m, vector<double>(this->n, 0));
+			this->matrix.resize(this->m, std::vector<double>(this->n, 0));
 		}
 		if (this->n != str_cols.size()) {
 			LALIB_Error ex(ErrorCode::UNEVEN_INPUT_COLS);
@@ -28,7 +26,7 @@ Matrix::Matrix(string data) {
 		}
 		for (int j = 0; j < str_cols.size(); j++) {
 			for (int k = 0; k < str_cols[j].size(); k++) {
-				if (!isdigit(str_cols[j].at(k))) {
+				if (!std::isdigit(str_cols[j].at(k))) {
 					if (str_cols[j].at(k) == '.' || str_cols[j].at(k) == '-') {
 						continue;
 					}
@@ -44,13 +42,12 @@ Matrix::Matrix(string data) {
 			#endif // LINUX
 		}
 	}
-
 }
 
 Matrix::Matrix(int m_, int n_) {
 	this->m = m_;
 	this->n = n_;
-	this->matrix.resize(this->m, vector<double>(this->n, 0));
+	this->matrix.resize(this->m, std::vector<double>(this->n, 0));
 }
 
 Matrix::Matrix(const Matrix &src) {
@@ -64,7 +61,7 @@ Matrix::Matrix(char flag, int n) {
 		case 'r': // Generate matrix nxn of random values
 			this->m = n;
 			this->n = n;
-			this->matrix.resize(this->m, vector<double>(this->n, 0));
+			this->matrix.resize(this->m, std::vector<double>(this->n, 0));
 			for (int i = 0; i < this->m; i++) {
 				for (int j = 0; j < this->n; j++) {
 					this->matrix[i][j] = rand() % (n * n) + (double)1;
@@ -74,7 +71,7 @@ Matrix::Matrix(char flag, int n) {
 		case 'i': // Generate identity matrix nxn 
 			this->m = n;
 			this->n = n;
-			this->matrix.resize(this->m, vector<double>(this->n, 0));
+			this->matrix.resize(this->m, std::vector<double>(this->n, 0));
 			for (int i = 0; i < this->m; i++)
 				this->matrix[i][i] = 1;
 			break;
@@ -106,7 +103,7 @@ void Matrix::split_string(std::vector<std::string>& processed, std::string& buff
 	}
 }
 
-vector<vector<double>> Matrix::get_matrix() {
+std::vector<std::vector<double>> Matrix::get_matrix() {
 	return this->matrix;
 }
 
@@ -339,7 +336,7 @@ Matrix Matrix::operator*(double scalar) {
 	return out;
 }
 
-ostream& operator<<(std::ostream& out, Matrix& mtrx) {
+std::ostream& operator<<(std::ostream& out, Matrix& mtrx) {
 	for (int i = 0; i < (signed)mtrx.get_m(); i++) {
 		for (int j = 0; j < (signed)mtrx.get_n(); j++) {
 			out << std::to_string(mtrx.get_single_element(i, j)) + " ";
