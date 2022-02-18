@@ -18,6 +18,8 @@ enum class ErrorCode {
 	NOT_SINGLE_ROW,
 	NOT_SINGLE_COL,
 	INVALID_DIMS,
+	UNEVEN_INPUT_COLS,
+	NO_NUMERIC_INPUT,
 };
 
 class LALIB_Error : public std::exception {
@@ -30,6 +32,7 @@ public:
 	explicit LALIB_Error(ErrorCode);
 	virtual ~LALIB_Error() noexcept;
 	virtual const char* what() const noexcept;
+	ErrorCode get_error_code();
 };
 
 #endif  ERR_LALIB

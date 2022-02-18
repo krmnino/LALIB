@@ -31,16 +31,22 @@ LALIB_Error::LALIB_Error(ErrorCode error) {
 			this->message = "Error: Column index of evaluated matrix is out of bounds.";
 			break;
 		case ErrorCode::ROW_COL_NOTEQ:
-			this->message = "M and N dimensions do not match between evaluated matrices.";
+			this->message = "Error: M and N dimensions do not match between evaluated matrices.";
 			break;
 		case ErrorCode::NOT_SINGLE_ROW:
-			this->message = "The number of rows in evauluated matrix must be 1.";
+			this->message = "Error: The number of rows in evauluated matrix must be 1.";
 			break;
 		case ErrorCode::NOT_SINGLE_COL:
-			this->message = "The number of columns in evauluated matrix must be 1.";
+			this->message = "Error: The number of columns in evauluated matrix must be 1.";
 			break;
 		case ErrorCode::INVALID_DIMS:
-			this->message = "One of the dimensions of the evaluated matrix is <= 0.";
+			this->message = "Error: One of the dimensions of the evaluated matrix is <= 0.";
+			break;
+		case ErrorCode::UNEVEN_INPUT_COLS:
+			this->message = "Error: The number of columns is not the same across all rows in input matrix.";
+			break;
+		case ErrorCode::NO_NUMERIC_INPUT:
+			this->message = "Error: Input value is not numeric.";
 			break;
 		default:
 			this->message = "Undefinded error.";
@@ -52,4 +58,8 @@ LALIB_Error::~LALIB_Error() noexcept {}
 
 const char* LALIB_Error::what() const noexcept {
 	return this->message.c_str();
+}
+
+ErrorCode LALIB_Error::get_error_code() {
+	return this->err_code;
 }
