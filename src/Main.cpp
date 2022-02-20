@@ -121,7 +121,7 @@ int test10() {
 
 	Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
 
-	try{
+	try {
 		auto ret = mtrx.get_single_element(12, 1);
 	}
 	catch (LALIB_Error ex) {
@@ -130,7 +130,7 @@ int test10() {
 		assert(err_msg == "Error: Row index of evaluated matrix is out of bounds.");
 	}
 
-	try{
+	try {
 		auto ret = mtrx.get_single_element(-12, 1);
 	}
 	catch (LALIB_Error ex) {
@@ -200,6 +200,150 @@ int test13() {
 }
 
 
+int test14() {
+	// Test: use set_single_element() -> invalid row index
+
+	Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
+
+	try {
+		mtrx.set_single_element(12, 1, 123);
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::ROW_OUT_BOUNDS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Row index of evaluated matrix is out of bounds.");
+	}
+
+	try {
+		mtrx.set_single_element(-1, 1, 123);
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::ROW_OUT_BOUNDS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Row index of evaluated matrix is out of bounds.");
+	}
+
+	std::cout << ">> Test 14 successful." << std::endl;
+	return 0;
+}
+
+
+int test15() {
+	// Test: use set_single_element() -> invalid column index
+
+	Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
+
+	try {
+		mtrx.set_single_element(1, 12, 123);
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::COL_OUT_BOUNDS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Column index of evaluated matrix is out of bounds.");
+	}
+	
+	try {
+		mtrx.set_single_element(1, -1, 123);
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::COL_OUT_BOUNDS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Column index of evaluated matrix is out of bounds.");
+	}
+
+	std::cout << ">> Test 15 successful." << std::endl;
+	return 0;
+}
+
+
+int test16() {
+	// Test: use get_row() on a 3 x 3 matrix
+	
+	Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
+
+	auto ret = mtrx.get_row(0);
+	assert(ret.get_m() == 1);
+	assert(ret.get_n() == 3);
+	assert(ret.get_single_element(0, 0) == 7);
+	assert(ret.get_single_element(0, 1) == 8);
+	assert(ret.get_single_element(0, 2) == 9);
+
+	std::cout << ">> Test 16 successful." << std::endl;
+	return 0;
+}
+
+
+int test17() {
+	// Test: use get_row() on a 3 x 3 matrix -> invalid row index
+	Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
+
+	try {
+		auto ret1 = mtrx.get_row(10);
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::ROW_OUT_BOUNDS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Row index of evaluated matrix is out of bounds.");
+	}
+
+	try {
+		auto ret2 = mtrx.get_row(-1);
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::ROW_OUT_BOUNDS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Row index of evaluated matrix is out of bounds.");
+	}
+
+	std::cout << ">> Test 17 successful." << std::endl;
+	return 0;
+}
+
+
+int test18() {
+	// Test: use get_column() on a 3 x 3 matrix 
+
+	Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
+	
+	auto ret = mtrx.get_column(0);
+	assert(ret.get_m() == 3);
+	assert(ret.get_n() == 1);
+	assert(ret.get_single_element(0, 0) == 7);
+	assert(ret.get_single_element(1, 0) == 4);
+	assert(ret.get_single_element(2, 0) == 1);
+
+	std::cout << ">> Test 18 successful." << std::endl;
+	return 0;
+}
+
+
+int test19() {
+	// Test: use get_column() on a 3 x 3 matrix -> invalid column index
+	Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
+
+	try {
+		auto ret1 = mtrx.get_column(10);
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::COL_OUT_BOUNDS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Column index of evaluated matrix is out of bounds.");
+	}
+	
+	try {
+		auto ret2 = mtrx.get_column(-1);
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::COL_OUT_BOUNDS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Column index of evaluated matrix is out of bounds.");
+	}
+
+	std::cout << ">> Test 19 successful." << std::endl;
+	return 0;
+}
+
+
 int main() {
 	bool all = true;
 	bool t1  = false;
@@ -215,6 +359,12 @@ int main() {
 	bool t11 = false;
 	bool t12 = false;
 	bool t13 = false;
+	bool t14 = false;
+	bool t15 = false;
+	bool t16 = false;
+	bool t17 = false;
+	bool t18 = false;
+	bool t19 = false;
 
 	if(t1 || all){
 		test1();
@@ -255,6 +405,24 @@ int main() {
 	if(t13 || all){
 		test13();
 	}
+	if(t14 || all){
+		test14();
+	}
+	if(t15 || all){
+		test15();
+	}
+	if(t16 || all){
+		test16();
+	}
+	if(t17 || all){
+		test17();
+	}
+	if(t18 || all){
+		test18();
+	}
+	if(t19 || all){
+		test19();
+	}
 
 	return 0;
 }
@@ -273,61 +441,9 @@ int main() {
 
 	
 
-	// Test: use set_single_element() -> invalid row index
-	{
-		Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
-		//std::cout << mtrx << std::endl;
-		//mtrx.set_single_element(12, 1, 123);
-		//mtrx.set_single_element(-1, 1, 123);
-	}
+	
 
-	// Test: use set_single_element() -> invalid column index
-	{
-		Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
-		//std::cout << mtrx << std::endl;
-		//mtrx.set_single_element(1, 12, 123);
-		//mtrx.set_single_element(1, -1, 123);
-	}
 
-	// Test: use get_row() on a 3 x 3 matrix
-	{
-		Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
-		//std::cout << mtrx << std::endl;
-		auto ret = mtrx.get_row(0);
-		assert(ret.get_m() == 1);
-		assert(ret.get_n() == 3);
-		assert(ret.get_single_element(0, 0) == 7);
-		assert(ret.get_single_element(0, 1) == 8);
-		assert(ret.get_single_element(0, 2) == 9);
-	}
-
-	// Test: use get_row() on a 3 x 3 matrix
-	{
-		Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
-		//std::cout << mtrx << std::endl;
-		//auto ret1 = mtrx.get_row(10);
-		//auto ret2 = mtrx.get_row(-1);
-	}
-
-	// Test: use get_column() on a 3 x 3 matrix
-	{
-		Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
-		//std::cout << mtrx << std::endl;
-		auto ret = mtrx.get_column(0);
-		assert(ret.get_m() == 3);
-		assert(ret.get_n() == 1);
-		assert(ret.get_single_element(0, 0) == 7);
-		assert(ret.get_single_element(1, 0) == 4);
-		assert(ret.get_single_element(2, 0) == 1);
-	}
-
-	// Test: use get_column() on a 3 x 3 matrix
-	{
-		Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
-		//std::cout << mtrx << std::endl;
-		//auto ret1 = mtrx.get_column(10);
-		//auto ret2 = mtrx.get_column(-1);
-	}
 
 	// Test: use remove_row() on a 5 x 5 matrix
 	{
