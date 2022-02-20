@@ -117,7 +117,7 @@ int test9() {
 
 
 int test10() {
-	// Test: use get_single_element() -> invalid row index3
+	// Test: use get_single_element() -> invalid row index
 
 	Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
 
@@ -144,6 +144,62 @@ int test10() {
 }
 
 
+int test11() {
+	// Test: use get_single_element() -> invalid col index
+
+	Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
+
+	try {
+		auto ret = mtrx.get_single_element(1, 12);
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::COL_OUT_BOUNDS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Column index of evaluated matrix is out of bounds.");
+	}
+	
+	try {
+		auto ret = mtrx.get_single_element(1, -1);
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::COL_OUT_BOUNDS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Column index of evaluated matrix is out of bounds.");
+	}
+
+	std::cout << ">> Test 11 successful." << std::endl;
+	return 0;
+}
+
+
+int test12() {
+	// Test: use set_single_element() on a 3 x 3 matrix
+
+	Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
+	
+	mtrx.set_single_element(1, 2, 100.123);
+
+	assert(mtrx.get_single_element(1, 2) == 100.123);
+
+	std::cout << ">> Test 12 successful." << std::endl;
+	return 0;
+}
+
+
+int test13() {
+	// Test: use set_single_element() on a 3 x 3 matrix
+
+	Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
+	
+	mtrx.set_single_element(1, 2, 100.123);
+	
+	assert(mtrx.get_single_element(1, 2) == 100.123);
+
+	std::cout << ">> Test 13 successful." << std::endl;
+	return 0;
+}
+
+
 int main() {
 	bool all = true;
 	bool t1  = false;
@@ -155,7 +211,10 @@ int main() {
 	bool t7  = false;
 	bool t8  = false;
 	bool t9  = false;
-	bool t10  = false;
+	bool t10 = false;
+	bool t11 = false;
+	bool t12 = false;
+	bool t13 = false;
 
 	if(t1 || all){
 		test1();
@@ -187,6 +246,15 @@ int main() {
 	if(t10 || all){
 		test10();
 	}
+	if(t11 || all){
+		test11();
+	}
+	if(t12 || all){
+		test12();
+	}
+	if(t13 || all){
+		test13();
+	}
 
 	return 0;
 }
@@ -201,22 +269,9 @@ int main() {
 
 	
 
-	// Test: use get_single_element() -> invalid row index
-	{
-		Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
-		//std::cout << mtrx << std::endl;
-		//auto ret = mtrx.get_single_element(1, 12);
-		//auto ret = mtrx.get_single_element(1, -1);
-	}
+	
 
-	// Test: use set_single_element() on a 3 x 3 matrix
-	{
-		Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
-		//std::cout << mtrx << std::endl;
-		mtrx.set_single_element(1, 2, 100.123);
-		//std::cout << mtrx << std::endl;
-		assert(mtrx.get_single_element(1, 2) == 100.123);
-	}
+	
 
 	// Test: use set_single_element() -> invalid row index
 	{
