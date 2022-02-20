@@ -344,6 +344,90 @@ int test19() {
 }
 
 
+int test20() {
+	// Test: use remove_row() on a 5 x 5 matrix
+	Matrix mtrx('r', 5);
+
+	mtrx.remove_row(2);
+
+	assert(mtrx.get_m() == 4);
+	assert(mtrx.get_n() == 5);
+
+	std::cout << ">> Test 20 successful." << std::endl;
+	return 0;
+}
+
+
+int test21() {
+	// Test: use remove_row() -> invalid row index
+
+	Matrix mtrx('r', 5);
+	
+	try {
+		mtrx.remove_row(-2);
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::ROW_OUT_BOUNDS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Row index of evaluated matrix is out of bounds.");
+	}
+
+	try {
+		mtrx.remove_row(8);
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::ROW_OUT_BOUNDS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Row index of evaluated matrix is out of bounds.");
+	}
+
+	std::cout << ">> Test 21 successful." << std::endl;
+	return 0;
+}
+
+
+int test22() {
+	// Test: use remove_column() -> invalid row index
+	Matrix mtrx('r', 5);
+
+	mtrx.remove_column(2);
+
+	assert(mtrx.get_m() == 5);
+	assert(mtrx.get_n() == 4);
+
+	std::cout << ">> Test 22 successful." << std::endl;
+	return 0;
+}
+
+
+int test23() {
+	// Test: use remove_column() -> invalid row index
+	Matrix mtrx('r', 5);
+
+	try {
+		mtrx.remove_column(-2);
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::COL_OUT_BOUNDS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Column index of evaluated matrix is out of bounds.");
+	}
+	
+	try {
+		mtrx.remove_column(8);
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::COL_OUT_BOUNDS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Column index of evaluated matrix is out of bounds.");
+	}
+
+	std::cout << ">> Test 23 successful." << std::endl;
+	return 0;
+}
+
+
+
 int main() {
 	bool all = true;
 	bool t1  = false;
@@ -365,6 +449,10 @@ int main() {
 	bool t17 = false;
 	bool t18 = false;
 	bool t19 = false;
+	bool t20 = false;
+	bool t21 = false;
+	bool t22 = false;
+	bool t23 = false;
 
 	if(t1 || all){
 		test1();
@@ -423,64 +511,23 @@ int main() {
 	if(t19 || all){
 		test19();
 	}
+	if(t20 || all){
+		test20();
+	}
+	if(t21 || all){
+		test21();
+	}
+	if(t22 || all){
+		test22();
+	}
+	if(t23 || all){
+		test23();
+	}
 
 	return 0;
 }
 /*
 	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	// Test: use remove_row() on a 5 x 5 matrix
-	{
-		Matrix mtrx('r', 5);
-		//std::cout << mtrx << std::endl;
-		mtrx.remove_row(2);
-		//std::cout << mtrx << std::endl;
-		assert(mtrx.get_m() == 4);
-		assert(mtrx.get_n() == 5);
-	}
-
-	// Test: use remove_row() -> invalid row index
-	{
-		Matrix mtrx('r', 5);
-		//std::cout << mtrx << std::endl;
-		//mtrx.remove_row(-2);
-		//mtrx.remove_row(8);
-	}
-
-	// Test: use remove_column() -> invalid row index
-	{
-		Matrix mtrx('r', 5);
-		//std::cout << mtrx << std::endl;
-		mtrx.remove_column(2);
-		//std::cout << mtrx << std::endl;
-		assert(mtrx.get_m() == 5);
-		assert(mtrx.get_n() == 4);
-	}
-
-	// Test: use remove_column() -> invalid row index
-	{
-		Matrix mtrx('r', 5);
-		//std::cout << mtrx << std::endl;
-		//mtrx.remove_column(-2);
-		//mtrx.remove_column(8);
-	}
-
 	// Test: use row_addition() on a 3 x 3 matrix
 	{
 		Matrix mtrx("5 5 5; 4 4 4; 3 3 3");
