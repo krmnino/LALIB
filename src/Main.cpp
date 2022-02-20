@@ -275,6 +275,7 @@ int test16() {
 
 int test17() {
 	// Test: use get_row() on a 3 x 3 matrix -> invalid row index
+
 	Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
 
 	try {
@@ -319,6 +320,7 @@ int test18() {
 
 int test19() {
 	// Test: use get_column() on a 3 x 3 matrix -> invalid column index
+
 	Matrix mtrx("7 8 9; 4 5 6; 1 2 3");
 
 	try {
@@ -346,6 +348,7 @@ int test19() {
 
 int test20() {
 	// Test: use remove_row() on a 5 x 5 matrix
+
 	Matrix mtrx('r', 5);
 
 	mtrx.remove_row(2);
@@ -388,6 +391,7 @@ int test21() {
 
 int test22() {
 	// Test: use remove_column() -> invalid row index
+
 	Matrix mtrx('r', 5);
 
 	mtrx.remove_column(2);
@@ -402,6 +406,7 @@ int test22() {
 
 int test23() {
 	// Test: use remove_column() -> invalid row index
+
 	Matrix mtrx('r', 5);
 
 	try {
@@ -426,6 +431,138 @@ int test23() {
 	return 0;
 }
 
+
+int test24() {
+	// Test: use row_addition() on a 3 x 3 matrix
+
+	Matrix mtrx("5 5 5; 4 4 4; 3 3 3");
+
+	mtrx.row_addition(0, 1);
+
+	for (int i = 0; i < mtrx.get_m(); i++) {
+		assert(mtrx.get_single_element(0, i) == 9);
+		assert(mtrx.get_single_element(1, i) == 4);
+		assert(mtrx.get_single_element(2, i) == 3);
+	}
+
+	std::cout << ">> Test 24 successful." << std::endl;
+	return 0;
+}
+
+
+int test25() {
+	// Test: use row_addition() -> invalid row index
+	
+	Matrix mtrx("5 5 5; 4 4 4; 3 3 3");
+	
+
+	try {
+		mtrx.row_addition(0, 5);
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::ROW_OUT_BOUNDS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Row index of evaluated matrix is out of bounds.");
+	}
+
+	try {
+		mtrx.row_addition(0, -5);
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::ROW_OUT_BOUNDS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Row index of evaluated matrix is out of bounds.");
+	}
+
+	try {
+		mtrx.row_addition(5, 1);
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::ROW_OUT_BOUNDS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Row index of evaluated matrix is out of bounds.");
+	}
+
+	try {
+		mtrx.row_addition(-5, 5);
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::ROW_OUT_BOUNDS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Row index of evaluated matrix is out of bounds.");
+	}
+	
+	std::cout << ">> Test 25 successful." << std::endl;
+	return 0;
+}
+
+
+int test26() {
+	// Test: use row_scale() on a 3 x 3 matrix with int scalar
+	
+
+	int scalar = 10;
+	Matrix mtrx("5 5 5; 4 4 4; 3 3 3");
+
+	mtrx.row_scale(1, scalar);
+
+	for (int i = 0; i < mtrx.get_m(); i++) {
+		assert(mtrx.get_single_element(0, i) == 5);
+		assert(mtrx.get_single_element(1, i) == 4 * (double)scalar);
+		assert(mtrx.get_single_element(2, i) == 3);
+	}
+
+	std::cout << ">> Test 26 successful." << std::endl;
+	return 0;
+}
+
+
+int test27() {
+	// Test: use row_scale() on a 3 x 3 matrix with double scalar
+
+	double scalar = 0.5;
+	Matrix mtrx("5 5 5; 4 4 4; 3 3 3");
+
+	mtrx.row_scale(1, scalar);
+
+	for (int i = 0; i < mtrx.get_m(); i++) {
+		assert(mtrx.get_single_element(0, i) == 5);
+		assert(mtrx.get_single_element(1, i) == 4 * (double)scalar);
+		assert(mtrx.get_single_element(2, i) == 3);
+	}
+
+	std::cout << ">> Test 27 successful." << std::endl;
+	return 0;
+}
+
+
+int test28() {
+	// Test: use row_scale() -> invalid row index
+
+	int scalar = 10;
+	Matrix mtrx("5 5 5; 4 4 4; 3 3 3");
+
+	try {
+		mtrx.row_scale(5, scalar);
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::ROW_OUT_BOUNDS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Row index of evaluated matrix is out of bounds.");
+	}
+
+	try {
+		mtrx.row_scale(-5, scalar);
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::ROW_OUT_BOUNDS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Row index of evaluated matrix is out of bounds.");
+	}
+
+	std::cout << ">> Test 28 successful." << std::endl;
+	return 0;
+}
 
 
 int main() {
@@ -453,6 +590,11 @@ int main() {
 	bool t21 = false;
 	bool t22 = false;
 	bool t23 = false;
+	bool t24 = false;
+	bool t25 = false;
+	bool t26 = false;
+	bool t27 = false;
+	bool t28 = false;
 
 	if(t1 || all){
 		test1();
@@ -523,70 +665,26 @@ int main() {
 	if(t23 || all){
 		test23();
 	}
+	if(t24 || all){
+		test24();
+	}
+	if(t25 || all){
+		test25();
+	}
+	if(t26 || all){
+		test26();
+	}
+	if(t27 || all){
+		test27();
+	}
+	if(t28 || all){
+		test28();
+	}
 
 	return 0;
 }
 /*
 	
-	// Test: use row_addition() on a 3 x 3 matrix
-	{
-		Matrix mtrx("5 5 5; 4 4 4; 3 3 3");
-		//std::cout << mtrx << std::endl;
-		mtrx.row_addition(0, 1);
-		//std::cout << mtrx << std::endl;
-		for (int i = 0; i < mtrx.get_m(); i++) {
-			assert(mtrx.get_single_element(0, i) == 9);
-			assert(mtrx.get_single_element(1, i) == 4);
-			assert(mtrx.get_single_element(2, i) == 3);
-		}
-	}
-
-	// Test: use row_addition() -> invalid row index
-	{
-		Matrix mtrx("5 5 5; 4 4 4; 3 3 3");
-		//std::cout << mtrx << std::endl;
-		//mtrx.row_addition(0, 5);
-		//mtrx.row_addition(0, -5);
-		//mtrx.row_addition(5, 1);
-		//mtrx.row_addition(-5, 5);
-	}
-
-	// Test: use row_scale() on a 3 x 3 matrix with int scalar
-	{
-		int scalar = 10;
-		Matrix mtrx("5 5 5; 4 4 4; 3 3 3");
-		//std::cout << mtrx << std::endl;
-		mtrx.row_scale(1, scalar);
-		//std::cout << mtrx << std::endl;
-		for (int i = 0; i < mtrx.get_m(); i++) {
-			assert(mtrx.get_single_element(0, i) == 5);
-			assert(mtrx.get_single_element(1, i) == 4 * (double)scalar);
-			assert(mtrx.get_single_element(2, i) == 3);
-		}
-	}
-
-	// Test: use row_scale() on a 3 x 3 matrix with double scalar
-	{
-		double scalar = 0.5;
-		Matrix mtrx("5 5 5; 4 4 4; 3 3 3");
-		//std::cout << mtrx << std::endl;
-		mtrx.row_scale(1, scalar);
-		//std::cout << mtrx << std::endl;
-		for (int i = 0; i < mtrx.get_m(); i++) {
-			assert(mtrx.get_single_element(0, i) == 5);
-			assert(mtrx.get_single_element(1, i) == 4 * (double)scalar);
-			assert(mtrx.get_single_element(2, i) == 3);
-		}
-	}
-
-	// Test: use row_scale() -> invalid row index
-	{
-		int scalar = 10;
-		Matrix mtrx("5 5 5; 4 4 4; 3 3 3");
-		//std::cout << mtrx << std::endl;
-		//mtrx.row_scale(5, scalar);
-		//mtrx.row_scale(-5, scalar);
-	}
 
 	// Test: use row_swap() on a 5 x 5 matrix
 	{
