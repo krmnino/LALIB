@@ -918,6 +918,46 @@ int test45() {
 }
 
 
+int test46() {
+	// Test: use operator*(double) on a 3 x 3 matrix and update source matrix
+
+	Matrix mtrx("2 2 2; 2 2 2; 2 2 2");
+	
+	mtrx = mtrx * 40;
+	
+	assert(mtrx.get_m() == 3);
+	assert(mtrx.get_n() == 3);
+	for (int i = 0; i < mtrx.get_m(); i++) {
+		for (int j = 0; j < mtrx.get_n(); j++) {
+			assert(mtrx.get_single_element(i, j) == 80);
+		}
+	}
+
+	std::cout << ">> Test 46 successful." << std::endl;
+	return 0;
+}
+
+
+int test47() {
+	// Test: use operator*(double) on a 3 x 3 matrix and store result in new matirx
+
+	Matrix mtrx("2 2 2; 2 2 2; 2 2 2");
+
+	Matrix ret = mtrx * 40;
+
+	assert(ret.get_m() == 3);
+	assert(ret.get_n() == 3);
+	for (int i = 0; i < ret.get_m(); i++) {
+		for (int j = 0; j < ret.get_n(); j++) {
+			assert(ret.get_single_element(i, j) == 80);
+		}
+	}
+
+	std::cout << ">> Test 47 successful." << std::endl;
+	return 0;
+}
+
+
 int main() {
 	bool all = true;
 	bool t1  = false;
@@ -965,6 +1005,8 @@ int main() {
 	bool t43 = false;
 	bool t44 = false;
 	bool t45 = false;
+	bool t46 = false;
+	bool t47 = false;
 
 	if(t1 || all){
 		test1();
@@ -1101,39 +1143,17 @@ int main() {
 	if(t45 || all){
 		test45();
 	}
+	if(t46 || all){
+		test46();
+	}
+	if(t47 || all){
+		test47();
+	}
 
 	return 0;
 }
 /*
-	// Test: use operator*(double) on a 3 x 3 matrix and update source matrix
-	{
-		Matrix mtrx("2 2 2; 2 2 2; 2 2 2");
-		//std::cout << mtrx << std::endl;
-		mtrx = mtrx * 40;
-		//std::cout << mtrx << std::endl;
-		assert(mtrx.get_m() == 3);
-		assert(mtrx.get_n() == 3);
-		for (int i = 0; i < mtrx.get_m(); i++) {
-			for (int j = 0; j < mtrx.get_n(); j++) {
-				assert(mtrx.get_single_element(i, j) == 80);
-			}
-		}
-	}
-
-	// Test: use operator*(double) on a 3 x 3 matrix and store result in new matirx
-	{
-		Matrix mtrx("2 2 2; 2 2 2; 2 2 2");
-		//std::cout << mtrx << std::endl;
-		Matrix ret = mtrx * 40;
-		//std::cout << ret << std::endl;
-		assert(ret.get_m() == 3);
-		assert(ret.get_n() == 3);
-		for (int i = 0; i < ret.get_m(); i++) {
-			for (int j = 0; j < ret.get_n(); j++) {
-				assert(ret.get_single_element(i, j) == 80);
-			}
-		}
-	}
+	
 
 	///////////////////////////////////////////////////////////////////
 
