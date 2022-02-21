@@ -20,6 +20,7 @@ enum class ErrorCode {
 	INVALID_DIMS,
 	UNEVEN_INPUT_COLS,
 	NO_NUMERIC_INPUT,
+	INVALID_GEN_OPTION,
 };
 
 class LALIB_Error : public std::exception {

@@ -48,6 +48,9 @@ LALIB_Error::LALIB_Error(ErrorCode error) {
 		case ErrorCode::NO_NUMERIC_INPUT:
 			this->message = "Error: Input value is not numeric.";
 			break;
+		case ErrorCode::INVALID_GEN_OPTION:
+			this->message = "Error: Unsupported generation option passed to constructor.";
+			break;
 		default:
 			this->message = "Undefinded error.";
 			break;

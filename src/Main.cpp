@@ -958,6 +958,182 @@ int test47() {
 }
 
 
+int test48() {
+	// Test: Parse 3 x 1 matrix
+
+	Matrix mtrx("1;2;3");
+	assert(mtrx.get_m() == 3);
+	assert(mtrx.get_n() == 1);
+
+	std::cout << ">> Test 48 successful." << std::endl;
+	return 0;
+}
+
+
+int test49() {
+	// Test: Parse 1 x 3 matrix
+
+	Matrix mtrx("1 2 3");
+	assert(mtrx.get_m() == 1);
+	assert(mtrx.get_n() == 3);
+
+	std::cout << ">> Test 49 successful." << std::endl;
+	return 0;
+}
+
+
+int test50() {
+	// Test: Parse 1 x 1 matrix
+
+	Matrix mtrx("5");
+	assert(mtrx.get_m() == 1);
+	assert(mtrx.get_n() == 1);
+
+	std::cout << ">> Test 50 successful." << std::endl;
+	return 0;
+}
+
+
+int test51() {
+	// Test: Parse 1 x 1 matrix
+
+	Matrix mtrx("1 2 3; 4 5 6; 7 8 9");
+	assert(mtrx.get_m() == 3);
+	assert(mtrx.get_n() == 3);
+
+	std::cout << ">> Test 51 successful." << std::endl;
+	return 0;
+}
+
+
+int test52() {
+	// Test: Generate 4 x 4 zero'd matrix
+
+	Matrix mtrx(4, 4);
+
+	assert(mtrx.get_m() == 4);
+	assert(mtrx.get_n() == 4);
+	for (int i = 0; i < mtrx.get_m(); i++) {
+		for (int j = 0; j < mtrx.get_n(); j++) {
+			assert(mtrx.get_single_element(i, j) == 0);
+		}
+	}
+
+	std::cout << ">> Test 52 successful." << std::endl;
+	return 0;
+}
+
+
+int test53() {
+	// Test: Generate 5 x 1 zero'd matrix
+
+	Matrix mtrx(5, 1);
+
+	assert(mtrx.get_m() == 5);
+	assert(mtrx.get_n() == 1);
+	for (int i = 0; i < mtrx.get_m(); i++) {
+		for (int j = 0; j < mtrx.get_n(); j++) {
+			assert(mtrx.get_single_element(i, j) == 0);
+		}
+	}
+
+	std::cout << ">> Test 53 successful." << std::endl;
+	return 0;
+}
+
+
+int test54() {
+	// Test: Generate 1 x 1 zero'd matrix
+
+	Matrix mtrx(1, 1);
+
+	assert(mtrx.get_m() == 1);
+	assert(mtrx.get_n() == 1);
+	for (int i = 0; i < mtrx.get_m(); i++) {
+		for (int j = 0; j < mtrx.get_n(); j++) {
+			assert(mtrx.get_single_element(i, j) == 0);
+		}
+	}
+
+	std::cout << ">> Test 54 successful." << std::endl;
+	return 0;
+}
+
+
+int test55() {
+	// Test: Generate 3 x 3 random matrix
+
+	Matrix mtrx('r', 3);
+
+	assert(mtrx.get_m() == 3);
+	assert(mtrx.get_n() == 3);
+
+	std::cout << ">> Test 55 successful." << std::endl;
+	return 0;
+}
+
+
+int test56() {
+	// Test: Generate 3 x 3 identity matrix
+
+	Matrix mtrx('i', 3);
+
+	assert(mtrx.get_m() == 3);
+	assert(mtrx.get_n() == 3);
+	for (int i = 0; i < mtrx.get_m(); i++) {
+		for (int j = 0; j < mtrx.get_n(); j++) {
+			if (i == j) {
+				assert(mtrx.get_single_element(i, j) == 1);
+			}
+			else {
+				assert(mtrx.get_single_element(i, j) == 0);
+			}
+		}
+	}
+
+	std::cout << ">> Test 56 successful." << std::endl;
+	return 0;
+}
+
+
+int test57() {
+	// Test: Generate 10 x 10 identity matrix
+
+	Matrix mtrx('i', 10);
+
+	assert(mtrx.get_m() == 10);
+	assert(mtrx.get_n() == 10);
+	for (int i = 0; i < mtrx.get_m(); i++) {
+		for (int j = 0; j < mtrx.get_n(); j++) {
+			if (i == j) {
+				assert(mtrx.get_single_element(i, j) == 1);
+			}
+			else {
+				assert(mtrx.get_single_element(i, j) == 0);
+			}
+		}
+	}
+
+	std::cout << ">> Test 57 successful." << std::endl;
+	return 0;
+}
+
+// Test: Attempt generating matrix with unsupported flag
+int test58() {
+	try {
+		Matrix mtrx('h', 3);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::INVALID_GEN_OPTION);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Unsupported generation option passed to constructor.");
+	}
+
+	std::cout << ">> Test 58 successful." << std::endl;
+	return 0;
+}
+
+
 int main() {
 	bool all = true;
 	bool t1  = false;
@@ -1007,6 +1183,17 @@ int main() {
 	bool t45 = false;
 	bool t46 = false;
 	bool t47 = false;
+	bool t48 = false;
+	bool t49 = false;
+	bool t50 = false;
+	bool t51 = false;
+	bool t52 = false;
+	bool t53 = false;
+	bool t54 = false;
+	bool t55 = false;
+	bool t56 = false;
+	bool t57 = false;
+	bool t58 = false;
 
 	if(t1 || all){
 		test1();
@@ -1149,6 +1336,39 @@ int main() {
 	if(t47 || all){
 		test47();
 	}
+	if(t48 || all){
+		test48();
+	}
+	if(t49 || all){
+		test49();
+	}
+	if(t50 || all){
+		test50();
+	}
+	if(t51 || all){
+		test51();
+	}
+	if(t52 || all){
+		test52();
+	}
+	if(t53 || all){
+		test53();
+	}
+	if(t54 || all){
+		test54();
+	}
+	if(t55 || all){
+		test55();
+	}
+	if(t56 || all){
+		test56();
+	}
+	if(t57 || all){
+		test57();
+	}
+	if(t58 || all){
+		test58();
+	}
 
 	return 0;
 }
@@ -1157,129 +1377,9 @@ int main() {
 
 	///////////////////////////////////////////////////////////////////
 
-	// Test: Parse 3 x 1 matrix
-	{
-		Matrix mtrx("1;2;3");
-		//std::cout << mtrx << std::endl;
-		assert(mtrx.get_m() == 3);
-		assert(mtrx.get_n() == 1);
-	}
-
-	// Test: Parse 1 x 3 matrix
-	{
-		Matrix mtrx("1 2 3");
-		//std::cout << mtrx << std::endl;
-		assert(mtrx.get_m() == 1);
-		assert(mtrx.get_n() == 3);
-	}
-
-	// Test: Parse 1 x 1 matrix
-	{
-		Matrix mtrx("5");
-		//std::cout << mtrx << std::endl;
-		assert(mtrx.get_m() == 1);
-		assert(mtrx.get_n() == 1);
-	}
-
-	// Test: Parse 1 x 1 matrix
-	{
-		Matrix mtrx("1 2 3; 4 5 6; 7 8 9");
-		//std::cout << mtrx << std::endl;
-		assert(mtrx.get_m() == 3);
-		assert(mtrx.get_n() == 3);
-	}
-
-	// Test: Generate 4 x 4 zero'd matrix
-	{
-		Matrix mtrx(4, 4);
-		//std::cout << mtrx << std::endl;
-		assert(mtrx.get_m() == 4);
-		assert(mtrx.get_n() == 4);
-		for (int i = 0; i < mtrx.get_m(); i++) {
-			for (int j = 0; j < mtrx.get_n(); j++) {
-				assert(mtrx.get_single_element(i, j) == 0);
-			}
-		}
-	}
-
-	// Test: Generate 5 x 1 zero'd matrix
-	{
-		Matrix mtrx(5, 1);
-		//std::cout << mtrx << std::endl;
-		assert(mtrx.get_m() == 5);
-		assert(mtrx.get_n() == 1);
-		for (int i = 0; i < mtrx.get_m(); i++) {
-			for (int j = 0; j < mtrx.get_n(); j++) {
-				assert(mtrx.get_single_element(i, j) == 0);
-			}
-		}
-	}
-
-	// Test: Generate 1 x 1 zero'd matrix
-	{
-		Matrix mtrx(1, 1);
-		//std::cout << mtrx << std::endl;
-		assert(mtrx.get_m() == 1);
-		assert(mtrx.get_n() == 1);
-		for (int i = 0; i < mtrx.get_m(); i++) {
-			for (int j = 0; j < mtrx.get_n(); j++) {
-				assert(mtrx.get_single_element(i, j) == 0);
-			}
-		}
-
-	}
 	
-	// Test: Generate 3 x 3 random matrix
-	{
-		Matrix mtrx('r', 3);
-		//std::cout << mtrx << std::endl;
-		assert(mtrx.get_m() == 3);
-		assert(mtrx.get_n() == 3);
-	}
 
-	// Test: Generate 3 x 3 identity matrix
-	{
-		Matrix mtrx('i', 3);
-		//std::cout << mtrx << std::endl;
-		assert(mtrx.get_m() == 3);
-		assert(mtrx.get_n() == 3);
-		for (int i = 0; i < mtrx.get_m(); i++) {
-			for (int j = 0; j < mtrx.get_n(); j++) {
-				if (i == j) {
-					assert(mtrx.get_single_element(i, j) == 1);
-				}
-				else {
-					assert(mtrx.get_single_element(i, j) == 0);
-				}
-			}
-		}
-	}
-
-	// Test: Generate 10 x 10 identity matrix
-	{
-		Matrix mtrx('i', 10);
-		//std::cout << mtrx << std::endl;
-		assert(mtrx.get_m() == 10);
-		assert(mtrx.get_n() == 10);
-		for (int i = 0; i < mtrx.get_m(); i++) {
-			for (int j = 0; j < mtrx.get_n(); j++) {
-				if (i == j) {
-					assert(mtrx.get_single_element(i, j) == 1);
-				}
-				else {
-					assert(mtrx.get_single_element(i, j) == 0);
-				}
-			}
-		}
-	}
-
-	// Test: Generate undefined matrix
-	{
-		Matrix mtrx('z', 3);
-		std::cout << mtrx << std::endl;
-		assert(mtrx.get_m() == 0);
-		assert(mtrx.get_n() == 0);
-	}
+	
 
 	///////////////////////////////////////////////////////////////////
 
