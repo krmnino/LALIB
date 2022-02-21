@@ -1134,6 +1134,42 @@ int test58() {
 }
 
 
+int test59() {
+	// Test: Generate 3 x 3 zero matrix
+
+	Matrix mtrx('z', 3);
+
+	assert(mtrx.get_m() == 3);
+	assert(mtrx.get_n() == 3);
+	for (int i = 0; i < mtrx.get_m(); i++) {
+		for (int j = 0; j < mtrx.get_n(); j++) {
+			assert(mtrx.get_single_element(i, j) == 0);
+		}
+	}
+
+	std::cout << ">> Test 59 successful." << std::endl;
+	return 0;
+}
+
+
+int test60() {
+	// Test: Generate 12 x 12 zero matrix
+
+	Matrix mtrx('z', 12);
+
+	assert(mtrx.get_m() == 12);
+	assert(mtrx.get_n() == 12);
+	for (int i = 0; i < mtrx.get_m(); i++) {
+		for (int j = 0; j < mtrx.get_n(); j++) {
+			assert(mtrx.get_single_element(i, j) == 0);
+		}
+	}
+
+	std::cout << ">> Test 60 successful." << std::endl;
+	return 0;
+}
+
+
 int main() {
 	bool all = true;
 	bool t1  = false;
@@ -1194,6 +1230,8 @@ int main() {
 	bool t56 = false;
 	bool t57 = false;
 	bool t58 = false;
+	bool t59 = false;
+	bool t60 = false;
 
 	if(t1 || all){
 		test1();
@@ -1368,6 +1406,12 @@ int main() {
 	}
 	if(t58 || all){
 		test58();
+	}
+	if(t59 || all){
+		test59();
+	}
+	if(t60 || all){
+		test60();
 	}
 
 	return 0;

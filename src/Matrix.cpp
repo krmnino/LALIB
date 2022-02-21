@@ -112,7 +112,15 @@ Matrix::Matrix(char flag, int n) {
 			for (int i = 0; i < this->m; i++)
 				this->matrix[i][i] = 1;
 			break;
+		case 'z':
+			this->m = n;
+			this->n = n;
+			this->matrix.resize(this->m, std::vector<double>(this->n, 0));
+			break;
 		default:
+			LALIB_Error ex(ErrorCode::INVALID_GEN_OPTION);
+			std::cerr << ex.what() << std::endl;
+			throw ex;
 			break;
 	}
 }
