@@ -564,6 +564,359 @@ int test28() {
 	return 0;
 }
 
+int test29() {
+	// Test: use row_swap() on a 5 x 5 matrix
+
+	Matrix mtrx1("5 5 5; 4 4 4; 3 3 3");
+	Matrix mtrx2("4 4 4; 5 5 5; 3 3 3");
+
+	mtrx1.row_swap(0, 1);
+
+	assert(mtrx1.equal(mtrx2));
+
+	std::cout << ">> Test 29 successful." << std::endl;
+	return 0;
+}
+
+int test30() {
+	// Test: use row_swap() -> invalid row index 
+
+	Matrix mtrx("5 5 5; 4 4 4; 3 3 3");
+
+	try {
+		mtrx.row_swap(5, 1);
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::ROW_OUT_BOUNDS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Row index of evaluated matrix is out of bounds.");
+	}
+
+	try {
+		mtrx.row_swap(-5, 1);
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::ROW_OUT_BOUNDS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Row index of evaluated matrix is out of bounds.");
+	}
+
+	try {
+		mtrx.row_swap(0, 5);
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::ROW_OUT_BOUNDS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Row index of evaluated matrix is out of bounds.");
+	}
+
+	try {
+		mtrx.row_swap(0, -5);
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::ROW_OUT_BOUNDS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Row index of evaluated matrix is out of bounds.");
+	}
+
+	std::cout << ">> Test 30 successful." << std::endl;
+	return 0;
+}
+
+
+int test31() {
+	// Test: use matrix_addition() on two 3 x 3 matrix
+
+	Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
+	Matrix mtrx2("8 8 8; 6 6 6; 4 4 4");
+
+	mtrx1.matrix_addition(mtrx2);
+
+	for (int i = 0; i < mtrx1.get_m(); i++) {
+		for (int j = 0; j < mtrx1.get_n(); j++) {
+			assert(mtrx1.get_single_element(i, j) == 10);
+		}
+	}
+
+	std::cout << ">> Test 31 successful." << std::endl;
+	return 0;
+}
+
+
+int test32() {
+	// Test: use matrix_addition() on a 3 x 3 matrix and 1 x 3 matrix
+
+	Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
+	Matrix mtrx2("1 2 3;");
+	
+	try {
+		mtrx1.matrix_addition(mtrx2);
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::INCONS_MATRX_ROWS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: The row count is not consistent between both matrices.");
+	}
+
+	std::cout << ">> Test 32 successful." << std::endl;
+	return 0;
+}
+
+int test33() {
+	// Test: use matrix_addition() on a 3 x 3 matrix and 3 x 1 matrix
+
+	Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
+	Matrix mtrx2("1; 2; 3;");
+
+	try {
+		mtrx1.matrix_addition(mtrx2);
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::INCONS_MATRX_COLS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: The column count is not consistent between both matrices.");
+	}
+
+	std::cout << ">> Test 33 successful." << std::endl;
+	return 0;
+}
+
+
+int test34() {
+	// Test: use matrix_scale() on a 3 x 3 matrix
+
+	Matrix mtrx("2 2 2; 2 2 2; 2 2 2");
+ 
+ 	mtrx.matrix_scale(40);
+
+	for (int i = 0; i < mtrx.get_m(); i++) {
+		for (int j = 0; j < mtrx.get_n(); j++) {
+			assert(mtrx.get_single_element(i, j) == 80);
+		}
+	}
+
+	std::cout << ">> Test 34 successful." << std::endl;
+	return 0;
+}
+
+
+int test35() {
+	// Test: use transpose() on a 3 x 3 
+
+	Matrix mtrx("2 2 2; 4 4 4; 6 6 6");
+
+	mtrx.transpose();
+
+	assert(mtrx.get_single_element(0, 0) == 2);
+	assert(mtrx.get_single_element(0, 1) == 4);
+	assert(mtrx.get_single_element(0, 2) == 6);
+	assert(mtrx.get_single_element(1, 0) == 2);
+	assert(mtrx.get_single_element(1, 1) == 4);
+	assert(mtrx.get_single_element(1, 2) == 6);
+	assert(mtrx.get_single_element(2, 0) == 2);
+	assert(mtrx.get_single_element(2, 1) == 4);
+	assert(mtrx.get_single_element(2, 2) == 6);
+
+	std::cout << ">> Test 35 successful." << std::endl;
+	return 0;
+}
+
+
+int test36() {
+	// Test: use transpose() on a 5 x 1 
+
+	Matrix mtrx("1; 2; 3; 4; 5");
+
+	mtrx.transpose();
+
+	assert(mtrx.get_single_element(0, 0) == 1);
+	assert(mtrx.get_single_element(0, 1) == 2);
+	assert(mtrx.get_single_element(0, 2) == 3);
+	assert(mtrx.get_single_element(0, 3) == 4);
+	assert(mtrx.get_single_element(0, 4) == 5);
+
+	std::cout << ">> Test 36 successful." << std::endl;
+	return 0;
+}
+
+
+int test37() {
+	// Test: use transpose() on a 1 x 5 
+	
+	Matrix mtrx("1 2 3 4 5;");
+
+	mtrx.transpose();
+
+	assert(mtrx.get_single_element(0, 0) == 1);
+	assert(mtrx.get_single_element(1, 0) == 2);
+	assert(mtrx.get_single_element(2, 0) == 3);
+	assert(mtrx.get_single_element(3, 0) == 4);
+	assert(mtrx.get_single_element(4, 0) == 5);
+
+	std::cout << ">> Test 37 successful." << std::endl;
+	return 0;
+}
+
+
+int test38() {
+	// Test: use operator+ on two 3 x 3 matrix
+
+	Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
+	Matrix mtrx2("8 8 8; 6 6 6; 4 4 4");
+	Matrix ret = mtrx1 + mtrx2;
+
+	assert(ret.get_m() == 3);
+	assert(ret.get_n() == 3);
+	for (int i = 0; i < ret.get_m(); i++) {
+		for (int j = 0; j < ret.get_n(); j++) {
+			assert(ret.get_single_element(i, j) == 10);
+		}
+	}
+
+	std::cout << ">> Test 38 successful." << std::endl;
+	return 0;
+}
+
+
+int test39() {
+	// Test: use operator+ on two 3 x 3 matrix
+
+	Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
+	Matrix mtrx2("8 8 8; 6 6 6; 4 4 4");
+	mtrx1 = mtrx1 + mtrx2;
+
+	assert(mtrx1.get_m() == 3);
+	assert(mtrx1.get_n() == 3);
+	for (int i = 0; i < mtrx1.get_m(); i++) {
+		for (int j = 0; j < mtrx1.get_n(); j++) {
+			assert(mtrx1.get_single_element(i, j) == 10);
+		}
+	}
+
+	std::cout << ">> Test 39 successful." << std::endl;
+	return 0;
+}
+
+
+int test40() {
+	// Test: use operator+ on a 3 x 3 matrix and 1 x 3 matrix
+
+	Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
+	Matrix mtrx2("1 2 3;");
+	
+	try {
+		Matrix ret = mtrx1 + mtrx2;
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::INCONS_MATRX_ROWS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: The row count is not consistent between both matrices.");
+	}
+
+	std::cout << ">> Test 40 successful." << std::endl;
+	return 0;
+}
+
+
+int test41() {
+	// Test: use operator+ on a 3 x 3 matrix and 3 x 1 matrix
+
+	Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
+	Matrix mtrx2("1; 2; 3;");
+
+	try {
+		Matrix ret = mtrx1 + mtrx2;
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::INCONS_MATRX_COLS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: The column count is not consistent between both matrices.");
+	}
+
+	std::cout << ">> Test 41 successful." << std::endl;
+	return 0;
+}
+
+
+int test42() {
+	// Test: use operator- on two 3 x 3 matrix
+
+	Matrix mtrx1("8 8 8; 10 10 10; 6 6 6");
+	Matrix mtrx2("2 2 2; 4 4 4; 0 0 0");
+	Matrix ret = mtrx1 - mtrx2;
+
+	assert(ret.get_m() == 3);
+	assert(ret.get_n() == 3);
+	for (int i = 0; i < ret.get_m(); i++) {
+		for (int j = 0; j < ret.get_n(); j++) {
+			assert(ret.get_single_element(i, j) == 6);
+		}
+	}
+
+	std::cout << ">> Test 42 successful." << std::endl;
+	return 0;
+}
+
+
+int test43() {
+	// Test: use operator- on two 3 x 3 matrix
+
+	Matrix mtrx1("8 8 8; 10 10 10; 6 6 6");
+	Matrix mtrx2("2 2 2; 4 4 4; 0 0 0");
+	mtrx1 = mtrx1 - mtrx2;
+
+	assert(mtrx1.get_m() == 3);
+	assert(mtrx1.get_n() == 3);
+	for (int i = 0; i < mtrx1.get_m(); i++) {
+		for (int j = 0; j < mtrx1.get_n(); j++) {
+			assert(mtrx1.get_single_element(i, j) == 6);
+		}
+	}
+
+	std::cout << ">> Test 43 successful." << std::endl;
+	return 0;
+}
+
+
+int test44() {
+	// Test: use operator- on a 3 x 3 matrix and 1 x 3 matrix
+
+	Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
+	Matrix mtrx2("1 2 3;");
+	
+	try {
+		Matrix ret = mtrx1 - mtrx2;
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::INCONS_MATRX_ROWS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: The row count is not consistent between both matrices.");
+	}
+
+	std::cout << ">> Test 44 successful." << std::endl;
+	return 0;
+}
+
+
+int test45() {
+	// Test: use operator- on a 3 x 3 matrix and 3 x 1 matrix
+
+	Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
+	Matrix mtrx2("1; 2; 3;");
+
+	try {
+		Matrix ret = mtrx1 + mtrx2;
+	}
+	catch (LALIB_Error ex) {
+		assert(ex.get_error_code() == ErrorCode::INCONS_MATRX_COLS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: The column count is not consistent between both matrices.");
+	}
+
+	std::cout << ">> Test 45 successful." << std::endl;
+	return 0;
+}
+
 
 int main() {
 	bool all = true;
@@ -595,6 +948,23 @@ int main() {
 	bool t26 = false;
 	bool t27 = false;
 	bool t28 = false;
+	bool t29 = false;
+	bool t30 = false;
+	bool t31 = false;
+	bool t32 = false;
+	bool t33 = false;
+	bool t34 = false;
+	bool t35 = false;
+	bool t36 = false;
+	bool t37 = false;
+	bool t38 = false;
+	bool t39 = false;
+	bool t40 = false;
+	bool t41 = false;
+	bool t42 = false;
+	bool t43 = false;
+	bool t44 = false;
+	bool t45 = false;
 
 	if(t1 || all){
 		test1();
@@ -680,204 +1050,61 @@ int main() {
 	if(t28 || all){
 		test28();
 	}
+	if(t29 || all){
+		test29();
+	}
+	if(t30 || all){
+		test30();
+	}
+	if(t31 || all){
+		test31();
+	}
+	if(t32 || all){
+		test32();
+	}
+	if(t33 || all){
+		test33();
+	}
+	if(t34 || all){
+		test34();
+	}
+	if(t35 || all){
+		test35();
+	}
+	if(t36 || all){
+		test36();
+	}
+	if(t37 || all){
+		test37();
+	}
+	if(t38 || all){
+		test38();
+	}
+	if(t39 || all){
+		test39();
+	}
+	if(t40 || all){
+		test40();
+	}
+	if(t41 || all){
+		test41();
+	}
+	if(t42 || all){
+		test42();
+	}
+	if(t43 || all){
+		test43();
+	}
+	if(t44 || all){
+		test44();
+	}
+	if(t45 || all){
+		test45();
+	}
 
 	return 0;
 }
 /*
-	
-
-	// Test: use row_swap() on a 5 x 5 matrix
-	{
-		Matrix mtrx1("5 5 5; 4 4 4; 3 3 3");
-		Matrix mtrx2("4 4 4; 5 5 5; 3 3 3");
-		//std::cout << mtrx << std::endl;
-		mtrx1.row_swap(0, 1);
-		//std::cout << mtrx << std::endl;
-		assert(mtrx1.equal(mtrx2));
-	}
-
-	// Test: use row_swap() -> invalid row index 
-	{
-		Matrix mtrx("5 5 5; 4 4 4; 3 3 3");
-		//std::cout << mtrx << std::endl;
-		//mtrx.row_swap(5, 1);
-		//mtrx.row_swap(-5, 1);
-		//mtrx.row_swap(0, 5);
-		//mtrx.row_swap(0, -5);
-	}
-
-	// Test: use matrix_addition() on two 3 x 3 matrix
-	{
-		Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
-		Matrix mtrx2("8 8 8; 6 6 6; 4 4 4");
-		//std::cout << mtrx1 << std::endl;
-		mtrx1.matrix_addition(mtrx2);
-		//std::cout << mtrx1 << std::endl;
-		for (int i = 0; i < mtrx1.get_m(); i++) {
-			for (int j = 0; j < mtrx1.get_n(); j++) {
-				assert(mtrx1.get_single_element(i, j) == 10);
-			}
-		}
-	}
-
-	// Test: use matrix_addition() on a 3 x 3 matrix and 1 x 3 matrix
-	{
-		Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
-		Matrix mtrx2("1 2 3;");
-		//mtrx1.matrix_addition(mtrx2);
-	}
-
-	// Test: use matrix_addition() on a 3 x 3 matrix and 3 x 1 matrix
-	{
-		Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
-		Matrix mtrx2("1; 2; 3;");
-		//mtrx1.matrix_addition(mtrx2);
-	}
-
-	// Test: use matrix_scale() on a 3 x 3 matrix
-	{
-		Matrix mtrx("2 2 2; 2 2 2; 2 2 2");
-		//std::cout << mtrx << std::endl;
-		mtrx.matrix_scale(40);
-		//std::cout << mtrx << std::endl;
-		for (int i = 0; i < mtrx.get_m(); i++) {
-			for (int j = 0; j < mtrx.get_n(); j++) {
-				assert(mtrx.get_single_element(i, j) == 80);
-			}
-		}
-	}
-
-	// Test: use transpose() on a 3 x 3 
-	{
-		Matrix mtrx("2 2 2; 4 4 4; 6 6 6");
-		//std::cout << mtrx << std::endl;
-		mtrx.transpose();
-		//std::cout << mtrx << std::endl;
-		assert(mtrx.get_single_element(0, 0) == 2);
-		assert(mtrx.get_single_element(0, 1) == 4);
-		assert(mtrx.get_single_element(0, 2) == 6);
-		assert(mtrx.get_single_element(1, 0) == 2);
-		assert(mtrx.get_single_element(1, 1) == 4);
-		assert(mtrx.get_single_element(1, 2) == 6);
-		assert(mtrx.get_single_element(2, 0) == 2);
-		assert(mtrx.get_single_element(2, 1) == 4);
-		assert(mtrx.get_single_element(2, 2) == 6);
-	}
-
-	// Test: use transpose() on a 5 x 1 
-	{
-		Matrix mtrx("1; 2; 3; 4; 5");
-		//std::cout << mtrx << std::endl;
-		mtrx.transpose();
-		//std::cout << mtrx << std::endl;
-		assert(mtrx.get_single_element(0, 0) == 1);
-		assert(mtrx.get_single_element(0, 1) == 2);
-		assert(mtrx.get_single_element(0, 2) == 3);
-		assert(mtrx.get_single_element(0, 3) == 4);
-		assert(mtrx.get_single_element(0, 4) == 5);
-	}
-
-	// Test: use transpose() on a 1 x 5 
-	{
-		Matrix mtrx("1 2 3 4 5;");
-		//std::cout << mtrx << std::endl;
-		mtrx.transpose();
-		//std::cout << mtrx << std::endl;
-		assert(mtrx.get_single_element(0, 0) == 1);
-		assert(mtrx.get_single_element(1, 0) == 2);
-		assert(mtrx.get_single_element(2, 0) == 3);
-		assert(mtrx.get_single_element(3, 0) == 4);
-		assert(mtrx.get_single_element(4, 0) == 5);
-	}
-
-	// Test: use operator+ on two 3 x 3 matrix
-	{
-		Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
-		Matrix mtrx2("8 8 8; 6 6 6; 4 4 4");
-		Matrix ret = mtrx1 + mtrx2;
-		//std::cout << ret << std::endl;
-		assert(ret.get_m() == 3);
-		assert(ret.get_n() == 3);
-		for (int i = 0; i < ret.get_m(); i++) {
-			for (int j = 0; j < ret.get_n(); j++) {
-				assert(ret.get_single_element(i, j) == 10);
-			}
-		}
-	}
-
-	// Test: use operator+ on two 3 x 3 matrix
-	{
-		Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
-		Matrix mtrx2("8 8 8; 6 6 6; 4 4 4");
-		mtrx1 = mtrx1 + mtrx2;
-		//std::cout << mtrx1 << std::endl;
-		assert(mtrx1.get_m() == 3);
-		assert(mtrx1.get_n() == 3);
-		for (int i = 0; i < mtrx1.get_m(); i++) {
-			for (int j = 0; j < mtrx1.get_n(); j++) {
-				assert(mtrx1.get_single_element(i, j) == 10);
-			}
-		}
-	}
-
-	// Test: use operator+ on a 3 x 3 matrix and 1 x 3 matrix
-	{
-		Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
-		Matrix mtrx2("1 2 3;");
-		//Matrix ret = mtrx1 + mtrx2;
-	}
-
-	// Test: use operator+ on a 3 x 3 matrix and 3 x 1 matrix
-	{
-		Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
-		Matrix mtrx2("1; 2; 3;");
-		//Matrix ret = mtrx1 + mtrx2;
-	}
-
-	// Test: use operator- on two 3 x 3 matrix
-	{
-		Matrix mtrx1("8 8 8; 10 10 10; 6 6 6");
-		Matrix mtrx2("2 2 2; 4 4 4; 0 0 0");
-		Matrix ret = mtrx1 - mtrx2;
-		//std::cout << ret << std::endl;
-		assert(ret.get_m() == 3);
-		assert(ret.get_n() == 3);
-		for (int i = 0; i < ret.get_m(); i++) {
-			for (int j = 0; j < ret.get_n(); j++) {
-				assert(ret.get_single_element(i, j) == 6);
-			}
-		}
-	}
-
-	// Test: use operator+ on two 3 x 3 matrix
-	{
-		Matrix mtrx1("8 8 8; 10 10 10; 6 6 6");
-		Matrix mtrx2("2 2 2; 4 4 4; 0 0 0");
-		mtrx1 = mtrx1 - mtrx2;
-		assert(mtrx1.get_m() == 3);
-		assert(mtrx1.get_n() == 3);
-		//std::cout << mtrx1 << std::endl;
-		for (int i = 0; i < mtrx1.get_m(); i++) {
-			for (int j = 0; j < mtrx1.get_n(); j++) {
-				assert(mtrx1.get_single_element(i, j) == 6);
-			}
-		}
-	}
-
-	// Test: use operator+ on a 3 x 3 matrix and 1 x 3 matrix
-	{
-		Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
-		Matrix mtrx2("1 2 3;");
-		//Matrix ret = mtrx1 - mtrx2;
-	}
-
-	// Test: use operator+ on a 3 x 3 matrix and 3 x 1 matrix
-	{
-		Matrix mtrx1("2 2 2; 4 4 4; 6 6 6");
-		Matrix mtrx2("1; 2; 3;");
-		//Matrix ret = mtrx1 + mtrx2;
-	}
-
 	// Test: use operator*(double) on a 3 x 3 matrix and update source matrix
 	{
 		Matrix mtrx("2 2 2; 2 2 2; 2 2 2");
@@ -893,7 +1120,7 @@ int main() {
 		}
 	}
 
-	// Test: use operator*(double) on a 3 x 3 matrix and update source matrix
+	// Test: use operator*(double) on a 3 x 3 matrix and store result in new matirx
 	{
 		Matrix mtrx("2 2 2; 2 2 2; 2 2 2");
 		//std::cout << mtrx << std::endl;
