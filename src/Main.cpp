@@ -1170,6 +1170,167 @@ int test60() {
 }
 
 
+int test61() {
+	// Test: use determinant() on a 2 x 2 matrix -> succeeds
+
+	Matrix mtrx("5 8; 4 5");
+	
+	auto ret = determinant(mtrx);
+	
+	assert(ret == -7);
+
+	std::cout << ">> Test 61 successful." << std::endl;
+	return 0;
+}
+
+
+int test62() {
+	// Test: use determinant() on a 4 x 4 matrix -> succeeds
+
+	Matrix mtrx("2 4 1 -3; 7 2 2 -2; 3 3 2 2; 0 5 1 0");
+
+	auto ret = determinant(mtrx);
+
+	assert(ret == -35);
+
+	std::cout << ">> Test 62 successful." << std::endl;
+	return 0;
+}
+
+
+int test63() {
+	// Test: use determinant() on a 5 x 5 matrix -> succeeds
+
+	Matrix mtrx("8 9 7 8 2; 4 5 9 5 7; 1 3 6 6 8; 4 5 7 4 5; 2 3 6 8 9");
+
+	auto ret = determinant(mtrx);
+
+	assert(ret == 213);
+
+	std::cout << ">> Test 63 successful." << std::endl;
+	return 0;
+}
+
+
+int test64() {
+	// Test: use determinant() on a 1 x 1 matrix -> succeeds
+
+	Matrix mtrx("5");
+
+	auto ret = determinant(mtrx);
+
+	assert(ret == 5);
+
+	std::cout << ">> Test 64 successful." << std::endl;
+	return 0;
+}
+
+
+int test65() {
+	// Test: use determinant() on a 0 x 0 matrix -> fails
+
+	Matrix mtrx(0, 0);
+	
+	try {
+		auto ret = determinant(mtrx);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::INVALID_DIMS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: One of the dimensions of the evaluated matrix is <= 0.");
+	}
+
+	std::cout << ">> Test 65 successful." << std::endl;
+	return 0;
+}
+
+
+int test66() {
+	// Test: use determinant() on a 3 x 3 singular matrix -> succeeds
+
+	Matrix mtrx("1 2 3; 4 5 6; 7 8 9");
+	
+	auto ret = determinant(mtrx);
+	
+	assert(ret == 0);
+
+	std::cout << ">> Test 66 successful." << std::endl;
+	return 0;
+}
+
+
+int test67() {
+	// Test: use determinant() on a 5 x 5 singular matrix -> succeeds
+	
+	Matrix mtrx("1 2 3 4 5; 6 7 8 9 10; 11 12 13 14 15; 16 17 18 19 20; 21 22 23 24 25");
+	
+	auto ret = determinant(mtrx);
+	
+	assert(ret == 0);
+
+	std::cout << ">> Test 67 successful." << std::endl;
+	return 0;
+}
+
+
+int test68() {
+	// Test: use determinant() on a 10 x 10 -> succeeds
+	Matrix mtrx("5 8 52 6 4 1 2 8 6 -9;"
+		        "1 5 -8 65 8 5 -9 7 45 4;"
+	            "2 21 1 5641 6 5 3 65 2 5;"
+		        "2 2 65 52 2 35 61 4 35 45;"
+		        "13 5216 51 52 6 63 87 8 5 4185;"
+		        "451 235 8 35 9 89 -8 55 52 2;"
+		        "1 2 5 13 5 5 6 4 3 46;"
+		        "4 654 3 5 2 1 5 62 3 3;"
+		        "2 3 55 -98 7 8 4512 2 56 3;"
+		        "5 2 -5 35 4 53 1 65 3 6");
+	
+	auto ret = determinant(mtrx);
+	
+	std::cout << ">> Test 68 successful." << std::endl;
+	return 0;
+}
+
+
+int test69() {
+	// Test: use determinant() on a 1 x 4 -> fails
+
+	Matrix mtrx("1 2 3 4");
+
+	try {
+		auto ret = determinant(mtrx);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::NON_SQR_MTRX);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Evaluated matrix is not square.");
+	}
+
+	std::cout << ">> Test 69 successful." << std::endl;
+	return 0;
+}
+
+
+int test70() {
+	// Test: use determinant() on a 4 x 1 -> fails
+
+	Matrix mtrx("1; 2; 3; 4");
+
+	try {
+		auto ret = determinant(mtrx);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::NON_SQR_MTRX);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Evaluated matrix is not square.");
+	}
+
+	std::cout << ">> Test 70 successful." << std::endl;
+	return 0;
+}
+
+
 int main() {
 	bool all = true;
 	bool t1  = false;
@@ -1232,6 +1393,16 @@ int main() {
 	bool t58 = false;
 	bool t59 = false;
 	bool t60 = false;
+	bool t61 = false;
+	bool t62 = false;
+	bool t63 = false;
+	bool t64 = false;
+	bool t65 = false;
+	bool t66 = false;
+	bool t67 = false;
+	bool t68 = false;
+	bool t69 = false;
+	bool t70 = false;
 
 	if(t1 || all){
 		test1();
@@ -1413,6 +1584,36 @@ int main() {
 	if(t60 || all){
 		test60();
 	}
+	if(t61 || all){
+		test61();
+	}
+	if(t62 || all){
+		test62();
+	}
+	if(t63 || all){
+		test63();
+	}
+	if(t64 || all){
+		test64();
+	}
+	if(t65 || all){
+		test65();
+	}
+	if(t66 || all){
+		test66();
+	}
+	if(t67 || all){
+		test67();
+	}
+	if(t68 || all){
+		test68();
+	}
+	if(t69 || all){
+		test69();
+	}
+	if(t70 || all){
+		test70();
+	}
 
 	return 0;
 }
@@ -1427,97 +1628,7 @@ int main() {
 
 	///////////////////////////////////////////////////////////////////
 
-	// Test: use determinant() on a 2 x 2 matrix -> succeeds
-	{
-		Matrix mtrx("5 8; 4 5");
-		//std::cout << mtrx << std::endl;
-		auto ret = determinant(mtrx);
-		//std::cout << ret << std::endl;
-		assert(ret == -7);
-	}
-
-	// Test: use determinant() on a 4 x 4 matrix -> succeeds
-	{
-		Matrix mtrx("2 4 1 -3; 7 2 2 -2; 3 3 2 2; 0 5 1 0");
-		//std::cout << mtrx << std::endl;
-		auto ret = determinant(mtrx);
-		//std::cout << ret << std::endl;
-		assert(ret == -35);
-	}
-
-	// Test: use determinant() on a 5 x 5 matrix -> succeeds
-	{
-		Matrix mtrx("8 9 7 8 2; 4 5 9 5 7; 1 3 6 6 8; 4 5 7 4 5; 2 3 6 8 9");
-		//std::cout << mtrx << std::endl;
-		auto ret = determinant(mtrx);
-		//std::cout << ret << std::endl;
-		assert(ret == 213);
-	}
-
-	// Test: use determinant() on a 1 x 1 matrix -> succeeds
-	{
-		Matrix mtrx("5");
-		//std::cout << mtrx << std::endl;
-		auto ret = determinant(mtrx);
-		//std::cout << ret << std::endl;
-		assert(ret == 5);
-	}
-
-	// Test: use determinant() on a 0 x 0 matrix -> fails
-	{
-		Matrix mtrx(0, 0);
-		//std::cout << mtrx << std::endl;
-		//auto ret = determinant(mtrx);
-	}
-
-	// Test: use determinant() on a 3 x 3 singular matrix -> succeeds
-	{
-		Matrix mtrx("1 2 3; 4 5 6; 7 8 9");
-		//std::cout << mtrx << std::endl;
-		auto ret = determinant(mtrx);
-		//std::cout << ret << std::endl;
-		assert(ret == 0);
-	}
-
-	// Test: use determinant() on a 5 x 5 singular matrix -> succeeds
-	{
-		Matrix mtrx("1 2 3 4 5; 6 7 8 9 10; 11 12 13 14 15; 16 17 18 19 20; 21 22 23 24 25");
-		//std::cout << mtrx << std::endl;
-		auto ret = determinant(mtrx);
-		//std::cout << ret << std::endl;
-		assert(ret == 0);
-	}
-
-	// Test: use determinant() on a 10 x 10 -> succeeds
-	{
-		//Matrix mtrx("5 8 52 6 4 1 2 8 6 -9;"
-		//	        "1 5 -8 65 8 5 -9 7 45 4;"
-		//          "2 21 1 5641 6 5 3 65 2 5;"
-		//	        "2 2 65 52 2 35 61 4 35 45;"
-		//	        "13 5216 51 52 6 63 87 8 5 4185;"
-		//	        "451 235 8 35 9 89 -8 55 52 2;"
-		//	        "1 2 5 13 5 5 6 4 3 46;"
-		//	        "4 654 3 5 2 1 5 62 3 3;"
-		//	        "2 3 55 -98 7 8 4512 2 56 3;"
-		//	        "5 2 -5 35 4 53 1 65 3 6");
-		//std::cout << mtrx << std::endl;
-		//auto ret = determinant(mtrx);
-		//std::cout << ret << std::endl;
-	}
-
-	// Test: use determinant() on a 1 x 4 -> fails
-	{
-		Matrix mtrx("1 2 3 4");
-		//std::cout << mtrx << std::endl;
-		//auto ret = determinant(mtrx);
-	}
-
-	// Test: use determinant() on a 4 x 1 -> fails
-	{
-		Matrix mtrx("1; 2; 3; 4");
-		//std::cout << mtrx << std::endl;
-		//auto ret = determinant(mtrx);
-	}
+	
 	
 	// Test: use is_singular() on a 3 x 3 -> succeeds
 	{

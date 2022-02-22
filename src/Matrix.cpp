@@ -112,7 +112,7 @@ Matrix::Matrix(char flag, int n) {
 			for (int i = 0; i < this->m; i++)
 				this->matrix[i][i] = 1;
 			break;
-		case 'z':
+		case 'z': // Generate zero matrix nxn
 			this->m = n;
 			this->n = n;
 			this->matrix.resize(this->m, std::vector<double>(this->n, 0));
