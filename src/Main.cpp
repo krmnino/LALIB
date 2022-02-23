@@ -1600,9 +1600,192 @@ int test84() {
 	return 0;
 }
 
+int test85() {
+	// Test: use multiply() with two 3x3 matrices
+
+	Matrix mtrx1("9 6 6; 2 55 3; -4 56 8;");
+	Matrix mtrx2("8 85 5; 8 3 -56; 1 1 3;");
+
+	auto ret = multiply(mtrx1, mtrx2);
+	
+	Matrix res(3, 3);
+	res.set_single_element(0, 0, 126);
+	res.set_single_element(0, 1, 789);
+	res.set_single_element(0, 2, -273);
+	res.set_single_element(1, 0, 459);
+	res.set_single_element(1, 1, 338);
+	res.set_single_element(1, 2, -3061);
+	res.set_single_element(2, 0, 424);
+	res.set_single_element(2, 1, -164);
+	res.set_single_element(2, 2, -3132);
+	for (int i = 0; i < res.get_m(); i++) {
+		for (int j = 0; j < res.get_n(); j++) {
+			assert(res.get_single_element(i, j) == ret.get_single_element(i, j));
+		}
+	}
+
+	std::cout << ">> Test 85 successful." << std::endl;
+	return 0;
+}
+
+
+int test86() {
+	// Test: use multiply() with two 5x5 matrices
+
+	Matrix mtrx1("9 5 5 6 5; 41 1 3 35 45; 5 63 1 6 85; 6 87 86 6 8; 46 534 6 584 6;");
+	Matrix mtrx2("89 56 65 99 12; 2 32 54 31 35; 13 5 35 4635 4; 2 8 68 8 63; 4 68 4 346 5;");
+
+	auto ret = multiply(mtrx1, mtrx2);
+	
+	Matrix res(5, 5);
+	res.set_single_element(0, 0, 908);
+	res.set_single_element(0, 1, 1077);
+	res.set_single_element(0, 2, 1458);
+	res.set_single_element(0, 3, 25999);
+	res.set_single_element(0, 4, 706);
+	res.set_single_element(1, 0, 3940);
+	res.set_single_element(1, 1, 5683);
+	res.set_single_element(1, 2, 5384);
+	res.set_single_element(1, 3, 33845);
+	res.set_single_element(1, 4, 2969);
+	res.set_single_element(2, 0, 936);
+	res.set_single_element(2, 1, 8129);
+	res.set_single_element(2, 2, 4510);
+	res.set_single_element(2, 3, 36541);
+	res.set_single_element(2, 4, 3072);
+	res.set_single_element(3, 0, 1870);
+	res.set_single_element(3, 1, 4142);
+	res.set_single_element(3, 2, 8538);
+	res.set_single_element(3, 3, 404717);
+	res.set_single_element(3, 4, 3879);
+	res.set_single_element(4, 0, 6432);
+	res.set_single_element(4, 1, 24774);
+	res.set_single_element(4, 2, 71772);
+	res.set_single_element(4, 3, 55666);
+	res.set_single_element(4, 4, 56088);
+
+	for (int i = 0; i < res.get_m(); i++) {
+		for (int j = 0; j < res.get_n(); j++) {
+			assert(res.get_single_element(i, j) == ret.get_single_element(i, j));
+		}
+	}
+
+	std::cout << ">> Test 86 successful." << std::endl;
+	return 0;
+}
+
+
+
+int test87() {
+	// Test: use multiply() with two 1x1 matrices
+	
+	Matrix mtrx1("5");
+	Matrix mtrx2("9");
+
+	auto ret = multiply(mtrx1, mtrx2);
+	
+	Matrix res(3, 3);
+	res.set_single_element(0, 0, 45);
+	assert(res.get_single_element(0, 0) == ret.get_single_element(0, 0));
+	
+	std::cout << ">> Test 87 successful." << std::endl;
+	return 0;
+}
+
+
+int test88() {
+	// Test: use multiply() with two 0x0 matrices -> fails
+	
+	Matrix mtrx1(0, 0);
+	Matrix mtrx2(0, 0);
+
+	try {
+		auto ret = multiply(mtrx1, mtrx2);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::INVALID_DIMS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: One of the dimensions of the evaluated matrix is <= 0.");
+	}
+	
+	std::cout << ">> Test 88 successful." << std::endl;
+	return 0;
+}
+
+
+int test89() {
+	// Test: use multiply() with two 3x1 and 1x3 matrices
+
+	Matrix mtrx1("1; 2; 3;");
+	Matrix mtrx2("4 5 6;");
+
+	auto ret = multiply(mtrx1, mtrx2);
+	
+	Matrix res(3, 3);
+	res.set_single_element(0, 0, 4);
+	res.set_single_element(0, 1, 5);
+	res.set_single_element(0, 2, 6);
+	res.set_single_element(1, 0, 8);
+	res.set_single_element(1, 1, 10);
+	res.set_single_element(1, 2, 12);
+	res.set_single_element(2, 0, 12);
+	res.set_single_element(2, 1, 15);
+	res.set_single_element(2, 2, 18);
+	for (int i = 0; i < res.get_m(); i++) {
+		for (int j = 0; j < res.get_n(); j++) {
+			assert(res.get_single_element(i, j) == ret.get_single_element(i, j));
+		}
+	}
+
+	std::cout << ">> Test 89 successful." << std::endl;
+	return 0;
+}
+
+
+int test90() {
+	// Test: use multiply() with two 2x4 and 4x1 matrices
+
+	Matrix mtrx1("5 6 8 32; 52 6 86 9;");
+	Matrix mtrx2("1; 12; 47; 2;");
+
+	auto ret = multiply(mtrx1, mtrx2);
+	
+	Matrix res(2, 1);
+	res.set_single_element(0, 0, 517);
+	res.set_single_element(1, 0, 4184);
+	for (int i = 0; i < res.get_m(); i++) {
+		for (int j = 0; j < res.get_n(); j++) {
+			assert(res.get_single_element(i, j) == ret.get_single_element(i, j));
+		}
+	}
+
+	std::cout << ">> Test 90 successful." << std::endl;
+	return 0;
+}
+
+
+int test91() {
+	// Test: use multiply() with 3x3 and 2x2 matrices -> fails
+	
+	Matrix mtrx1('r', 3);
+	Matrix mtrx2('r', 2);
+
+	try {
+		auto ret = multiply(mtrx1, mtrx2);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::ROW_COL_NOTEQ);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: M and N dimensions do not match between evaluated matrices.");
+	}
+	
+	std::cout << ">> Test 91 successful." << std::endl;
+	return 0;
+}
+
 
 int main() {
-	bool all = true;
+	bool all = false;
 	bool t1  = false;
 	bool t2  = false;
 	bool t3  = false;
@@ -1687,6 +1870,13 @@ int main() {
 	bool t82 = false;
 	bool t83 = false;
 	bool t84 = false;
+	bool t85 = true;
+	bool t86 = true;
+	bool t87 = true;
+	bool t88 = true;
+	bool t89 = true;
+	bool t90 = true;
+	bool t91 = true;
 
 	if(t1 || all){
 		test1();
@@ -1939,6 +2129,27 @@ int main() {
 	}
 	if(t84 || all){
 		test84();
+	}
+	if(t85 || all){
+		test85();
+	}
+	if(t86 || all){
+		test86();
+	}
+	if(t87 || all){
+		test87();
+	}
+	if(t88 || all){
+		test88();
+	}
+	if(t89 || all){
+		test89();
+	}
+	if(t90 || all){
+		test90();
+	}
+	if(t91 || all){
+		test91();
 	}
 
 	return 0;

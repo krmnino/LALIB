@@ -3,12 +3,18 @@
 #include <iostream>
 
 Matrix multiply(Matrix &m1, Matrix &m2) {
-	Matrix out(m1.get_m(), m2.get_n());
+	if ((m1.get_m() == 0 || m1.get_n() == 0) || 
+	    (m2.get_m() == 0 || m2.get_n() == 0)) {
+		LALIB_Error ex(ErrorCode::INVALID_DIMS);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
 	if (m1.get_n() != m2.get_m()) {
 		LALIB_Error ex(ErrorCode::ROW_COL_NOTEQ);
 		std::cerr << ex.what() << std::endl;
 		throw ex;
 	}
+	Matrix out(m1.get_m(), m2.get_n());
 	int out_row_index = 0;
 	int out_column_index = 0;
 	while (out_row_index < m1.get_m()) {
