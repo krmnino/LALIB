@@ -1331,6 +1331,104 @@ int test70() {
 }
 
 
+int test71() {
+	// Test: use is_singular() on a 3 x 3 -> succeeds
+
+	Matrix mtrx("1 2 3; 4 5 6; 7 8 9");
+
+	assert(is_singular(mtrx));
+
+	std::cout << ">> Test 71 successful." << std::endl;
+	return 0;
+}
+
+
+int test72() {
+	// Test: use is_singular() on a 5 x 5 -> succeeds
+
+	Matrix mtrx("1 2 3 4 5; 6 7 8 9 10; 11 12 13 14 15; 16 17 18 19 20; 21 22 23 24 25");
+	
+	assert(is_singular(mtrx));
+
+	std::cout << ">> Test 72 successful." << std::endl;
+	return 0;
+}
+
+
+int test73() {
+	// Test: use is_singular() on a 4 x 4 matrix -> succeeds
+
+	Matrix mtrx("2 4 1 -3; 7 2 2 -2; 3 3 2 2; 0 5 1 0");
+	
+	assert(!is_singular(mtrx));
+
+	std::cout << ">> Test 73 successful." << std::endl;
+	return 0;
+}
+
+
+int test74(){
+	// Test: use is_singular() on a 5 x 5 matrix -> succeeds
+
+	Matrix mtrx("8 9 7 8 2; 4 5 9 5 7; 1 3 6 6 8; 4 5 7 4 5; 2 3 6 8 9");
+	
+	assert(!is_singular(mtrx));
+
+	std::cout << ">> Test 74 successful." << std::endl;
+	return 0;
+}
+
+
+int test75() {
+	// Test: use is_singular() on a 2 x 2 matrix -> succeeds
+
+	Matrix mtrx("5 8; 4 5");
+	
+	assert(!is_singular(mtrx));
+
+	std::cout << ">> Test 75 successful." << std::endl;
+	return 0;
+}
+
+
+int test76() {
+	// Test: use is_singular() on a 1 x 4 -> fails
+
+	Matrix mtrx("1 2 3 4");
+	
+	try {
+		auto ret = is_singular(mtrx);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::NON_SQR_MTRX);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Evaluated matrix is not square.");
+	}
+
+	std::cout << ">> Test 76 successful." << std::endl;
+	return 0;
+}
+
+
+int test77() {
+	// Test: use is_singular() on a 4 x 1 -> fails
+
+	Matrix mtrx("1; 2; 3; 4");
+	
+	try {
+		auto ret = is_singular(mtrx);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::NON_SQR_MTRX);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Evaluated matrix is not square.");
+	}
+
+	std::cout << ">> Test 77 successful." << std::endl;
+	return 0;
+}
+
+
 int main() {
 	bool all = true;
 	bool t1  = false;
@@ -1403,6 +1501,13 @@ int main() {
 	bool t68 = false;
 	bool t69 = false;
 	bool t70 = false;
+	bool t71 = false;
+	bool t72 = false;
+	bool t73 = false;
+	bool t74 = false;
+	bool t75 = false;
+	bool t76 = false;
+	bool t77 = false;
 
 	if(t1 || all){
 		test1();
@@ -1614,70 +1719,33 @@ int main() {
 	if(t70 || all){
 		test70();
 	}
+	if(t71 || all){
+		test71();
+	}
+	if(t72 || all){
+		test72();
+	}
+	if(t73 || all){
+		test73();
+	}
+	if(t74 || all){
+		test74();
+	}
+	if(t75 || all){
+		test75();
+	}
+	if(t76 || all){
+		test76();
+	}
+	if(t77 || all){
+		test77();
+	}
 
 	return 0;
 }
 /*
 	
-
-	///////////////////////////////////////////////////////////////////
-
 	
-
-	
-
-	///////////////////////////////////////////////////////////////////
-
-	
-	
-	// Test: use is_singular() on a 3 x 3 -> succeeds
-	{
-		Matrix mtrx("1 2 3; 4 5 6; 7 8 9");
-		//std::cout << mtrx << std::endl;
-		assert(is_singular(mtrx));
-	}
-
-	// Test: use is_singular() on a 5 x 5 -> succeeds
-	{
-		Matrix mtrx("1 2 3 4 5; 6 7 8 9 10; 11 12 13 14 15; 16 17 18 19 20; 21 22 23 24 25");
-		//std::cout << mtrx << std::endl;
-		assert(is_singular(mtrx));
-	}
-
-	// Test: use is_singular() on a 4 x 4 matrix -> succeeds
-	{
-		Matrix mtrx("2 4 1 -3; 7 2 2 -2; 3 3 2 2; 0 5 1 0");
-		//std::cout << mtrx << std::endl;
-		assert(!is_singular(mtrx));
-	}
-
-	// Test: use is_singular() on a 5 x 5 matrix -> succeeds
-	{
-		Matrix mtrx("8 9 7 8 2; 4 5 9 5 7; 1 3 6 6 8; 4 5 7 4 5; 2 3 6 8 9");
-		//std::cout << mtrx << std::endl;
-		assert(!is_singular(mtrx));
-	}
-
-	// Test: use is_singular() on a 2 x 2 matrix -> succeeds
-	{
-		Matrix mtrx("5 8; 4 5");
-		//std::cout << mtrx << std::endl;
-		assert(!is_singular(mtrx));
-	}
-
-	// Test: use is_singular() on a 1 x 4 -> fails
-	{
-		Matrix mtrx("1 2 3 4");
-		//std::cout << mtrx << std::endl;
-		//auto ret = is_singular(mtrx);
-	}
-
-	// Test: use is_singular() on a 4 x 1 -> fails
-	{
-		Matrix mtrx("1; 2; 3; 4");
-		//std::cout << mtrx << std::endl;
-		//auto ret = is_singular(mtrx);
-	}
 
 	///////////////////////////////////////////////////////////////////
 
