@@ -15,19 +15,19 @@ namespace {
 }
 
 Matrix unit_vector(Matrix &src) {
-	if (src.get_n() != 1) {
-		LALIB_Error ex(ErrorCode::NOT_SINGLE_COL);
+	if (src.get_m() != 1) {
+		LALIB_Error ex(ErrorCode::NOT_SINGLE_ROW);
 		std::cerr << ex.what() << std::endl;
 		throw ex;
 	}
 	double v_length = 0;
-	for (int i = 0; i < src.get_m(); i++) {
-		v_length += pow(src.get_single_element(i, 0), 2);
+	for (int i = 0; i < src.get_n(); i++) {
+		v_length += pow(src.get_single_element(0, i), 2);
 	}
 	Matrix out(src);
 	v_length = sqrt(v_length);
-	for (int i = 0; i < src.get_m(); i++) {
-		out.set_single_element(i, 0, (src.get_single_element(i, 0) / v_length));
+	for (int i = 0; i < src.get_n(); i++) {
+		out.set_single_element(0, i, (src.get_single_element(0, i) / v_length));
 	}
 	return out;
 }

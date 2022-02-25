@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <list>
-#include <initializer_list>
+#include <cmath>
 #include <assert.h>
 
 #include "Matrix.h"
@@ -1784,6 +1783,114 @@ int test91() {
 }
 
 
+int test92() {
+	// Test: use of unit_vector with 1x5 matrix
+
+	Matrix mtrx("4 53 3 23 2;");
+	
+	auto ret = unit_vector(mtrx);
+
+	double v_length = pow(4, 2) + pow(53, 2) + pow(3, 2) + pow(23, 2) + pow(2, 2);
+	v_length = sqrt(v_length);
+	
+	assert(ret.get_single_element(0, 0) == 4 / v_length);
+	assert(ret.get_single_element(0, 1) == 53 / v_length);
+	assert(ret.get_single_element(0, 2) == 3 / v_length);
+	assert(ret.get_single_element(0, 3) == 23 / v_length);
+	assert(ret.get_single_element(0, 4) == 2 / v_length);
+
+	std::cout << ">> Test 92 successful." << std::endl;
+	return 0;
+}
+
+
+int test93() {
+	// Test: use of unit_vector with 1x10 matrix
+
+	Matrix mtrx("1 2 3 4 5 6 7 8 9 10;");
+	
+	auto ret = unit_vector(mtrx);
+
+	double v_length = pow(1, 2) + pow(2, 2) + pow(3, 2) + pow(4, 2) + pow(5, 2) +
+					  pow(6, 2) + pow(7, 2) + pow(8, 2) + pow(9, 2) + pow(10, 2);
+	v_length = sqrt(v_length);
+	
+	assert(ret.get_single_element(0, 0) == 1 / v_length);
+	assert(ret.get_single_element(0, 1) == 2 / v_length);
+	assert(ret.get_single_element(0, 2) == 3 / v_length);
+	assert(ret.get_single_element(0, 3) == 4 / v_length);
+	assert(ret.get_single_element(0, 4) == 5 / v_length);
+	assert(ret.get_single_element(0, 5) == 6 / v_length);
+	assert(ret.get_single_element(0, 6) == 7 / v_length);
+	assert(ret.get_single_element(0, 7) == 8 / v_length);
+	assert(ret.get_single_element(0, 8) == 9 / v_length);
+	assert(ret.get_single_element(0, 9) == 10 / v_length);
+
+	std::cout << ">> Test 93 successful." << std::endl;
+	return 0;
+}
+
+
+int test94() {
+	// Test: use of unit_vector with 5x1 matrix then transpose
+
+	Matrix mtrx("4; 53; 3; 23; 2;");
+	
+	mtrx.transpose();
+	auto ret = unit_vector(mtrx);
+
+	double v_length = pow(4, 2) + pow(53, 2) + pow(3, 2) + pow(23, 2) + pow(2, 2);
+	v_length = sqrt(v_length);
+	
+	assert(ret.get_single_element(0, 0) == 4 / v_length);
+	assert(ret.get_single_element(0, 1) == 53 / v_length);
+	assert(ret.get_single_element(0, 2) == 3 / v_length);
+	assert(ret.get_single_element(0, 3) == 23 / v_length);
+	assert(ret.get_single_element(0, 4) == 2 / v_length);
+
+	std::cout << ">> Test 94 successful." << std::endl;
+	return 0;
+}
+
+
+int test95() {
+	// Test: use of unit_vector with 5x1 matrix then transpose -> fails
+
+	Matrix mtrx("4; 53; 3; 23; 2;");
+	
+	try {
+		auto ret = unit_vector(mtrx);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::NOT_SINGLE_ROW);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: The number of rows in evauluated matrix must be 1.");
+	}
+
+	std::cout << ">> Test 95 successful." << std::endl;
+	return 0;
+}
+
+
+int test96() {
+	// Test: use of unit_vector with 5x5 matrix then transpose -> fails
+
+	Matrix mtrx("9 5 5 6 5; 41 1 3 35 45; 5 63 1 6 85; 6 87 86 6 8; 46 534 6 584 6;");
+	
+	try {
+		auto ret = unit_vector(mtrx);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::NOT_SINGLE_ROW);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: The number of rows in evauluated matrix must be 1.");
+	}
+
+	std::cout << ">> Test 96 successful." << std::endl;
+	return 0;
+}
+
+
 int main() {
 	bool all = false;
 	bool t1  = false;
@@ -1870,13 +1977,18 @@ int main() {
 	bool t82 = false;
 	bool t83 = false;
 	bool t84 = false;
-	bool t85 = true;
-	bool t86 = true;
-	bool t87 = true;
-	bool t88 = true;
-	bool t89 = true;
-	bool t90 = true;
-	bool t91 = true;
+	bool t85 = false;
+	bool t86 = false;
+	bool t87 = false;
+	bool t88 = false;
+	bool t89 = false;
+	bool t90 = false;
+	bool t91 = false;
+	bool t92 = true;
+	bool t93 = true;
+	bool t94 = true;
+	bool t95 = true;
+	bool t96 = true;
 
 	if(t1 || all){
 		test1();
@@ -2150,6 +2262,21 @@ int main() {
 	}
 	if(t91 || all){
 		test91();
+	}
+	if(t92 || all){
+		test92();
+	}
+	if(t93 || all){
+		test93();
+	}
+	if(t94 || all){
+		test94();
+	}
+	if(t95 || all){
+		test95();
+	}
+	if(t96 || all){
+		test96();
 	}
 
 	return 0;
