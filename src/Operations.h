@@ -10,6 +10,7 @@ int rank(Matrix&);
 double determinant(Matrix&);
 bool is_singular(Matrix&);
 Matrix multiply(Matrix&, Matrix&);
+double dot_product(Matrix&, Matrix&);
 Matrix unit_vector(Matrix&);
 Matrix invert(Matrix&);
 Matrix projection_onto(Matrix&, Matrix&);
