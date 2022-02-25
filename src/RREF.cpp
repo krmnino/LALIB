@@ -43,4 +43,3 @@ Matrix rref(Matrix &src) {
 	}
 	return copy;
 }
-
