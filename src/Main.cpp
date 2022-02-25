@@ -938,7 +938,7 @@ int test46() {
 
 
 int test47() {
-	// Test: use operator*(double) on a 3 x 3 matrix and store result in new matirx
+	// Test: use operator*(double) on a 3 x 3 matrix and store result in new matrix
 
 	Matrix mtrx("2 2 2; 2 2 2; 2 2 2");
 
@@ -1891,104 +1891,240 @@ int test96() {
 }
 
 
+int test97() {
+	// Test: use of projection_onto with two 1x3 matrices
+
+	Matrix vect("8 5 45;");
+	Matrix onto("9 65 4;");
+	
+	auto ret = projection_onto(onto, vect);
+
+	double proj = dot_product(onto, vect);
+	double onto_length = pow(onto.get_single_element(0, 0), 2) +
+						 pow(onto.get_single_element(0, 1), 2) +
+						 pow(onto.get_single_element(0, 2), 2);
+	proj = proj / onto_length;
+
+	assert(ret.get_single_element(0, 0) == onto.get_single_element(0, 0) * proj);
+	assert(ret.get_single_element(0, 1) == onto.get_single_element(0, 1) * proj);
+	assert(ret.get_single_element(0, 2) == onto.get_single_element(0, 2) * proj);
+	
+	std::cout << ">> Test 97 successful." << std::endl;
+	return 0;
+}
+
+
+int test98() {
+	// Test: use of projection_onto with two 1x5 matrices
+
+	Matrix vect("985 6 211 3 55;");
+	Matrix onto("98 5 585 6 41;");
+	
+	auto ret = projection_onto(onto, vect);
+
+	double proj = dot_product(onto, vect);
+	double onto_length = pow(onto.get_single_element(0, 0), 2) +
+						 pow(onto.get_single_element(0, 1), 2) +
+						 pow(onto.get_single_element(0, 2), 2) +
+						 pow(onto.get_single_element(0, 3), 2) +
+						 pow(onto.get_single_element(0, 4), 2);
+	proj = proj / onto_length;
+
+	assert(ret.get_single_element(0, 0) == onto.get_single_element(0, 0) * proj);
+	assert(ret.get_single_element(0, 1) == onto.get_single_element(0, 1) * proj);
+	assert(ret.get_single_element(0, 2) == onto.get_single_element(0, 2) * proj);
+	assert(ret.get_single_element(0, 3) == onto.get_single_element(0, 3) * proj);
+	assert(ret.get_single_element(0, 4) == onto.get_single_element(0, 4) * proj);
+	
+	std::cout << ">> Test 98 successful." << std::endl;
+	return 0;
+}
+
+
+int test99() {
+	// Test: use of projection_onto two 2x3 and 1x3 matrices -> fails
+
+	Matrix vect("8 5 45; 8 5 45;");
+	Matrix onto("9 65 4;");
+
+	try {
+		auto ret = projection_onto(onto, vect);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::NOT_SINGLE_ROW);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: The number of rows in evauluated matrix must be 1.");
+	}
+	
+	std::cout << ">> Test 99 successful." << std::endl;
+	return 0;
+}
+
+
+int test100() {
+	// Test: use of projection_onto two 1x3 and 2x3 matrices -> fails
+
+	Matrix vect("8 5 45;");
+	Matrix onto("9 65 4; 9 65 4;");
+
+	try {
+		auto ret = projection_onto(onto, vect);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::NOT_SINGLE_ROW);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: The number of rows in evauluated matrix must be 1.");
+	}
+	
+	std::cout << ">> Test 100 successful." << std::endl;
+	return 0;
+}
+
+
+int test101() {
+	// Test: use of projection_onto two 1x4 and 1x3 matrices -> fails
+
+	Matrix vect("8 5 45 85;");
+	Matrix onto("9 65 4;");
+
+	try {
+		auto ret = projection_onto(onto, vect);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::INCONS_MATRX_COLS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: The column count is not consistent between both matrices.");
+	}
+	
+	std::cout << ">> Test 101 successful." << std::endl;
+	return 0;
+}
+
+
+int test102() {
+	// Test: use of projection_onto two 1x3 and 1x4 matrices -> fails
+
+	Matrix vect("8 5 45;");
+	Matrix onto("9 65 4 96;");
+
+	try {
+		auto ret = projection_onto(onto, vect);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::INCONS_MATRX_COLS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: The column count is not consistent between both matrices.");
+	}
+	
+	std::cout << ">> Test 102 successful." << std::endl;
+	return 0;
+}
+
+
 int main() {
-	bool all = false;
-	bool t1  = false;
-	bool t2  = false;
-	bool t3  = false;
-	bool t4  = false;
-	bool t5  = false;
-	bool t6  = false;
-	bool t7  = false;
-	bool t8  = false;
-	bool t9  = false;
-	bool t10 = false;
-	bool t11 = false;
-	bool t12 = false;
-	bool t13 = false;
-	bool t14 = false;
-	bool t15 = false;
-	bool t16 = false;
-	bool t17 = false;
-	bool t18 = false;
-	bool t19 = false;
-	bool t20 = false;
-	bool t21 = false;
-	bool t22 = false;
-	bool t23 = false;
-	bool t24 = false;
-	bool t25 = false;
-	bool t26 = false;
-	bool t27 = false;
-	bool t28 = false;
-	bool t29 = false;
-	bool t30 = false;
-	bool t31 = false;
-	bool t32 = false;
-	bool t33 = false;
-	bool t34 = false;
-	bool t35 = false;
-	bool t36 = false;
-	bool t37 = false;
-	bool t38 = false;
-	bool t39 = false;
-	bool t40 = false;
-	bool t41 = false;
-	bool t42 = false;
-	bool t43 = false;
-	bool t44 = false;
-	bool t45 = false;
-	bool t46 = false;
-	bool t47 = false;
-	bool t48 = false;
-	bool t49 = false;
-	bool t50 = false;
-	bool t51 = false;
-	bool t52 = false;
-	bool t53 = false;
-	bool t54 = false;
-	bool t55 = false;
-	bool t56 = false;
-	bool t57 = false;
-	bool t58 = false;
-	bool t59 = false;
-	bool t60 = false;
-	bool t61 = false;
-	bool t62 = false;
-	bool t63 = false;
-	bool t64 = false;
-	bool t65 = false;
-	bool t66 = false;
-	bool t67 = false;
-	bool t68 = false;
-	bool t69 = false;
-	bool t70 = false;
-	bool t71 = false;
-	bool t72 = false;
-	bool t73 = false;
-	bool t74 = false;
-	bool t75 = false;
-	bool t76 = false;
-	bool t77 = false;
-	bool t78 = false;
-	bool t79 = false;
-	bool t80 = false;
-	bool t81 = false;
-	bool t82 = false;
-	bool t83 = false;
-	bool t84 = false;
-	bool t85 = false;
-	bool t86 = false;
-	bool t87 = false;
-	bool t88 = false;
-	bool t89 = false;
-	bool t90 = false;
-	bool t91 = false;
-	bool t92 = true;
-	bool t93 = true;
-	bool t94 = true;
-	bool t95 = true;
-	bool t96 = true;
+	bool all  = false;
+	bool t1   = false;
+	bool t2   = false;
+	bool t3   = false;
+	bool t4   = false;
+	bool t5   = false;
+	bool t6   = false;
+	bool t7   = false;
+	bool t8   = false;
+	bool t9   = false;
+	bool t10  = false;
+	bool t11  = false;
+	bool t12  = false;
+	bool t13  = false;
+	bool t14  = false;
+	bool t15  = false;
+	bool t16  = false;
+	bool t17  = false;
+	bool t18  = false;
+	bool t19  = false;
+	bool t20  = false;
+	bool t21  = false;
+	bool t22  = false;
+	bool t23  = false;
+	bool t24  = false;
+	bool t25  = false;
+	bool t26  = false;
+	bool t27  = false;
+	bool t28  = false;
+	bool t29  = false;
+	bool t30  = false;
+	bool t31  = false;
+	bool t32  = false;
+	bool t33  = false;
+	bool t34  = false;
+	bool t35  = false;
+	bool t36  = false;
+	bool t37  = false;
+	bool t38  = false;
+	bool t39  = false;
+	bool t40  = false;
+	bool t41  = false;
+	bool t42  = false;
+	bool t43  = false;
+	bool t44  = false;
+	bool t45  = false;
+	bool t46  = false;
+	bool t47  = false;
+	bool t48  = false;
+	bool t49  = false;
+	bool t50  = false;
+	bool t51  = false;
+	bool t52  = false;
+	bool t53  = false;
+	bool t54  = false;
+	bool t55  = false;
+	bool t56  = false;
+	bool t57  = false;
+	bool t58  = false;
+	bool t59  = false;
+	bool t60  = false;
+	bool t61  = false;
+	bool t62  = false;
+	bool t63  = false;
+	bool t64  = false;
+	bool t65  = false;
+	bool t66  = false;
+	bool t67  = false;
+	bool t68  = false;
+	bool t69  = false;
+	bool t70  = false;
+	bool t71  = false;
+	bool t72  = false;
+	bool t73  = false;
+	bool t74  = false;
+	bool t75  = false;
+	bool t76  = false;
+	bool t77  = false;
+	bool t78  = false;
+	bool t79  = false;
+	bool t80  = false;
+	bool t81  = false;
+	bool t82  = false;
+	bool t83  = false;
+	bool t84  = false;
+	bool t85  = false;
+	bool t86  = false;
+	bool t87  = false;
+	bool t88  = false;
+	bool t89  = false;
+	bool t90  = false;
+	bool t91  = false;
+	bool t92  = true;
+	bool t93  = true;
+	bool t94  = true;
+	bool t95  = true;
+	bool t96  = true;
+	bool t97  = true;
+	bool t98  = true;
+	bool t99  = true;
+	bool t100 = true;
+	bool t101 = true;
+	bool t102 = true;
 
 	if(t1 || all){
 		test1();
@@ -2278,15 +2414,28 @@ int main() {
 	if(t96 || all){
 		test96();
 	}
+	if(t97 || all){
+		test97();
+	}
+	if(t98 || all){
+		test98();
+	}
+	if(t99 || all){
+		test99();
+	}
+	if(t100 || all){
+		test100();
+	}
+	if(t101 || all){
+		test101();
+	}
+	if(t102 || all){
+		test102();
+	}
 
 	return 0;
 }
 /*
-	//Matrix b("0;1;6");
-	//Matrix c("0 2 0; 4 56 5; 4 5 6; 1 2 3; 1 2 6");
-	//Matrix res = projection_onto(a, b);
-	//test({ a, b, c });
-	//determinant(a);
 
 	//Matrix* test = new Matrix("0;1;6");
 

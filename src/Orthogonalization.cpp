@@ -4,16 +4,6 @@
 #include <cmath>
 #include <iostream>
 
-namespace {
-	double vector_magnitude(Matrix& src) {
-		double accumulator = 0;
-		for (int i = 0; i < src.get_m(); i++) {
-			accumulator += pow(src.get_single_element(i, 0), 2);
-		}
-		return sqrt(accumulator);
-	}
-}
-
 Matrix unit_vector(Matrix &src) {
 	if (src.get_m() != 1) {
 		LALIB_Error ex(ErrorCode::NOT_SINGLE_ROW);
@@ -32,19 +22,26 @@ Matrix unit_vector(Matrix &src) {
 	return out;
 }
 
-//Note: Computing the projection of proj_vec onto onto_vec_in: proj_(onto_vec_in)(proj_vec)
-Matrix projection_onto(Matrix &onto_vec_in, Matrix &proj_vec) {
-	if (onto_vec_in.get_n() != 1 || proj_vec.get_n() != 1) {
-		LALIB_Error ex(ErrorCode::NOT_SINGLE_COL);
+//Note: Computing the projection of proj_vec onto onto_vec -> proj_(onto_vec)(proj_vec)
+Matrix projection_onto(Matrix &onto_vec, Matrix &proj_vec) {
+	if (onto_vec.get_m() != 1 || proj_vec.get_m() != 1) {
+		LALIB_Error ex(ErrorCode::NOT_SINGLE_ROW);
 		std::cerr << ex.what() << std::endl;
 		throw ex;
 	}
-	Matrix onto_vec_out(onto_vec_in);
-	double magnitude = pow(vector_magnitude(onto_vec_in), 2);
-	onto_vec_out.transpose();
-	double dot_product = multiply(onto_vec_out, proj_vec).get_single_element(0, 0);
-	onto_vec_out.matrix_scale(dot_product / magnitude);
-	return onto_vec_out;
+	if (onto_vec.get_n() != proj_vec.get_n()) {
+		LALIB_Error ex(ErrorCode::INCONS_MATRX_COLS);
+		std::cerr << ex.what() << std::endl;
+		throw ex;
+	}
+	Matrix out(onto_vec);
+	double magnitude = 0;
+	for (int i = 0; i < onto_vec.get_n(); i++) {
+		magnitude += pow(onto_vec.get_single_element(0, i), 2);
+	}
+	double dot_prod = dot_product(onto_vec, proj_vec);
+	out.matrix_scale(dot_prod / magnitude);
+	return out;
 }
 
 Matrix gram_schmidt(Matrix &src) {
