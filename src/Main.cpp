@@ -2021,6 +2021,47 @@ int test102() {
 }
 
 
+int test103() {
+	// Test: use of gram_schmidt() with 3 1x3 matrices 
+
+	Matrix vect1("1 -1 1;");
+	Matrix vect2("1 0 1;");
+	Matrix vect3("1 1 2;");
+
+	std::vector<Matrix> vect_space = {vect1, vect2, vect3};
+
+	auto ret = gram_schmidt(vect_space);
+
+	Matrix u1 = vect1;
+	Matrix u2_p1 = projection_onto(u1, vect2);
+	Matrix u2 = vect2 - u2_p1;
+	Matrix u3_p1 = projection_onto(u1, vect3);
+	Matrix u3_p2 = projection_onto(u2, vect3);
+	Matrix u3 = vect3 - u3_p1 - u3_p2;
+
+	u1.matrix_scale(1 / sqrt(dot_product(u1, u1)));
+	u2.matrix_scale(1 / sqrt(dot_product(u2, u2)));
+	u3.matrix_scale(1 / sqrt(dot_product(u3, u3)));
+
+	assert(ret.size() == 3);
+	assert(ret[0].get_n() == 3);
+	assert(ret[1].get_n() == 3);
+	assert(ret[2].get_n() == 3);
+	assert(ret[0].get_single_element(0, 0) == u1.get_single_element(0, 0));
+	assert(ret[0].get_single_element(0, 1) == u1.get_single_element(0, 1));
+	assert(ret[0].get_single_element(0, 2) == u1.get_single_element(0, 2));
+	assert(ret[1].get_single_element(0, 0) == u2.get_single_element(0, 0));
+	assert(ret[1].get_single_element(0, 1) == u2.get_single_element(0, 1));
+	assert(ret[1].get_single_element(0, 2) == u2.get_single_element(0, 2));
+	assert(ret[2].get_single_element(0, 2) == u3.get_single_element(0, 2));
+	assert(ret[2].get_single_element(0, 2) == u3.get_single_element(0, 2));
+	assert(ret[2].get_single_element(0, 2) == u3.get_single_element(0, 2));
+		
+	std::cout << ">> Test 103 successful." << std::endl;
+	return 0;
+}
+
+
 int main() {
 	bool all  = false;
 	bool t1   = false;
@@ -2125,6 +2166,7 @@ int main() {
 	bool t100 = true;
 	bool t101 = true;
 	bool t102 = true;
+	bool t103 = true;
 
 	if(t1 || all){
 		test1();
@@ -2431,6 +2473,9 @@ int main() {
 	}
 	if(t102 || all){
 		test102();
+	}
+	if(t103 || all){
+		test103();
 	}
 
 	return 0;

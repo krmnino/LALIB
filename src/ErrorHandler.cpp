@@ -51,6 +51,9 @@ LALIB_Error::LALIB_Error(ErrorCode error) {
 		case ErrorCode::INVALID_GEN_OPTION:
 			this->message = "Error: Unsupported generation option passed to constructor.";
 			break;
+		case ErrorCode::EMPTY_SPACE:
+			this->message = "Error: Vector space is empty. Should contain at least one vector.";
+			break;
 		default:
 			this->message = "Undefinded error.";
 			break;

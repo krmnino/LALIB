@@ -14,6 +14,6 @@ double dot_product(Matrix&, Matrix&);
 Matrix unit_vector(Matrix&);
 Matrix invert(Matrix&);
 Matrix projection_onto(Matrix&, Matrix&);
-Matrix gram_schmidt(Matrix&);
+std::vector<Matrix> gram_schmidt(std::vector<Matrix>&);
 
 #endif

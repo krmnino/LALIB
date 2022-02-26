@@ -21,6 +21,7 @@ enum class ErrorCode {
 	UNEVEN_INPUT_COLS,
 	NO_NUMERIC_INPUT,
 	INVALID_GEN_OPTION,
+	EMPTY_SPACE,
 };
 
 class LALIB_Error : public std::exception {
