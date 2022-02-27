@@ -2053,11 +2053,125 @@ int test103() {
 	assert(ret[1].get_single_element(0, 0) == u2.get_single_element(0, 0));
 	assert(ret[1].get_single_element(0, 1) == u2.get_single_element(0, 1));
 	assert(ret[1].get_single_element(0, 2) == u2.get_single_element(0, 2));
-	assert(ret[2].get_single_element(0, 2) == u3.get_single_element(0, 2));
-	assert(ret[2].get_single_element(0, 2) == u3.get_single_element(0, 2));
+	assert(ret[2].get_single_element(0, 0) == u3.get_single_element(0, 0));
+	assert(ret[2].get_single_element(0, 1) == u3.get_single_element(0, 1));
 	assert(ret[2].get_single_element(0, 2) == u3.get_single_element(0, 2));
 		
 	std::cout << ">> Test 103 successful." << std::endl;
+	return 0;
+}
+
+
+int test104() {
+	// Test: use of gram_schmidt() with 3 1x5 matrices 
+
+	Matrix vect1("1 -1 1 5 6;");
+	Matrix vect2("1 0 1 9 3;");
+	Matrix vect3("1 1 2 5 4;");
+
+	std::vector<Matrix> vect_space = {vect1, vect2, vect3};
+
+	auto ret = gram_schmidt(vect_space);
+
+	Matrix u1 = vect1;
+	Matrix u2_p1 = projection_onto(u1, vect2);
+	Matrix u2 = vect2 - u2_p1;
+	Matrix u3_p1 = projection_onto(u1, vect3);
+	Matrix u3_p2 = projection_onto(u2, vect3);
+	Matrix u3 = vect3 - u3_p1 - u3_p2;
+
+	u1.matrix_scale(1 / sqrt(dot_product(u1, u1)));
+	u2.matrix_scale(1 / sqrt(dot_product(u2, u2)));
+	u3.matrix_scale(1 / sqrt(dot_product(u3, u3)));
+
+	assert(ret.size() == 3);
+	assert(ret[0].get_n() == 5);
+	assert(ret[1].get_n() == 5);
+	assert(ret[2].get_n() == 5);
+	assert(ret[0].get_single_element(0, 0) == u1.get_single_element(0, 0));
+	assert(ret[0].get_single_element(0, 1) == u1.get_single_element(0, 1));
+	assert(ret[0].get_single_element(0, 2) == u1.get_single_element(0, 2));
+	assert(ret[0].get_single_element(0, 3) == u1.get_single_element(0, 3));
+	assert(ret[0].get_single_element(0, 4) == u1.get_single_element(0, 4));
+	assert(ret[1].get_single_element(0, 0) == u2.get_single_element(0, 0));
+	assert(ret[1].get_single_element(0, 1) == u2.get_single_element(0, 1));
+	assert(ret[1].get_single_element(0, 2) == u2.get_single_element(0, 2));
+	assert(ret[1].get_single_element(0, 3) == u2.get_single_element(0, 3));
+	assert(ret[1].get_single_element(0, 4) == u2.get_single_element(0, 4));
+	assert(ret[2].get_single_element(0, 0) == u3.get_single_element(0, 0));
+	assert(ret[2].get_single_element(0, 1) == u3.get_single_element(0, 1));
+	assert(ret[2].get_single_element(0, 2) == u3.get_single_element(0, 2));
+	assert(ret[2].get_single_element(0, 3) == u3.get_single_element(0, 3));
+	assert(ret[2].get_single_element(0, 4) == u3.get_single_element(0, 4));
+		
+	std::cout << ">> Test 104 successful." << std::endl;
+	return 0;
+}
+
+
+int test105() {
+	// Test: use of gram_schmidt() with 5 1x4 matrices 
+
+	Matrix vect1("5 9 8 4;");
+	Matrix vect2("99 3 11 5;");
+	Matrix vect3("81 17 22 8;");
+	Matrix vect4("1 1 1 88;");
+	Matrix vect5("99 6 5 77;");
+
+	std::vector<Matrix> vect_space = {vect1, vect2, vect3, vect4, vect5};
+
+	auto ret = gram_schmidt(vect_space);
+
+	Matrix u1 = vect1;
+	Matrix u2_p1 = projection_onto(u1, vect2);
+	Matrix u2 = vect2 - u2_p1;
+	Matrix u3_p1 = projection_onto(u1, vect3);
+	Matrix u3_p2 = projection_onto(u2, vect3);
+	Matrix u3 = vect3 - u3_p1 - u3_p2;
+	Matrix u4_p1 = projection_onto(u1, vect4);
+	Matrix u4_p2 = projection_onto(u2, vect4);
+	Matrix u4_p3 = projection_onto(u3, vect4);
+	Matrix u4 = vect4 - u4_p1 - u4_p2 - u4_p3;
+	Matrix u5_p1 = projection_onto(u1, vect5);
+	Matrix u5_p2 = projection_onto(u2, vect5);
+	Matrix u5_p3 = projection_onto(u3, vect5);
+	Matrix u5_p4 = projection_onto(u4, vect5);
+	Matrix u5 = vect5 - u5_p1 - u5_p2 - u5_p3 - u5_p4;
+
+	u1.matrix_scale(1 / sqrt(dot_product(u1, u1)));
+	u2.matrix_scale(1 / sqrt(dot_product(u2, u2)));
+	u3.matrix_scale(1 / sqrt(dot_product(u3, u3)));
+	u4.matrix_scale(1 / sqrt(dot_product(u4, u4)));
+	u5.matrix_scale(1 / sqrt(dot_product(u5, u5)));
+
+	assert(ret.size() == 5);
+	assert(ret[0].get_n() == 4);
+	assert(ret[1].get_n() == 4);
+	assert(ret[2].get_n() == 4);
+	assert(ret[3].get_n() == 4);
+	assert(ret[4].get_n() == 4);
+	assert(ret[0].get_single_element(0, 0) == u1.get_single_element(0, 0));
+	assert(ret[0].get_single_element(0, 1) == u1.get_single_element(0, 1));
+	assert(ret[0].get_single_element(0, 2) == u1.get_single_element(0, 2));
+	assert(ret[0].get_single_element(0, 3) == u1.get_single_element(0, 3));
+	assert(ret[1].get_single_element(0, 0) == u2.get_single_element(0, 0));
+	assert(ret[1].get_single_element(0, 1) == u2.get_single_element(0, 1));
+	assert(ret[1].get_single_element(0, 2) == u2.get_single_element(0, 2));
+	assert(ret[1].get_single_element(0, 3) == u2.get_single_element(0, 3));
+	assert(ret[2].get_single_element(0, 0) == u3.get_single_element(0, 0));
+	assert(ret[2].get_single_element(0, 1) == u3.get_single_element(0, 1));
+	assert(ret[2].get_single_element(0, 2) == u3.get_single_element(0, 2));
+	assert(ret[2].get_single_element(0, 3) == u3.get_single_element(0, 3));
+	assert(ret[3].get_single_element(0, 0) == u4.get_single_element(0, 0));
+	assert(ret[3].get_single_element(0, 1) == u4.get_single_element(0, 1));
+	assert(ret[3].get_single_element(0, 2) == u4.get_single_element(0, 2));
+	assert(ret[3].get_single_element(0, 3) == u4.get_single_element(0, 3));
+	assert(ret[4].get_single_element(0, 1) == u5.get_single_element(0, 1));
+	assert(ret[4].get_single_element(0, 0) == u5.get_single_element(0, 0));
+	assert(ret[4].get_single_element(0, 2) == u5.get_single_element(0, 2));
+	assert(ret[4].get_single_element(0, 3) == u5.get_single_element(0, 3));
+		
+	std::cout << ">> Test 105 successful." << std::endl;
 	return 0;
 }
 
@@ -2167,6 +2281,8 @@ int main() {
 	bool t101 = true;
 	bool t102 = true;
 	bool t103 = true;
+	bool t104 = true;
+	bool t105 = true;
 
 	if(t1 || all){
 		test1();
@@ -2476,6 +2592,12 @@ int main() {
 	}
 	if(t103 || all){
 		test103();
+	}
+	if(t104 || all){
+		test104();
+	}
+	if(t105 || all){
+		test105();
 	}
 
 	return 0;
