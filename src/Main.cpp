@@ -2176,6 +2176,96 @@ int test105() {
 }
 
 
+int test106() {
+	// Test: use of gram_schmidt() with 1 1x3 matrix 
+
+	Matrix vect1("1 -1 1;");
+
+	std::vector<Matrix> vect_space = {vect1};
+
+	auto ret = gram_schmidt(vect_space);
+
+	Matrix u1 = vect1;
+
+	u1.matrix_scale(1 / sqrt(dot_product(u1, u1)));
+
+	assert(ret.size() == 1);
+	assert(ret[0].get_n() == 3);
+	assert(ret[0].get_single_element(0, 0) == u1.get_single_element(0, 0));
+	assert(ret[0].get_single_element(0, 1) == u1.get_single_element(0, 1));
+	assert(ret[0].get_single_element(0, 2) == u1.get_single_element(0, 2));
+		
+	std::cout << ">> Test 106 successful." << std::endl;
+	return 0;
+}
+
+
+int test107() {
+	// Test: use of gram_schmidt() with empty space -> fails 
+
+	std::vector<Matrix> vect_space = {};
+
+
+	try {
+		auto ret = gram_schmidt(vect_space);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::EMPTY_SPACE);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Vector space is empty. Should contain at least one vector.");
+	}
+		
+	std::cout << ">> Test 107 successful." << std::endl;
+	return 0;
+}
+
+
+int test108() {
+	// Test: use of gram_schmidt() with vector space with uneven vectors
+
+	Matrix vect1("1 -1 1 5 6;");
+	Matrix vect2("1 0 1;");
+	Matrix vect3("1 1 5 4;");
+
+	std::vector<Matrix> vect_space = {vect1, vect2, vect3};
+
+	try {
+		auto ret = gram_schmidt(vect_space);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::INCONS_MATRX_COLS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: The column count is not consistent between both matrices.");
+	}
+		
+	std::cout << ">> Test 108 successful." << std::endl;
+	return 0;
+}
+
+
+int test109() {
+	// Test: use of gram_schmidt() with 3 0x0 matrices 
+
+	Matrix vect1(0, 0);
+	Matrix vect2(0, 0);
+	Matrix vect3(0, 0);
+
+	std::vector<Matrix> vect_space = {vect1, vect2, vect3};
+
+	try {
+		auto ret = gram_schmidt(vect_space);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::NOT_SINGLE_ROW);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: The number of rows in evauluated matrix must be 1.");
+	}
+		
+	std::cout << ">> Test 109 successful." << std::endl;
+	return 0;
+}
+
+
 int main() {
 	bool all  = false;
 	bool t1   = false;
@@ -2269,20 +2359,24 @@ int main() {
 	bool t89  = false;
 	bool t90  = false;
 	bool t91  = false;
-	bool t92  = true;
-	bool t93  = true;
-	bool t94  = true;
-	bool t95  = true;
-	bool t96  = true;
-	bool t97  = true;
-	bool t98  = true;
-	bool t99  = true;
-	bool t100 = true;
-	bool t101 = true;
-	bool t102 = true;
-	bool t103 = true;
-	bool t104 = true;
-	bool t105 = true;
+	bool t92  = false;
+	bool t93  = false;
+	bool t94  = false;
+	bool t95  = false;
+	bool t96  = false;
+	bool t97  = false;
+	bool t98  = false;
+	bool t99  = false;
+	bool t100 = false;
+	bool t101 = false;
+	bool t102 = false;
+	bool t103 = false;
+	bool t104 = false;
+	bool t105 = false;
+	bool t106 = false;
+	bool t107 = true;
+	bool t108 = true;
+	bool t109 = true;
 
 	if(t1 || all){
 		test1();
@@ -2598,6 +2692,18 @@ int main() {
 	}
 	if(t105 || all){
 		test105();
+	}
+	if(t106 || all){
+		test106();
+	}
+	if(t107 || all){
+		test107();
+	}
+	if(t108 || all){
+		test108();
+	}
+	if(t109 || all){
+		test109();
 	}
 
 	return 0;
