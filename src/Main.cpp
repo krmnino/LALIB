@@ -2266,6 +2266,137 @@ int test109() {
 }
 
 
+int test110() {
+	// Test: use of gram_schmidt() with 3x3 matrix 
+
+	Matrix mtrx("1 2 3; 4 5 6; 7 8 9;");
+
+	auto ret = rank(mtrx);
+	
+	assert(ret == 2);
+		
+	std::cout << ">> Test 110 successful." << std::endl;
+	return 0;
+}
+
+
+int test111() {
+	// Test: use of gram_schmidt() with 4x4 matrix 
+
+	Matrix mtrx("9 85 2 41; 6 5 68 5; 222 87 5 312; 2 3 35 58;");
+
+	auto ret = rank(mtrx);
+	
+	assert(ret == 4);
+		
+	std::cout << ">> Test 111 successful." << std::endl;
+	return 0;
+}
+
+
+int test112() {
+	// Test: use of gram_schmidt() with 1x5 matrix 
+
+	Matrix mtrx("1 2 3 4 5;");
+
+	auto ret = rank(mtrx);
+	
+	assert(ret == 1);
+		
+	std::cout << ">> Test 112 successful." << std::endl;
+	return 0;
+}
+
+
+int test113() {
+	// Test: use of gram_schmidt() with 5x1 matrix 
+
+	Matrix mtrx("1; 2; 3; 4; 5;");
+
+	auto ret = rank(mtrx);
+	
+	assert(ret == 1);
+		
+	std::cout << ">> Test 113 successful." << std::endl;
+	return 0;
+}
+
+
+int test114() {
+	// Test: use of gram_schmidt() with 2x5 matrix 
+
+	Matrix mtrx("5 6 8 2 4; 2 7 65 9 68");
+
+	auto ret = rank(mtrx);
+	
+	assert(ret == 2);
+		
+	std::cout << ">> Test 114 successful." << std::endl;
+	return 0;
+}
+
+
+int test115() {
+	// Test: use of gram_schmidt() with 5x2 matrix 
+
+	Matrix mtrx("5 6; 8 2; 4 2; 7 65; 9 68;");
+
+	auto ret = rank(mtrx);
+	
+	assert(ret == 2);
+		
+	std::cout << ">> Test 115 successful." << std::endl;
+	return 0;
+}
+
+
+int test116() {
+	// Test: use of gram_schmidt() with 2x4 matrix 
+
+	Matrix mtrx(2, 4);
+
+	auto ret = rank(mtrx);
+	
+	assert(ret == 0);
+		
+	std::cout << ">> Test 116 successful." << std::endl;
+	return 0;
+}
+
+
+int test117() {
+	// Test: use of gram_schmidt() with 1x1 matrix 
+
+	Matrix mtrx("5");
+
+	auto ret = rank(mtrx);
+	
+	assert(ret == 1);
+		
+	std::cout << ">> Test 117 successful." << std::endl;
+	return 0;
+}
+
+
+int test118() {
+	// Test: use of gram_schmidt() with 0x0 matrix 
+
+	Matrix mtrx(0, 0);
+
+	try {
+		auto ret = rank(mtrx);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::INVALID_DIMS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: One of the dimensions of the evaluated matrix is <= 0.");
+	}
+		
+	std::cout << ">> Test 118 successful." << std::endl;
+	return 0;
+}
+
+
 int main() {
 	bool all  = false;
 	bool t1   = false;
@@ -2374,9 +2505,18 @@ int main() {
 	bool t104 = false;
 	bool t105 = false;
 	bool t106 = false;
-	bool t107 = true;
-	bool t108 = true;
-	bool t109 = true;
+	bool t107 = false;
+	bool t108 = false;
+	bool t109 = false;
+	bool t110 = false;
+	bool t111 = true;
+	bool t112 = true;
+	bool t113 = true;
+	bool t114 = true;
+	bool t115 = true;
+	bool t116 = true;
+	bool t117 = true;
+	bool t118 = true;
 
 	if(t1 || all){
 		test1();
@@ -2704,6 +2844,33 @@ int main() {
 	}
 	if(t109 || all){
 		test109();
+	}
+	if(t110 || all){
+		test110();
+	}
+	if(t111 || all){
+		test111();
+	}
+	if(t112 || all){
+		test112();
+	}
+	if(t113 || all){
+		test113();
+	}
+	if(t114 || all){
+		test114();
+	}
+	if(t115 || all){
+		test115();
+	}
+	if(t116 || all){
+		test116();
+	}
+	if(t117 || all){
+		test117();
+	}
+	if(t118 || all){
+		test118();
 	}
 
 	return 0;
