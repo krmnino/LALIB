@@ -4,6 +4,7 @@ linux:
 	Operations.h				\
 	ErrorHandler.h				\
 	Matrix.cpp					\
+	Adjoint.cpp					\
 	Invert.cpp					\
 	Determinant.cpp				\
 	MatrixMultiplication.cpp	\
@@ -20,6 +21,7 @@ windows:
 	Operations.h				\
 	ErrorHandler.h				\
 	Matrix.cpp					\
+	Adjoint.cpp					\
 	Invert.cpp					\
 	Determinant.cpp				\
 	MatrixMultiplication.cpp	\
