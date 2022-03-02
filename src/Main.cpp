@@ -2397,6 +2397,134 @@ int test118() {
 }
 
 
+int test119() {
+	// Test: use of adjoint() with 3x3 matrix 
+
+	Matrix mtrx("1 -1 2; 2 3 5; 1 0 3;");
+
+	auto ret = adjoint(mtrx);
+
+	Matrix res("9 3 -11; -1 1 -1; -3 -1 5;");
+
+	assert(ret.equal(res));
+
+	std::cout << ">> Test 119 successful." << std::endl;
+	return 0;
+}
+
+
+int test120() {
+	// Test: use of adjoint() with 4x4 matrix 
+
+	Matrix mtrx("8 9 82 6; 5 63 6 6; 3 3 65 4; 1 31 1 2;");
+
+	auto ret = adjoint(mtrx);
+
+	Matrix res("-3426 1262 4236 -1980;"
+	           "-246 472 286 -1250;"
+			   "-176 422 36 -810;"
+			   "5614 -8158 -6569 15585;");
+
+	assert(ret.equal(res));
+
+	std::cout << ">> Test 120 successful." << std::endl;
+	return 0;
+}
+
+
+int test121() {
+	// Test: use of adjoint() with 5x5 matrix 
+
+	Matrix mtrx("8 26 36 2 45; 9 6 74 52 22; 54 5 7 23 65; 1 2 85 32 6; 1 23 85 23 7;");
+
+	auto ret = adjoint(mtrx);
+
+	Matrix res("-2315400 -1741206 1935322 -343664 2680798;"
+	           "-387384 1311361 -143285 -4656372 3690585;"
+			   "132304 -1204788 147208 1864860 -29432;"
+			   "-662396 3101825 -374597 -2639608 250589;"
+			   "2173500 377844 -362388 1376872 -2596516;");
+
+	assert(ret.equal(res));
+
+	std::cout << ">> Test 121 successful." << std::endl;
+	return 0;
+}
+
+
+int test122() {
+	// Test: use of adjoint() with 2x2 matrix 
+
+	Matrix mtrx("9 82; 2 3;");
+
+	auto ret = adjoint(mtrx);
+
+	Matrix res("3 -82; -2 9;");
+
+	assert(ret.equal(res));
+
+	std::cout << ">> Test 122 successful." << std::endl;
+	return 0;
+}
+
+
+int test123() {
+	// Test: use of adjoint() with 1x1 matrix -> fails
+
+	Matrix mtrx("8;");
+
+	try {
+		auto ret = adjoint(mtrx);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::INVALID_DIMS_ONE);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: One of the dimensions of the evaluated matrix is <= 1.");
+	}
+
+	std::cout << ">> Test 123 successful." << std::endl;
+	return 0;
+}
+
+
+int test124() {
+	// Test: use of adjoint() with 2x5 matrix -> fails
+
+	Matrix mtrx(2, 5);
+
+	try {
+		auto ret = adjoint(mtrx);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::NON_SQR_MTRX);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Evaluated matrix is not square.");
+	}
+
+	std::cout << ">> Test 124 successful." << std::endl;
+	return 0;
+}
+
+
+int test125() {
+	// Test: use of adjoint() with 0x0 matrix -> fails
+
+	Matrix mtrx(0, 0);
+
+	try {
+		auto ret = adjoint(mtrx);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::INVALID_DIMS_ONE);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: One of the dimensions of the evaluated matrix is <= 1.");
+	}
+
+	std::cout << ">> Test 125 successful." << std::endl;
+	return 0;
+}
+
+
 int main() {
 	bool all  = false;
 	bool t1   = false;
@@ -2509,14 +2637,21 @@ int main() {
 	bool t108 = false;
 	bool t109 = false;
 	bool t110 = false;
-	bool t111 = true;
-	bool t112 = true;
-	bool t113 = true;
-	bool t114 = true;
-	bool t115 = true;
-	bool t116 = true;
-	bool t117 = true;
-	bool t118 = true;
+	bool t111 = false;
+	bool t112 = false;
+	bool t113 = false;
+	bool t114 = false;
+	bool t115 = false;
+	bool t116 = false;
+	bool t117 = false;
+	bool t118 = false;
+	bool t119 = true;
+	bool t120 = true;
+	bool t121 = true;
+	bool t122 = true;
+	bool t123 = true;
+	bool t124 = true;
+	bool t125 = true;
 
 	if(t1 || all){
 		test1();
@@ -2871,6 +3006,27 @@ int main() {
 	}
 	if(t118 || all){
 		test118();
+	}
+	if(t119 || all){
+		test119();
+	}
+	if(t120 || all){
+		test120();
+	}
+	if(t121 || all){
+		test121();
+	}
+	if(t122 || all){
+		test122();
+	}
+	if(t123 || all){
+		test123();
+	}
+	if(t124 || all){
+		test124();
+	}
+	if(t125 || all){
+		test125();
 	}
 
 	return 0;
