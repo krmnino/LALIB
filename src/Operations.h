@@ -15,6 +15,8 @@ Matrix unit_vector(Matrix&);
 Matrix invert(Matrix&);
 Matrix projection_onto(Matrix&, Matrix&);
 std::vector<Matrix> gram_schmidt(std::vector<Matrix>&);
+Matrix minors(Matrix&);
+Matrix cofactors(Matrix&);
 Matrix adjoint(Matrix&);
 
 #endif

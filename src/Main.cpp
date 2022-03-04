@@ -2525,6 +2525,134 @@ int test125() {
 }
 
 
+int test126() {
+	// Test: use of cofactors() with 3x3 matrix 
+
+	Matrix mtrx("1 -1 2; 2 3 5; 1 0 3;");
+
+	auto ret = cofactors(mtrx);
+
+	Matrix res("9 -1 -3; 3 1 -1; -11 -1 5;");
+
+	assert(ret.equal(res));
+
+	std::cout << ">> Test 126 successful." << std::endl;
+	return 0;
+}
+
+
+int test127() {
+	// Test: use of cofactors() with 4x4 matrix 
+
+	Matrix mtrx("8 9 82 6; 5 63 6 6; 3 3 65 4; 1 31 1 2;");
+
+	auto ret = cofactors(mtrx);
+
+	Matrix res("-3426 -246 -176 5614;"
+	           "1262 472 422 -8158;"
+			   "4236 286 36 -6569;"
+			   "-1980 -1250 -810 15585;");
+
+	assert(ret.equal(res));
+
+	std::cout << ">> Test 127 successful." << std::endl;
+	return 0;
+}
+
+
+int test128() {
+	// Test: use of cofactors() with 5x5 matrix 
+
+	Matrix mtrx("8 26 36 2 45; 9 6 74 52 22; 54 5 7 23 65; 1 2 85 32 6; 1 23 85 23 7;");
+
+	auto ret = cofactors(mtrx);
+
+	Matrix res("-2315400 -387384 132304 -662396 2173500;"
+	           "-1741206 1311361 -1204788 3101825 377844;"
+			   "1935322 -143285 147208 -374597 -362388;"
+			   "-343664 -4656372 1864860 -2639608 1376872;"
+			   "2680798 3690585 -29432 250589 -2596516;");
+
+	assert(ret.equal(res));
+
+	std::cout << ">> Test 128 successful." << std::endl;
+	return 0;
+}
+
+
+int test129() {
+	// Test: use of cofactors() with 2x2 matrix 
+
+	Matrix mtrx("9 82; 2 3;");
+
+	auto ret = cofactors(mtrx);
+
+	Matrix res("3 -2; -82 9;");
+
+	assert(ret.equal(res));
+
+	std::cout << ">> Test 129 successful." << std::endl;
+	return 0;
+}
+
+
+int test130() {
+	// Test: use of cofactors() with 1x1 matrix -> fails
+
+	Matrix mtrx("8;");
+
+	try {
+		auto ret = cofactors(mtrx);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::INVALID_DIMS_ONE);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: One of the dimensions of the evaluated matrix is <= 1.");
+	}
+
+	std::cout << ">> Test 130 successful." << std::endl;
+	return 0;
+}
+
+
+int test131() {
+	// Test: use of cofactors() with 2x5 matrix -> fails
+
+	Matrix mtrx(2, 5);
+
+	try {
+		auto ret = cofactors(mtrx);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::NON_SQR_MTRX);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Evaluated matrix is not square.");
+	}
+
+	std::cout << ">> Test 131 successful." << std::endl;
+	return 0;
+}
+
+
+int test132() {
+	// Test: use of cofactors() with 0x0 matrix -> fails
+
+	Matrix mtrx(0, 0);
+
+	try {
+		auto ret = cofactors(mtrx);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::INVALID_DIMS_ONE);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: One of the dimensions of the evaluated matrix is <= 1.");
+	}
+
+	std::cout << ">> Test 132 successful." << std::endl;
+	return 0;
+}
+
+
 int main() {
 	bool all  = false;
 	bool t1   = false;
@@ -2652,6 +2780,13 @@ int main() {
 	bool t123 = true;
 	bool t124 = true;
 	bool t125 = true;
+	bool t126 = true;
+	bool t127 = true;
+	bool t128 = true;
+	bool t129 = true;
+	bool t130 = true;
+	bool t131 = true;
+	bool t132 = true;
 
 	if(t1 || all){
 		test1();
@@ -3027,6 +3162,27 @@ int main() {
 	}
 	if(t125 || all){
 		test125();
+	}
+	if(t126 || all){
+		test126();
+	}
+	if(t127 || all){
+		test127();
+	}
+	if(t128 || all){
+		test128();
+	}
+	if(t129 || all){
+		test129();
+	}
+	if(t130 || all){
+		test130();
+	}
+	if(t131 || all){
+		test131();
+	}
+	if(t132 || all){
+		test132();
 	}
 
 	return 0;
