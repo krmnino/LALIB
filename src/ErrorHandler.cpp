@@ -42,6 +42,9 @@ LALIB_Error::LALIB_Error(ErrorCode error) {
 		case ErrorCode::INVALID_DIMS:
 			this->message = "Error: One of the dimensions of the evaluated matrix is <= 0.";
 			break;
+		case ErrorCode::INVALID_DIMS_ONE:
+			this->message = "Error: One of the dimensions of the evaluated matrix is <= 1.";
+			break;
 		case ErrorCode::UNEVEN_INPUT_COLS:
 			this->message = "Error: The number of columns is not the same across all rows in input matrix.";
 			break;
