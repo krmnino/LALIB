@@ -5,9 +5,11 @@ linux:
 	ErrorHandler.h				\
 	Matrix.cpp					\
 	Adjoint.cpp					\
+	Cofactors.cpp				\
 	Invert.cpp					\
 	Determinant.cpp				\
 	MatrixMultiplication.cpp	\
+	Minors.cpp					\
 	Orthogonalization.cpp		\
 	Rank.cpp					\
 	REF.cpp						\
@@ -22,9 +24,11 @@ windows:
 	ErrorHandler.h				\
 	Matrix.cpp					\
 	Adjoint.cpp					\
+	Cofactors.cpp				\
 	Invert.cpp					\
 	Determinant.cpp				\
 	MatrixMultiplication.cpp	\
+	Minors.cpp					\
 	Orthogonalization.cpp		\
 	Rank.cpp					\
 	REF.cpp						\
