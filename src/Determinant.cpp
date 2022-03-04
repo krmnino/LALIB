@@ -16,7 +16,6 @@ namespace {
 			return src.get_single_element(0, 0);
 		for (int i = 0; i < src.get_n(); i++) {
 			Matrix minor_mrtx(get_matrix_minor(src, i));
-			double cofactor = src.get_single_element(0, i);
 			accumulator += sign_flag * src.get_single_element(0, i) * recursive_determinant(minor_mrtx);
 			sign_flag = -sign_flag;
 		}
@@ -30,7 +29,7 @@ double determinant(Matrix &src) {
 		std::cerr << ex.what() << std::endl;
 		throw ex;
 	}
-	if (src.get_m() == 0 || src.get_n() == 0) {
+	if (src.get_m() <= 0 || src.get_n() <= 0) {
 		LALIB_Error ex(ErrorCode::INVALID_DIMS);
 		std::cerr << ex.what() << std::endl;
 		throw ex;

@@ -3,8 +3,8 @@
 #include <iostream>
 
 Matrix multiply(Matrix &m1, Matrix &m2) {
-	if ((m1.get_m() == 0 || m1.get_n() == 0) || 
-	    (m2.get_m() == 0 || m2.get_n() == 0)) {
+	if ((m1.get_m() <= 0 || m1.get_n() <= 0) || 
+	    (m2.get_m() <= 0 || m2.get_n() <= 0)) {
 		LALIB_Error ex(ErrorCode::INVALID_DIMS);
 		std::cerr << ex.what() << std::endl;
 		throw ex;
@@ -32,8 +32,8 @@ Matrix multiply(Matrix &m1, Matrix &m2) {
 }
 
 double dot_product(Matrix &m1, Matrix &m2) {
-	if ((m1.get_m() == 0 || m1.get_n() == 0) || 
-	    (m2.get_m() == 0 || m2.get_n() == 0)) {
+	if ((m1.get_m() <= 0 || m1.get_n() <= 0) || 
+	    (m2.get_m() <= 0 || m2.get_n() <= 0)) {
 		LALIB_Error ex(ErrorCode::INVALID_DIMS);
 		std::cerr << ex.what() << std::endl;
 		throw ex;
