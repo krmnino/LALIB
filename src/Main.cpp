@@ -2653,6 +2653,134 @@ int test132() {
 }
 
 
+int test133() {
+	// Test: use of minors() with 3x3 matrix 
+
+	Matrix mtrx("1 -1 2; 2 3 5; 1 0 3;");
+
+	auto ret = minors(mtrx);
+
+	Matrix res("9 1 -3; -3 1 1; -11 1 5;");
+
+	assert(ret.equal(res));
+
+	std::cout << ">> Test 133 successful." << std::endl;
+	return 0;
+}
+
+
+int test134() {
+	// Test: use of minors() with 4x4 matrix 
+
+	Matrix mtrx("8 9 82 6; 5 63 6 6; 3 3 65 4; 1 31 1 2;");
+
+	auto ret = minors(mtrx);
+
+	Matrix res("-3426 246 -176 -5614;"
+	           "-1262 472 -422 -8158;"
+			   "4236 -286 36 6569;"
+			   "1980 -1250 810 15585;");
+
+	assert(ret.equal(res));
+
+	std::cout << ">> Test 134 successful." << std::endl;
+	return 0;
+}
+
+
+int test135() {
+	// Test: use of minors() with 5x5 matrix 
+
+	Matrix mtrx("8 26 36 2 45; 9 6 74 52 22; 54 5 7 23 65; 1 2 85 32 6; 1 23 85 23 7;");
+
+	auto ret = minors(mtrx);
+
+	Matrix res("-2315400 387384 132304 662396 2173500;"
+	           "1741206 1311361 1204788 3101825 -377844;"
+			   "1935322 143285 147208 374597 -362388;"
+			   "343664 -4656372 -1864860 -2639608 -1376872;"
+			   "2680798 -3690585 -29432 -250589 -2596516;");
+
+	assert(ret.equal(res));
+
+	std::cout << ">> Test 135 successful." << std::endl;
+	return 0;
+}
+
+
+int test136() {
+	// Test: use of minors() with 2x2 matrix 
+
+	Matrix mtrx("9 82; 2 3;");
+
+	auto ret = minors(mtrx);
+
+	Matrix res("3 2; 82 9;");
+
+	assert(ret.equal(res));
+
+	std::cout << ">> Test 136 successful." << std::endl;
+	return 0;
+}
+
+
+int test137() {
+	// Test: use of minors() with 1x1 matrix -> fails
+
+	Matrix mtrx("8;");
+
+	try {
+		auto ret = minors(mtrx);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::INVALID_DIMS_ONE);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: One of the dimensions of the evaluated matrix is <= 1.");
+	}
+
+	std::cout << ">> Test 137 successful." << std::endl;
+	return 0;
+}
+
+
+int test138() {
+	// Test: use of minors() with 2x5 matrix -> fails
+
+	Matrix mtrx(2, 5);
+
+	try {
+		auto ret = minors(mtrx);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::NON_SQR_MTRX);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Evaluated matrix is not square.");
+	}
+
+	std::cout << ">> Test 138 successful." << std::endl;
+	return 0;
+}
+
+
+int test139() {
+	// Test: use of minors() with 0x0 matrix -> fails
+
+	Matrix mtrx(0, 0);
+
+	try {
+		auto ret = minors(mtrx);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::INVALID_DIMS_ONE);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: One of the dimensions of the evaluated matrix is <= 1.");
+	}
+
+	std::cout << ">> Test 139 successful." << std::endl;
+	return 0;
+}
+
+
 int main() {
 	bool all  = false;
 	bool t1   = false;
@@ -2787,6 +2915,13 @@ int main() {
 	bool t130 = true;
 	bool t131 = true;
 	bool t132 = true;
+	bool t133 = true;
+	bool t134 = true;
+	bool t135 = true;
+	bool t136 = true;
+	bool t137 = true;
+	bool t138 = true;
+	bool t139 = true;
 
 	if(t1 || all){
 		test1();
@@ -3183,6 +3318,27 @@ int main() {
 	}
 	if(t132 || all){
 		test132();
+	}
+	if(t133 || all){
+		test133();
+	}
+	if(t134 || all){
+		test134();
+	}
+	if(t135 || all){
+		test135();
+	}
+	if(t136 || all){
+		test136();
+	}
+	if(t137 || all){
+		test137();
+	}
+	if(t138 || all){
+		test138();
+	}
+	if(t139 || all){
+		test139();
 	}
 
 	return 0;
