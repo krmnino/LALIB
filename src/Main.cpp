@@ -2781,8 +2781,96 @@ int test139() {
 }
 
 
+int test140() {
+	// Test: use of trace() with 3x3 matrix 
+
+	Matrix mtrx("1 2 3; 4 5 6; 7 8 9;");
+
+	auto ret = trace(mtrx);
+
+	assert(ret == 15);
+
+	std::cout << ">> Test 140 successful." << std::endl;
+	return 0;
+}
+
+
+int test141() {
+	// Test: use of trace() with 8x8 matrix 
+
+	Matrix mtrx("5 5 5 5 5 5 5 5;"
+				"5 5 5 5 5 5 5 5;"
+				"5 5 5 5 5 5 5 5;"
+				"5 5 5 5 5 5 5 5;"
+				"5 5 5 5 5 5 5 5;"
+				"5 5 5 5 5 5 5 5;"
+				"5 5 5 5 5 5 5 5;"
+				"5 5 5 5 5 5 5 5;");
+
+	auto ret = trace(mtrx);
+
+	assert(ret == 40);
+
+	std::cout << ">> Test 141 successful." << std::endl;
+	return 0;
+}
+
+
+int test142() {
+	// Test: use of trace() with 1x1 matrix 
+
+	Matrix mtrx("1;");
+
+	auto ret = trace(mtrx);
+
+	assert(ret == 1);
+
+	std::cout << ">> Test 142 successful." << std::endl;
+	return 0;
+}
+
+
+int test143() {
+	// Test: use of trace() with 1x1 matrix -> fails
+
+	Matrix mtrx(0, 0);
+
+	try {
+		auto ret = trace(mtrx);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::INVALID_DIMS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: One of the dimensions of the evaluated matrix is <= 0.");
+	}
+
+	std::cout << ">> Test 143 successful." << std::endl;
+	return 0;
+}
+
+
+int test144() {
+	// Test: use of trace() with 2x8 matrix -> fails
+
+	Matrix mtrx("5 5 5 5 5 5 5 5;"
+				"5 5 5 5 5 5 5 5;");
+
+	try {
+		auto ret = trace(mtrx);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::NON_SQR_MTRX);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: Evaluated matrix is not square.");
+	}
+
+	std::cout << ">> Test 144 successful." << std::endl;
+	return 0;
+}
+
+
 int main() {
-	bool all  = false;
+	bool all  = true;
 	bool t1   = false;
 	bool t2   = false;
 	bool t3   = false;
@@ -2901,27 +2989,32 @@ int main() {
 	bool t116 = false;
 	bool t117 = false;
 	bool t118 = false;
-	bool t119 = true;
-	bool t120 = true;
-	bool t121 = true;
-	bool t122 = true;
-	bool t123 = true;
-	bool t124 = true;
-	bool t125 = true;
-	bool t126 = true;
-	bool t127 = true;
-	bool t128 = true;
-	bool t129 = true;
-	bool t130 = true;
-	bool t131 = true;
-	bool t132 = true;
-	bool t133 = true;
-	bool t134 = true;
-	bool t135 = true;
-	bool t136 = true;
-	bool t137 = true;
-	bool t138 = true;
-	bool t139 = true;
+	bool t119 = false;
+	bool t120 = false;
+	bool t121 = false;
+	bool t122 = false;
+	bool t123 = false;
+	bool t124 = false;
+	bool t125 = false;
+	bool t126 = false;
+	bool t127 = false;
+	bool t128 = false;
+	bool t129 = false;
+	bool t130 = false;
+	bool t131 = false;
+	bool t132 = false;
+	bool t133 = false;
+	bool t134 = false;
+	bool t135 = false;
+	bool t136 = false;
+	bool t137 = false;
+	bool t138 = false;
+	bool t139 = false;
+	bool t140 = false;
+	bool t141 = false;
+	bool t142 = false;
+	bool t143 = false;
+	bool t144 = false;
 
 	if(t1 || all){
 		test1();
@@ -3339,6 +3432,21 @@ int main() {
 	}
 	if(t139 || all){
 		test139();
+	}
+	if(t140 || all){
+		test140();
+	}
+	if(t141 || all){
+		test141();
+	}
+	if(t142 || all){
+		test142();
+	}
+	if(t143 || all){
+		test143();
+	}
+	if(t144 || all){
+		test144();
 	}
 
 	return 0;

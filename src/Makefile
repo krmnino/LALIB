@@ -8,13 +8,14 @@ linux:
 	Cofactors.cpp				\
 	Invert.cpp					\
 	Determinant.cpp				\
+	ErrorHandler.cpp			\
 	MatrixMultiplication.cpp	\
 	Minors.cpp					\
 	Orthogonalization.cpp		\
 	Rank.cpp					\
 	REF.cpp						\
 	RREF.cpp					\
-	ErrorHandler.cpp			\
+	Trace.cpp					\
 	Main.cpp -o lalib
 
 windows:
@@ -27,11 +28,12 @@ windows:
 	Cofactors.cpp				\
 	Invert.cpp					\
 	Determinant.cpp				\
+	ErrorHandler.cpp			\
 	MatrixMultiplication.cpp	\
 	Minors.cpp					\
 	Orthogonalization.cpp		\
 	Rank.cpp					\
 	REF.cpp						\
 	RREF.cpp					\
-	ErrorHandler.cpp			\
+	Trace.cpp					\
 	Main.cpp -o lalib

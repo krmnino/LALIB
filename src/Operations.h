@@ -18,5 +18,6 @@ std::vector<Matrix> gram_schmidt(std::vector<Matrix>&);
 Matrix minors(Matrix&);
 Matrix cofactors(Matrix&);
 Matrix adjoint(Matrix&);
+double trace(Matrix&);
 
 #endif
