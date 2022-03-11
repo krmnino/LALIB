@@ -2869,8 +2869,137 @@ int test144() {
 }
 
 
+int test145() {
+	// Test: use of rref() with 4x4 matrix
+
+	Matrix mtrx("9 5 3 1;"
+				"5 33 5 98;"
+				"685 748 2 35;"
+				"4 13 54 8;");
+
+	auto ret = rref(mtrx);
+
+	Matrix res("1 0 0 0;"
+		 	   "0 1 0 0;"
+		 	   "0 0 1 0;"
+		 	   "0 0 0 1;");
+
+	assert(ret.equal(res));
+
+	std::cout << ">> Test 145 successful." << std::endl;
+	return 0;
+}
+
+
+int test146() {
+	// Test: use of rref() with 3x5 matrix
+
+	Matrix mtrx("9 5 32 54 5;"
+				"3 15 6 68 13;"
+				"1 2 348 2 68;");
+
+	auto ret = rref(mtrx);
+
+	Matrix res("1 0 0 4.0190365753490847 -0.6365173696671016;"
+		 	   "0 1 0 3.7404454751896412 0.9171860656133739;"
+		 	   "0 0 1 -0.0272986423153114 0.19196018746678264;");
+
+	assert(ret.get_single_element(0,0) == res.get_single_element(0,0));
+	assert(ret.get_single_element(0,1) == res.get_single_element(0,1));
+	assert(ret.get_single_element(0,2) == res.get_single_element(0,2));
+	assert(ret.get_single_element(0,3) == res.get_single_element(0,3));
+	assert(ret.get_single_element(0,4) == res.get_single_element(0,4));
+	assert(ret.get_single_element(1,0) == res.get_single_element(1,0));
+	assert(ret.get_single_element(1,1) == res.get_single_element(1,1));
+	assert(ret.get_single_element(1,2) == res.get_single_element(1,2));
+	assert(ret.get_single_element(1,3) == res.get_single_element(1,3));
+	assert(ret.get_single_element(1,4) == res.get_single_element(1,4));
+	assert(ret.get_single_element(2,0) == res.get_single_element(2,0));
+	assert(ret.get_single_element(2,1) == res.get_single_element(2,1));
+	assert(ret.get_single_element(2,2) == res.get_single_element(2,2));
+	assert(ret.get_single_element(2,3) == res.get_single_element(2,3));
+	assert(ret.get_single_element(2,4) == res.get_single_element(2,4));
+
+	std::cout << ">> Test 146 successful." << std::endl;
+	return 0;
+}
+
+
+int test147() {
+	// Test: use of rref() with 4x3 matrix
+
+	Matrix mtrx("96 53 35;"
+				"411 66 23;"
+				"23 231 65;"
+				"8 3 58;");
+
+	auto ret = rref(mtrx);
+
+	Matrix res("1 0 0;"
+		 	   "0 1 0;"
+		 	   "0 0 1;"
+		 	   "0 0 0;");
+
+	assert(ret.equal(res));
+
+	std::cout << ">> Test 147 successful." << std::endl;
+	return 0;
+}
+
+
+int test148() {
+	// Test: use of rref() with 1x5 matrix
+
+	Matrix mtrx("85 2 6 63 7;");
+
+	auto ret = rref(mtrx);
+
+	assert(ret.get_single_element(0,0) == 1);
+	assert(ret.get_single_element(0,1) == 2.0 / 85.0);
+	assert(ret.get_single_element(0,2) == 6.0 / 85.0);
+	assert(ret.get_single_element(0,3) == 63.0 / 85.0);
+	assert(ret.get_single_element(0,4) == 7.0 / 85.0);
+
+	std::cout << ">> Test 148 successful." << std::endl;
+	return 0;
+}
+
+
+int test149() {
+	// Test: use of rref() with 1x5 matrix
+
+	Matrix mtrx("8;");
+
+	auto ret = rref(mtrx);
+
+	assert(ret.get_single_element(0,0) == 1);
+
+	std::cout << ">> Test 149 successful." << std::endl;
+	return 0;
+}
+
+
+int test150() {
+	// Test: use of rref() with 1x5 matrix
+
+	Matrix mtrx(0, 0);
+
+	try {
+		auto ret = rref(mtrx);
+	}
+	catch(LALIB_Error ex){
+		assert(ex.get_error_code() == ErrorCode::INVALID_DIMS);
+		std::string err_msg(ex.what());
+		assert(err_msg == "Error: One of the dimensions of the evaluated matrix is <= 0.");
+	}
+
+	std::cout << ">> Test 150 successful." << std::endl;
+	return 0;
+}
+
+
 int main() {
-	bool all  = true;
+	bool all  = false;
 	bool t1   = false;
 	bool t2   = false;
 	bool t3   = false;
@@ -3015,6 +3144,12 @@ int main() {
 	bool t142 = false;
 	bool t143 = false;
 	bool t144 = false;
+	bool t145 = true;
+	bool t146 = true;
+	bool t147 = true;
+	bool t148 = true;
+	bool t149 = true;
+	bool t150 = true;
 
 	if(t1 || all){
 		test1();
@@ -3447,6 +3582,24 @@ int main() {
 	}
 	if(t144 || all){
 		test144();
+	}
+	if(t145 || all){
+		test145();
+	}
+	if(t146 || all){
+		test146();
+	}
+	if(t147 || all){
+		test147();
+	}
+	if(t148 || all){
+		test148();
+	}
+	if(t149 || all){
+		test149();
+	}
+	if(t150 || all){
+		test150();
 	}
 
 	return 0;
